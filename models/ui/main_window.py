@@ -6,8 +6,9 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
 from ui.main_window_ui import Ui_MainWindow
 from models.filesystem import Filesystem
-from services.dreams import get_dreams, get_lucid_dreams, get_normal_dreams, get_hypnagogic_dreams
-from services.dreams import get_average_meta
+from services.dreams import get_dreams, get_lucid_dreams, get_normal_dreams, get_hh
+from services.dreams import get_average_meta, get_average_dreams_per_nights, get_most_frequent_tag, \
+    get_average_dreams_length
 from services.config import load_config
 
 
@@ -45,9 +46,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.last_file_loaded_label.setText(date)
 
         self.dreams = get_dreams(data)
+        for dream in self.dreams:
+            dream.set_tags(data['tags'])
+
         self.lucid_dreams = get_lucid_dreams(self.dreams)
         self.normal_dreams = get_normal_dreams(self.dreams)
-        self.hh = get_hypnagogic_dreams(self.dreams)
+        self.hh = get_hh(data)
 
         self.dreams_total_value.setText(str(len(self.dreams)))
         self.dreams_lucid_value.setText(str(len(self.lucid_dreams)))
@@ -58,6 +62,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.lucidity_mean.setText(str(get_average_meta('color', self.dreams)))
         self.clear_mean.setText(str(get_average_meta('clear', self.dreams)))
         self.rl_percent_value.setText(f"{round(len(self.lucid_dreams)/len(self.dreams)*100, 2)}%")
+
+        self.dreams_per_night_mean.setText(str(get_average_dreams_per_nights(self.dreams)))
+        self.length_mean.setText(str(get_average_dreams_length(self.dreams)))
 
 
     def updateIfNoData(self):

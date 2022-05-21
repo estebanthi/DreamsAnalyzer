@@ -4,6 +4,7 @@ import datetime as dt
 import html2text
 
 
+from models.tag import Tag
 from services.config import load_config
 
 
@@ -24,6 +25,9 @@ class Dream:
 
     def __repr__(self):
         return f"Title : {self.title} | Date : {self.date}"
+
+    def set_tags(self, tags):
+        self.tags = [Tag(tags[_id]) for _id in self.tags]
 
     @staticmethod
     def get_color_mapping(color):

@@ -135,7 +135,7 @@
       <x>30</x>
       <y>150</y>
       <width>731</width>
-      <height>80</height>
+      <height>111</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -202,6 +202,38 @@
        </item>
        <item>
         <widget class="QLabel" name="rl_percent_value">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="last_file_loaded_value_4">
+         <property name="text">
+          <string>Longueur de rêve (en mots) :</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="length_mean">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Rêves par nuit :</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="dreams_per_night_mean">
          <property name="text">
           <string>0</string>
          </property>
