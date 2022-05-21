@@ -67,6 +67,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dreams_per_night_mean.setText(str(self.dreams.get_average_dreams_per_nights()))
         self.length_mean.setText(str(self.dreams.get_average_dreams_length()))
 
+        self.most_frequent_tag.setText(self.dreams.get_most_frequent_tag().label)
+        self.most_frequent_category.setText(self.dreams.get_most_frequent_category().label)
+
 
     def updateIfNoData(self):
         self.last_file_loaded_label.setText('Aucun fichier')

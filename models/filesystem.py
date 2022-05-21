@@ -1,7 +1,5 @@
 import json
 
-from services.config import load_config
-
 
 class Filesystem:
 
