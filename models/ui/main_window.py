@@ -53,7 +53,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.lucid_dreams = DreamsCollection([dream for dream in self.dreams if dream.lucid])
         self.normal_dreams = DreamsCollection([dream for dream in self.dreams if not dream.lucid])
+        self.update_homepage()
 
+    def update_homepage(self):
         self.dreams_total_value.setText(str(len(self.dreams)))
         self.dreams_lucid_value.setText(str(len(self.lucid_dreams)))
         self.dreams_normal_value.setText(str(len(self.normal_dreams)))
@@ -62,7 +64,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mood_mean.setText(str(self.dreams.get_average_meta('mood')))
         self.lucidity_mean.setText(str(self.dreams.get_average_meta('lucidity')))
         self.clear_mean.setText(str(self.dreams.get_average_meta('clear')))
-        self.rl_percent_value.setText(f"{round(len(self.lucid_dreams)/len(self.dreams)*100, 2)}%")
+        self.rl_percent_value.setText(f"{round(len(self.lucid_dreams) / len(self.dreams) * 100, 2)}%")
 
         self.dreams_per_night_mean.setText(str(self.dreams.get_average_dreams_per_nights()))
         self.length_mean.setText(str(self.dreams.get_average_dreams_length()))

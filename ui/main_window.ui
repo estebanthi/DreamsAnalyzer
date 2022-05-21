@@ -404,7 +404,13 @@
      <string>Vue d'ensemble</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuTags">
+    <property name="title">
+     <string>Tags</string>
+    </property>
+   </widget>
    <addaction name="menuVue_d_ensemble"/>
+   <addaction name="menuTags"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
