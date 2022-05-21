@@ -1,4 +1,4 @@
-from models.category import Category
+from models.dreams.category import Category
 
 
 def get_categories(json_data):

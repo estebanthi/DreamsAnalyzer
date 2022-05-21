@@ -1,4 +1,4 @@
-from models.category import Category
+from models.dreams.category import Category
 
 
 class Tag:

@@ -2,8 +2,7 @@ from statistics import mean
 from collections import Counter
 
 
-from models.dream import Dream
-from models.category import Category
+from models.dreams.dream import Dream
 from services.config import load_config
 from utils.dates import round_time
 
