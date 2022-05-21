@@ -1,5 +1,9 @@
 from statistics import mean
 from collections import Counter
+import datetime as dt
+
+
+from models.time.daterange import Daterange
 
 
 class DreamsCollection:
@@ -59,5 +63,18 @@ class DreamsCollection:
         counter = self.get_categories_counter()
         if counter[0][0] is None:
             return counter[1][0]
+        return counter[0][0]
+
+    def get_total_words(self):
+        return sum([len(dream.content.split()) for dream in self.dreams])
+
+    def get_hours_counter(self):
+        times = [dt.time(dream.date.hour, dream.date.minute) for dream in self.dreams]
+        counter = list(Counter(times).items())
+        counter = sorted(counter, key=lambda x: x[1], reverse=True)
+        return counter
+
+    def get_most_frequent_hour(self):
+        counter = self.get_hours_counter()
         return counter[0][0]
 

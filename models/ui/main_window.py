@@ -70,6 +70,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.most_frequent_tag.setText(self.dreams.get_most_frequent_tag().label)
         self.most_frequent_category.setText(self.dreams.get_most_frequent_category().label)
 
+        self.dreams_total_words.setText(str(self.dreams.get_total_words()))
+        self.most_frequent_hour.setText(str(self.dreams.get_most_frequent_hour()))
+
 
     def updateIfNoData(self):
         self.last_file_loaded_label.setText('Aucun fichier')
