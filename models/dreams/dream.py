@@ -1,35 +1,42 @@
-from models.time import roundable_date as dt
+import datetime as dt
+
 
 import html2text
 
 
-from models.dreams.tag import Tag
-from services.config import load_config
+from models.json.json_serializable import JSONSerializable
+from models.config import Config
 
 
-class Dream:
+class Dream(JSONSerializable):
 
-    def __init__(self, json_dream):
-        self.id = json_dream['id']
-        self.date = dt.datetime.fromtimestamp(json_dream['date'])
-        self.title = json_dream['title']
-        self.content = html2text.html2text(json_dream['content'])
-        self.attached = json_dream['attached']
-        self.color = self.get_color_mapping(json_dream['meta']['color'])
-        self.clear = int(json_dream['meta']['clear'])
-        self.note = int(json_dream['meta']['note'])
-        self.lucid = json_dream['meta']['lucid']
-        self.favorite = json_dream['meta']['favoris']
-        self.tags = json_dream['tags']
+    def __init__(self, _id, date, content, lucidity, lucid, title=None, attached=None, clear=None, mood=None, tags=[],
+                 is_hh=False):
+        self._id = _id
+        self.date = date
+        self.content = content,
+        self.lucidity = lucidity
+        self.lucid = lucid
+        self.title = title
+        self.attached = attached
+        self.clear = clear
+        self.mood = mood
+        self.tags = tags
+        self.is_hh = is_hh
+
+    @classmethod
+    def parse(cls, json_model):
+        _id = json_model['id']
+        date = dt.datetime.fromtimestamp(json_model['date'])
+        title = json_model['title']
+        content = html2text.html2text(json_model['content'])
+        lucidity = cls.get_lucidity_from_color(json_model['meta']['color'])
+
+    @staticmethod
+    def get_lucidity_from_color(color):
+        config = Config()
+        colors_mapper = config['colors_mapper']
+        return colors_mapper[color]
 
     def __repr__(self):
         return f"Title : {self.title} | Date : {self.date}"
-
-    def set_tags(self, tags):
-        self.tags = [Tag(tags[_id]) for _id in self.tags]
-
-    @staticmethod
-    def get_color_mapping(color):
-        config = load_config('config.yml')
-        colors_mapper = config['color_mapper']
-        return colors_mapper[color]

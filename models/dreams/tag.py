@@ -1,18 +1,20 @@
+from models.json.json_serializable import JSONSerializable
 from models.dreams.category import Category
 
 
-class Tag:
+class Tag(JSONSerializable):
 
-    def __init__(self, json_tag):
-        self._id = int(json_tag['id'])
-        self.label = json_tag['label']
-        self.category = None
-        if json_tag['cat'] != 'none' and 'cat_ct' in json_tag:
-            self.category = Category(self.get_json_category(json_tag))
+    def __init__(self, _id, label, category=None):
+        self._id = _id
+        self.label = label
+        self.category = category
 
     @staticmethod
-    def get_json_category(json_tag):
-        return {'id': json_tag['cat'], 'label': json_tag['cat_ct']}
+    def parse(json_model):
+        _id = str(json_model['id'])
+        label = json_model['label']
+        category = Category(json_model['cat'], json_model['cat_ct'])
+        return Tag(_id, label, category)
 
     def __repr__(self):
         return f"Tag {self._id} : {self.label}"
