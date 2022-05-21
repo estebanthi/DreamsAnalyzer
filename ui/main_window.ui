@@ -14,403 +14,401 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="horizontalLayoutWidget">
+   <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>0</x>
       <y>0</y>
-      <width>731</width>
-      <height>31</height>
+      <width>791</width>
+      <height>601</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="last_file_loaded_value">
-       <property name="text">
-        <string>Date du dernier fichier chargé : </string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="last_file_loaded_label">
-       <property name="text">
-        <string>Aucun fichier chargé</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="import_json_button">
-       <property name="text">
-        <string>Importer un fichier JSON</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>50</y>
-      <width>731</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Rêves</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Tab 1</string>
+     </attribute>
+     <widget class="Line" name="line_4">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>440</y>
+        <width>671</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>120</y>
+        <width>731</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QLabel" name="last_file_loaded_value_2">
+        <widget class="QLabel" name="label">
          <property name="text">
-          <string>Total : </string>
+          <string>Rêves</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="dreams_total_value">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="last_file_loaded_value_2">
+           <property name="text">
+            <string>Total : </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="dreams_total_value">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Normaux :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="dreams_normal_value">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Lucides :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="dreams_lucid_value">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>HH :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="dreams_hh_value">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="Line" name="line">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>60</y>
+        <width>671</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>220</y>
+        <width>731</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>0</string>
+          <string>Moyennes</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_2">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="last_file_loaded_value_3">
+           <property name="text">
+            <string>Mood :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="mood_mean">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Lucidité :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lucidity_mean">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Clareté :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="clear_mean">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Taux de RL :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="rl_percent_value">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="last_file_loaded_value_4">
+           <property name="text">
+            <string>Longueur de rêve (en mots) :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="length_mean">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Rêves par nuit :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="dreams_per_night_mean">
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>731</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="last_file_loaded_value">
          <property name="text">
-          <string>Normaux :</string>
+          <string>Date du dernier fichier chargé : </string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="dreams_normal_value">
+        <widget class="QLabel" name="last_file_loaded_label">
          <property name="text">
-          <string>0</string>
+          <string>Aucun fichier chargé</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_4">
+        <widget class="QPushButton" name="import_json_button">
          <property name="text">
-          <string>Lucides :</string>
+          <string>Importer un fichier JSON</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>360</y>
+        <width>731</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Fréquences</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="dreams_lucid_value">
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="last_file_loaded_value_5">
+           <property name="text">
+            <string>Tag le plus fréquent :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="most_frequent_tag">
+           <property name="text">
+            <string>Indéfini</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Catégorie la plus fréquente :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="most_frequent_category">
+           <property name="text">
+            <string>Indéfini</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="last_file_loaded_value_6">
+           <property name="text">
+            <string>Heure la plus fréquente :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="most_frequent_hour">
+           <property name="text">
+            <string>Indéfini</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>460</y>
+        <width>729</width>
+        <height>43</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="label_11">
          <property name="text">
-          <string>0</string>
+          <string>Total de mots écrits :</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>HH :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="dreams_hh_value">
+        <widget class="QLabel" name="dreams_total_words">
          <property name="text">
           <string>0</string>
          </property>
         </widget>
        </item>
       </layout>
-     </item>
-    </layout>
+     </widget>
+     <widget class="Line" name="line_3">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>340</y>
+        <width>671</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_2">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>200</y>
+        <width>671</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+    </widget>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>150</y>
-      <width>731</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Moyennes</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QLabel" name="last_file_loaded_value_3">
-         <property name="text">
-          <string>Mood :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="mood_mean">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Lucidité :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="lucidity_mean">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Clareté :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="clear_mean">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Taux de RL :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="rl_percent_value">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QLabel" name="last_file_loaded_value_4">
-         <property name="text">
-          <string>Longueur de rêve (en mots) :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="length_mean">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="text">
-          <string>Rêves par nuit :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="dreams_per_night_mean">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="Line" name="line">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>30</y>
-      <width>671</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>130</y>
-      <width>671</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>390</y>
-      <width>729</width>
-      <height>43</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
-     <item>
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>Total de mots écrits :</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="dreams_total_words">
-       <property name="text">
-        <string>0</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>290</y>
-      <width>731</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_12">
-       <property name="text">
-        <string>Fréquences</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <widget class="QLabel" name="last_file_loaded_value_5">
-         <property name="text">
-          <string>Tag le plus fréquent :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="most_frequent_tag">
-         <property name="text">
-          <string>Indéfini</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Catégorie la plus fréquente :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="most_frequent_category">
-         <property name="text">
-          <string>Indéfini</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="last_file_loaded_value_6">
-         <property name="text">
-          <string>Heure la plus fréquente :</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="most_frequent_hour">
-         <property name="text">
-          <string>Indéfini</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>270</y>
-      <width>671</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_4">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>370</y>
-      <width>671</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>791</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuVue_d_ensemble">
-    <property name="title">
-     <string>Vue d'ensemble</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuTags">
-    <property name="title">
-     <string>Tags</string>
-    </property>
-   </widget>
-   <addaction name="menuVue_d_ensemble"/>
-   <addaction name="menuTags"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
