@@ -6,10 +6,9 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
 from ui.main_window_ui import Ui_MainWindow
 from models.filesystem import Filesystem
-from services.dreams import get_dreams, get_lucid_dreams, get_normal_dreams, get_hh
-from services.dreams import get_average_meta, get_average_dreams_per_nights, get_most_frequent_tag, \
-    get_average_dreams_length
-from services.config import load_config
+from models.dreams.dream import Dream
+from models.config import Config
+from models.dreams.dreams_collection import DreamsCollection
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -17,7 +16,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.config = load_config('config.yml')
+        self.config = Config()
         self.initialSetup()
         self.connect()
         self._update()
@@ -27,7 +26,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def loadDreamManagerData(self):
         filesystem = Filesystem()
-        dream_manager_data = filesystem.load_data()
+        pathname = f"{self.config['data_pathname']}/{self.config['dream_manager_data_filename']}.json"
+        dream_manager_data = filesystem.load_data(pathname)
         self.dream_manager_data = dream_manager_data
 
     def connect(self):
@@ -45,26 +45,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         date = str(dt.datetime.fromtimestamp(data['timestamp']))
         self.last_file_loaded_label.setText(date)
 
-        self.dreams = get_dreams(data)
-        for dream in self.dreams:
-            dream.set_tags(data['tags'])
+        json_dreams = list(data['dreams'].values())
+        json_tags = data['tags']
+        self.dreams_and_hh = [Dream.parse(json_dream, json_tags) for json_dream in json_dreams]
+        self.dreams = DreamsCollection([dream for dream in self.dreams_and_hh if not dream.is_hh])
+        self.hh = DreamsCollection([dream for dream in self.dreams_and_hh if dream.is_hh])
 
-        self.lucid_dreams = get_lucid_dreams(self.dreams)
-        self.normal_dreams = get_normal_dreams(self.dreams)
-        self.hh = get_hh(data)
+        self.lucid_dreams = DreamsCollection([dream for dream in self.dreams if dream.lucid])
+        self.normal_dreams = DreamsCollection([dream for dream in self.dreams if not dream.lucid])
 
         self.dreams_total_value.setText(str(len(self.dreams)))
         self.dreams_lucid_value.setText(str(len(self.lucid_dreams)))
         self.dreams_normal_value.setText(str(len(self.normal_dreams)))
         self.dreams_hh_value.setText(str(len(self.hh)))
 
-        self.mood_mean.setText(str(get_average_meta('note', self.dreams)))
-        self.lucidity_mean.setText(str(get_average_meta('color', self.dreams)))
-        self.clear_mean.setText(str(get_average_meta('clear', self.dreams)))
+        self.mood_mean.setText(str(self.dreams.get_average_meta('mood')))
+        self.lucidity_mean.setText(str(self.dreams.get_average_meta('lucidity')))
+        self.clear_mean.setText(str(self.dreams.get_average_meta('clear')))
         self.rl_percent_value.setText(f"{round(len(self.lucid_dreams)/len(self.dreams)*100, 2)}%")
 
-        self.dreams_per_night_mean.setText(str(get_average_dreams_per_nights(self.dreams)))
-        self.length_mean.setText(str(get_average_dreams_length(self.dreams)))
+        self.dreams_per_night_mean.setText(str(self.dreams.get_average_dreams_per_nights()))
+        self.length_mean.setText(str(self.dreams.get_average_dreams_length()))
 
 
     def updateIfNoData(self):

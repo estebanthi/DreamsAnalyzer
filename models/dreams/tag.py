@@ -11,9 +11,14 @@ class Tag(JSONSerializable):
 
     @staticmethod
     def parse(json_model):
-        _id = str(json_model['id'])
+        _id = int(json_model['id'])
         label = json_model['label']
-        category = Category(json_model['cat'], json_model['cat_ct'])
+
+        category = None
+        if 'cat' in json_model and 'cat_ct' in json_model:
+            if json_model['cat'] != 'none':
+                category = Category(int(json_model['cat']), json_model['cat_ct'])
+
         return Tag(_id, label, category)
 
     def __repr__(self):
