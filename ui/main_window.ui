@@ -135,7 +135,7 @@
       <x>30</x>
       <y>150</y>
       <width>731</width>
-      <height>111</height>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -241,6 +241,38 @@
        </item>
       </layout>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="last_file_loaded_value_5">
+         <property name="text">
+          <string>Tag le plus fréquent :</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="most_frequent_tag">
+         <property name="text">
+          <string>Indéfini</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Catégorie la plus fréquente :</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="most_frequent_category">
+         <property name="text">
+          <string>Indéfini</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -250,7 +282,7 @@
      <x>0</x>
      <y>0</y>
      <width>791</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuVue_d_ensemble">
