@@ -31,7 +31,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dream_manager_data = dream_manager_data
 
     def connect(self):
-        self.import_json_button.clicked.connect(self.getFile)
+        self.importJSONFileButton.clicked.connect(self.getFile)
 
     def _update(self):
         if self.dream_manager_data:
@@ -43,7 +43,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         data = self.dream_manager_data
 
         date = str(dt.datetime.fromtimestamp(data['timestamp']))
-        self.last_file_loaded_label.setText(date)
+        self.lastLoadedFileDate.setText(date)
 
         json_dreams = list(data['dreams'].values())
         json_tags = data['tags']
@@ -58,24 +58,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_tags_page()
 
     def update_homepage(self):
-        self.dreams_total_value.setText(str(len(self.dreams)))
-        self.dreams_lucid_value.setText(str(len(self.lucid_dreams)))
-        self.dreams_normal_value.setText(str(len(self.normal_dreams)))
-        self.dreams_hh_value.setText(str(len(self.hh)))
+        self.totalDreamsCounter.setText(str(len(self.dreams)))
+        self.lucidDreamsCounter.setText(str(len(self.lucid_dreams)))
+        self.normalDreamsCounter.setText(str(len(self.normal_dreams)))
+        self.hhCounter.setText(str(len(self.hh)))
 
-        self.mood_mean.setText(str(self.dreams.get_average_meta('mood')))
-        self.lucidity_mean.setText(str(self.dreams.get_average_meta('lucidity')))
-        self.clear_mean.setText(str(self.dreams.get_average_meta('clear')))
-        self.rl_percent_value.setText(f"{round(len(self.lucid_dreams) / len(self.dreams) * 100, 2)}%")
+        self.averageMood.setText(str(self.dreams.get_average_meta('mood')))
+        self.averageLucidity.setText(str(self.dreams.get_average_meta('lucidity')))
+        self.averageClear.setText(str(self.dreams.get_average_meta('clear')))
+        self.lucidDreamsRate.setText(f"{round(len(self.lucid_dreams) / len(self.dreams) * 100, 2)}%")
 
-        self.dreams_per_night_mean.setText(str(self.dreams.get_average_dreams_per_nights()))
-        self.length_mean.setText(str(self.dreams.get_average_dreams_length()))
+        self.averageDreamsPerNight.setText(str(self.dreams.get_average_dreams_per_nights()))
+        self.averageLength.setText(str(self.dreams.get_average_dreams_length()))
 
-        self.most_frequent_tag.setText(self.dreams.get_most_frequent_tag().label)
-        self.most_frequent_category.setText(self.dreams.get_most_frequent_category().label)
+        self.mostFrequentTag.setText(self.dreams.get_most_frequent_tag().label)
+        self.mostFrequentCategory.setText(self.dreams.get_most_frequent_category().label)
 
-        self.dreams_total_words.setText(str(self.dreams.get_total_words()))
-        self.most_frequent_hour.setText(str(self.dreams.get_most_frequent_hour()))
+        self.totalWords.setText(str(self.dreams.get_total_words()))
+        self.mostFrequentHour.setText(str(self.dreams.get_most_frequent_hour()))
 
     def update_tags_page(self):
         tags_counter = self.dreams.get_tags_counter()
@@ -83,7 +83,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             qlabel = QLabel(tag.label)
             qline = QLineEdit(str(count))
             qline.setReadOnly(True)
-            self.tags_form.addRow(qlabel, qline)
+            self.tagsCounters.addRow(qlabel, qline)
 
 
         categories_counter = self.dreams.get_categories_counter()
@@ -91,12 +91,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             qlabel = QLabel(category.label) if category else QLabel("Sans catégorie")
             qline = QLineEdit(str(count))
             qline.setReadOnly(True)
-            self.categories_form.addRow(qlabel, qline)
+            self.categoriesCounters.addRow(qlabel, qline)
 
 
 
     def updateIfNoData(self):
-        self.last_file_loaded_label.setText('Aucun fichier')
+        self.lastLoadedFileDate.setText('Aucun fichier')
 
         self.dreams = []
         self.lucid_dreams = []

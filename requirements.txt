@@ -1,3 +1,5 @@
 html2text==2020.1.16
-PyQt5==5.15.6
+PyQt5~=5.15.4
 PyYAML==6.0
+
+matplotlib~=3.5.2
