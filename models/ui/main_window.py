@@ -1,7 +1,7 @@
 import datetime as dt
 import shutil
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLineEdit, QLabel
 
 
 from ui.main_window_ui import Ui_MainWindow
@@ -53,7 +53,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.lucid_dreams = DreamsCollection([dream for dream in self.dreams if dream.lucid])
         self.normal_dreams = DreamsCollection([dream for dream in self.dreams if not dream.lucid])
+
         self.update_homepage()
+        self.update_tags_page()
 
     def update_homepage(self):
         self.dreams_total_value.setText(str(len(self.dreams)))
@@ -74,6 +76,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.dreams_total_words.setText(str(self.dreams.get_total_words()))
         self.most_frequent_hour.setText(str(self.dreams.get_most_frequent_hour()))
+
+    def update_tags_page(self):
+        tags_counter = self.dreams.get_tags_counter()
+        for tag, count in tags_counter:
+            qlabel = QLabel(tag.label)
+            qline = QLineEdit(str(count))
+            qline.setReadOnly(True)
+            self.tags_form.addRow(qlabel, qline)
+
+
+        categories_counter = self.dreams.get_categories_counter()
+        for category, count in categories_counter:
+            qlabel = QLabel(category.label) if category else QLabel("Sans catégorie")
+            qline = QLineEdit(str(count))
+            qline.setReadOnly(True)
+            self.categories_form.addRow(qlabel, qline)
+
 
 
     def updateIfNoData(self):

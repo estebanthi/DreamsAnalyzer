@@ -56,6 +56,7 @@ class DreamsCollection:
         tags = [tag for dream in self.dreams for tag in dream.tags]
         categories = [tag.category for tag in tags]
         counter = list(Counter(categories).items())
+        print(counter)
         counter = sorted(counter, key=lambda x: x[1], reverse=True)
         return counter
 
