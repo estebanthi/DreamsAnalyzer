@@ -56,6 +56,57 @@
          </widget>
         </item>
         <item>
+         <widget class="QGroupBox" name="groupBox_8">
+          <property name="title">
+           <string>Temps</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Début</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDateEdit" name="startDate">
+             <property name="calendarPopup">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Fin</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDateEdit" name="endDate">
+             <property name="calendarPopup">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="updateButton">
+             <property name="text">
+              <string>Mettre à jour</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="resetButton">
+             <property name="text">
+              <string>Réinitialiser</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QGroupBox" name="groupBox_2">
           <property name="title">
            <string>Rêves</string>
@@ -425,11 +476,50 @@
       </widget>
       <widget class="QWidget" name="Progression">
        <attribute name="title">
-        <string>Page</string>
+        <string>Progression</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="MplWidget" name="plotWidget" native="true"/>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>Rêves</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="MplWidget" name="totalDreamsPlot" native="true"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="MplWidget" name="lucidDreamsPlot" native="true"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="MplWidget" name="averageDreamsPerNightPlot" native="true"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="MplWidget" name="lucidDreamsRatePlot" native="true"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBox_7">
+          <property name="title">
+           <string>Meta</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="MplWidget" name="averageClearPlot" native="true"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="MplWidget" name="averageLucidityPlot" native="true"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="MplWidget" name="averageMoodPlot" native="true"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="MplWidget" name="averageDreamLengtPlot" native="true"/>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>

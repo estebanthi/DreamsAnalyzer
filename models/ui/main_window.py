@@ -32,12 +32,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def connect(self):
         self.importJSONFileButton.clicked.connect(self.getFile)
+        self.updateButton.clicked.connect(self.onUpdateButtonClick)
+        self.resetButton.clicked.connect(self._update)
 
-    def _update(self):
+    def onUpdateButtonClick(self):
+        self.updateDates()
         if self.dream_manager_data:
             self.updateIfData()
         else:
             self.updateIfNoData()
+
+    def _update(self):
+        if self.dream_manager_data:
+            self.updateWhenLoadingData()
+            self.updateIfData()
+        else:
+            self.updateIfNoData()
+
+    def updateWhenLoadingData(self):
+        data = self.dream_manager_data
+        json_dreams = list(data['dreams'].values())
+        json_tags = data['tags']
+
+        start_date = Dream.parse(json_dreams[0], json_tags).date
+        self.startDate.setDate(start_date)
+        self.startDate.setDate(start_date)
+
+        end_date = dt.datetime.now()
+        self.endDate.setDate(end_date)
+        self.endDate.setMaximumDate(end_date)
+
+        self.start_date = start_date
+        self.end_date = end_date
+
+    def updateDates(self):
+        start_date_value = self.startDate.date().getDate()
+        start_date = dt.datetime(start_date_value[0], start_date_value[1], start_date_value[2])
+
+        end_date_value = self.endDate.date().getDate()
+        end_date = dt.datetime(end_date_value[0], end_date_value[1], end_date_value[2])
+
+        self.start_date = start_date
+        self.end_date = end_date
 
     def updateIfData(self):
         data = self.dream_manager_data
@@ -47,7 +83,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         json_dreams = list(data['dreams'].values())
         json_tags = data['tags']
+
         self.dreams_and_hh = [Dream.parse(json_dream, json_tags) for json_dream in json_dreams]
+
+        self.dreams_and_hh = filter(lambda dream: self.start_date <= dream.date <= self.end_date, self.dreams_and_hh)
+
         self.dreams = DreamsCollection([dream for dream in self.dreams_and_hh if not dream.is_hh])
         self.hh = DreamsCollection([dream for dream in self.dreams_and_hh if dream.is_hh])
 
@@ -78,6 +118,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mostFrequentHour.setText(str(self.dreams.get_most_frequent_hour()))
 
     def update_tags_page(self):
+        self.clear_layout(self.tagsCounters)
         tags_counter = self.dreams.get_tags_counter()
         for tag, count in tags_counter:
             qlabel = QLabel(tag.label)
@@ -85,7 +126,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             qline.setReadOnly(True)
             self.tagsCounters.addRow(qlabel, qline)
 
-
+        self.clear_layout(self.categoriesCounters)
         categories_counter = self.dreams.get_categories_counter()
         for category, count in categories_counter:
             qlabel = QLabel(category.label) if category else QLabel("Sans catégorie")
@@ -93,7 +134,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             qline.setReadOnly(True)
             self.categoriesCounters.addRow(qlabel, qline)
 
-
+    def clear_layout(self, layout):
+        for i in reversed(range(layout.count())):
+            layout.itemAt(i).widget().setParent(None)
 
     def updateIfNoData(self):
         self.lastLoadedFileDate.setText('Aucun fichier')
