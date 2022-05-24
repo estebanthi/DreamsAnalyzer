@@ -1,7 +1,7 @@
 import datetime as dt
 import shutil
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLineEdit, QLabel
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLineEdit, QLabel, QPushButton
 
 from ui.main_window_ui import Ui_MainWindow
 from models.filesystem import Filesystem
@@ -10,6 +10,7 @@ from models.time.daterange import Daterange
 from models.time.timerange import TimeResolution
 from models.config import Config
 from models.dreams.dreams_collection import DreamsCollection
+from models.ui.dream_widget import DreamWidget
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -25,6 +26,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def initialSetup(self):
         self.loadDreamManagerData()
         self.resolutionSelect.addItems(['Jour', 'Semaine', 'Mois'])
+        self.dreamTypeSelect.addItems(['Tout', 'Lucides', 'Normaux'])
+        self.dream_type = 'Tout'
 
     def loadDreamManagerData(self):
         filesystem = Filesystem()
@@ -40,6 +43,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def onUpdateButtonClick(self):
         self.updateDates()
+        self.updateDreamType()
         if self.dream_manager_data:
             self.updateIfData()
         else:
@@ -81,6 +85,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.start_date = start_date
         self.end_date = end_date
 
+    def updateDreamType(self):
+        self.dream_type = self.dreamTypeSelect.currentText()
+
     def updateIfData(self):
         data = self.dream_manager_data
 
@@ -94,6 +101,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.dreams_and_hh = filter(lambda dream: self.start_date <= dream.date <= self.end_date, self.dreams_and_hh)
 
+        if self.dream_type == 'Tout':
+            pass
+        if self.dream_type == 'Lucides':
+            self.dreams_and_hh = filter(lambda dream: dream.lucid, self.dreams_and_hh)
+        if self.dream_type == 'Normaux':
+            self.dreams_and_hh = filter(lambda dream: not dream.lucid, self.dreams_and_hh)
+
         self.dreams = DreamsCollection([dream for dream in self.dreams_and_hh if not dream.is_hh])
         self.hh = DreamsCollection([dream for dream in self.dreams_and_hh if dream.is_hh])
 
@@ -103,6 +117,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_homepage()
         self.update_tags_page()
         self.update_plot_pages()
+        self.update_dreams_page()
 
     def update_homepage(self):
         self.totalDreamsCounter.setText(str(len(self.dreams)))
@@ -140,6 +155,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             qline = QLineEdit(str(count))
             qline.setReadOnly(True)
             self.categoriesCounters.addRow(qlabel, qline)
+
+    def update_dreams_page(self):
+        for dream in sorted(self.dreams, key=lambda dream: dream.date, reverse=True):
+            self.dreamsLayoutVertical.addWidget(DreamWidget(dream))
 
     def update_plot_pages(self):
         dates = [dream.date.round(TimeResolution.DAYS.value) for dream in self.dreams]

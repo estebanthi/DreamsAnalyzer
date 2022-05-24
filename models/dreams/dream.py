@@ -32,7 +32,7 @@ class Dream(JSONSerializable):
         date = dt.datetime.fromtimestamp(json_model['date'])
         date = RoundableDate(date.year, date.month, date.day, date.hour, date.minute, date.second)
         title = json_model['title']
-        content = html2text.html2text(json_model['content']).replace('\n', '')
+        content = html2text.html2text(json_model['content']).replace('\n', ' ')
         lucidity = cls.get_lucidity_from_color(json_model['meta']['color'])
         lucid = json_model['meta']['lucid']
         clear = int(json_model['meta']['clear'])
