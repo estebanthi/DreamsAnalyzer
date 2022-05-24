@@ -3,10 +3,11 @@ import shutil
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLineEdit, QLabel
 
-
 from ui.main_window_ui import Ui_MainWindow
 from models.filesystem import Filesystem
 from models.dreams.dream import Dream
+from models.time.daterange import Daterange
+from models.time.timerange import TimeResolution
 from models.config import Config
 from models.dreams.dreams_collection import DreamsCollection
 
@@ -23,6 +24,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def initialSetup(self):
         self.loadDreamManagerData()
+        self.resolutionSelect.addItems(['Jour', 'Semaine', 'Mois'])
 
     def loadDreamManagerData(self):
         filesystem = Filesystem()
@@ -34,6 +36,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.importJSONFileButton.clicked.connect(self.getFile)
         self.updateButton.clicked.connect(self.onUpdateButtonClick)
         self.resetButton.clicked.connect(self._update)
+        self.updateButton2.clicked.connect(self.onUpdateButtonClick)
 
     def onUpdateButtonClick(self):
         self.updateDates()
@@ -56,11 +59,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         start_date = Dream.parse(json_dreams[0], json_tags).date
         self.startDate.setDate(start_date)
-        self.startDate.setDate(start_date)
 
         end_date = dt.datetime.now()
         self.endDate.setDate(end_date)
+
+        self.startDate.setMaximumDate(end_date)
+        self.startDate.setMinimumDate(start_date)
         self.endDate.setMaximumDate(end_date)
+        self.endDate.setMinimumDate(start_date)
 
         self.start_date = start_date
         self.end_date = end_date
@@ -96,6 +102,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.update_homepage()
         self.update_tags_page()
+        self.update_plot_pages()
 
     def update_homepage(self):
         self.totalDreamsCounter.setText(str(len(self.dreams)))
@@ -118,7 +125,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mostFrequentHour.setText(str(self.dreams.get_most_frequent_hour()))
 
     def update_tags_page(self):
-        self.clear_layout(self.tagsCounters)
+        self.clearLayout(self.tagsCounters)
         tags_counter = self.dreams.get_tags_counter()
         for tag, count in tags_counter:
             qlabel = QLabel(tag.label)
@@ -126,7 +133,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             qline.setReadOnly(True)
             self.tagsCounters.addRow(qlabel, qline)
 
-        self.clear_layout(self.categoriesCounters)
+        self.clearLayout(self.categoriesCounters)
         categories_counter = self.dreams.get_categories_counter()
         for category, count in categories_counter:
             qlabel = QLabel(category.label) if category else QLabel("Sans catégorie")
@@ -134,7 +141,91 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             qline.setReadOnly(True)
             self.categoriesCounters.addRow(qlabel, qline)
 
-    def clear_layout(self, layout):
+    def update_plot_pages(self):
+        dates = [dream.date.round(TimeResolution.DAYS.value) for dream in self.dreams]
+        sorted_dates = sorted(dates)
+
+        start = sorted_dates[0]
+        resolution = self.get_plot_resolution()
+
+        daterange = Daterange(start, dt.datetime.now(), resolution)
+        x = [date for date in daterange]
+        time_intervals = daterange.split(resolution)
+
+        total_dreams_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'count_dreams')
+        self.format_mplWidget(self.totalDreamsPlot, 'Total rêves', x, total_dreams_values, 4)
+
+        total_lucid_dreams_values = self.get_dreams_collection_values_over_time(self.lucid_dreams, time_intervals, \
+                                                                                'count_dreams')
+        self.format_mplWidget(self.lucidDreamsPlot, 'Total rêves lucies', x, total_lucid_dreams_values, 4)
+
+        average_dreams_per_night_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, \
+                                                                                      "get_average_dreams_per_nights")
+        self.format_mplWidget(self.averageDreamsPerNightPlot, "Rêves par nuit", x, average_dreams_per_night_values, 4)
+
+        lucid_dreams_rate_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
+                                                                               'get_lucid_dreams_rate')
+        self.format_mplWidget(self.lucidDreamsRatePlot, 'Taux de rêves lucides (en %)', x, lucid_dreams_rate_values, 4)
+
+        clear_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'get_average_clear')
+        self.format_mplWidget(self.averageClearPlot, 'Clareté moyenne', x, clear_values, 4)
+
+        mood_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'get_average_mood')
+        self.format_mplWidget(self.averageMoodPlot, 'Mood moyen', x, mood_values, 4)
+
+        lucidity_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
+                                                                      'get_average_lucidity')
+        self.format_mplWidget(self.averageLucidityPlot, 'Lucidité moyenne', x, lucidity_values, 4)
+
+        dreams_lengths_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
+                                                                      'get_average_dreams_length')
+        self.format_mplWidget(self.averageDreamLengtPlot, 'Longueur de rêve moyenne (en mots)', x, dreams_lengths_values, 4)
+
+    def get_plot_resolution(self):
+        selected_resolution = self.resolutionSelect.currentText()
+        resolution = TimeResolution.DAYS.value
+        if selected_resolution == 'Semaine':
+            resolution = TimeResolution.WEEKS.value
+        if selected_resolution == 'Mois':
+            resolution = TimeResolution.MONTHS.value
+        return resolution
+
+    @staticmethod
+    def get_dream_counts_values(dreams, time_intervals):
+        values = []
+        for interval in time_intervals:
+            daily_value = 0
+            for dream in dreams:
+                if dream.date in interval:
+                    daily_value += 1
+            values.append(daily_value + values[-1]) if values else \
+                values.append(daily_value)
+        return values
+
+    @staticmethod
+    def get_dreams_collection_values_over_time(dreams, time_intervals, method):
+        values = []
+        dreams_collection = DreamsCollection()
+        for interval in time_intervals:
+            for dream in dreams:
+                if dream.date in interval:
+                    dreams_collection.append(dream)
+            values.append(getattr(dreams_collection, method)())
+        return values
+
+    def format_mplWidget(self, mplWidget, title, x, y, xticks_nb):
+        mplWidget.canvas.ax.clear()
+        mplWidget.canvas.ax.plot(x, y)
+
+        xticks = mplWidget.canvas.ax.get_xticks()
+        mplWidget.canvas.ax.set_xticks(xticks[::len(xticks) // xticks_nb])
+        if len(xticks) <= 8:
+            mplWidget.canvas.ax.set_xticks(xticks[::2])
+        mplWidget.canvas.ax.margins(x=0)
+        mplWidget.canvas.ax.set_title(title)
+        mplWidget.canvas.draw()
+
+    def clearLayout(self, layout):
         for i in reversed(range(layout.count())):
             layout.itemAt(i).widget().setParent(None)
 

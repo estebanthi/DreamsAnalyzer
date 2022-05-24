@@ -26,3 +26,12 @@ class MplWidget(QtWidgets.QWidget):
         self.vbl = QtWidgets.QVBoxLayout()  # Set box for plotting
         self.vbl.addWidget(self.canvas)
         self.setLayout(self.vbl)
+
+    def setTitle(self, title):
+        self.canvas.ax.set_title(title)
+
+    def clear(self):
+        self.canvas.ax.clear()
+
+    def plot(self, x, y):
+        self.canvas.ax.plot(x, y)

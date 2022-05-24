@@ -8,8 +8,10 @@ from models.time.daterange import Daterange
 
 class DreamsCollection:
 
-    def __init__(self, dreams):
+    def __init__(self, dreams=None):
         self.dreams = dreams
+        if not dreams:
+            self.dreams = []
 
     def __iter__(self):
         self.index = 0
@@ -28,12 +30,17 @@ class DreamsCollection:
     def __getitem__(self, item):
         return self.dreams[item]
 
+    def append(self, dream):
+        self.dreams.append(dream)
+
     def get_average_meta(self, meta):
         average = mean([getattr(dream, meta) for dream in self.dreams if getattr(dream, meta) > -1])
         return round(average, 2)
 
     def get_average_dreams_per_nights(self):
         dates = [dream.date.round(84000) for dream in self.dreams]
+        if not dates:
+            return 0
         counter = Counter(dates)
         dreams_per_night = list(counter.values())
         return round(mean(dreams_per_night), 2)
@@ -78,3 +85,17 @@ class DreamsCollection:
         counter = self.get_hours_counter()
         return counter[0][0]
 
+    def count_dreams(self):
+        return len(self.dreams)
+
+    def get_lucid_dreams_rate(self):
+        return len([dream for dream in self.dreams if dream.lucid])/len(self)*100
+
+    def get_average_clear(self):
+        return self.get_average_meta('clear')
+
+    def get_average_mood(self):
+        return self.get_average_meta('mood')
+
+    def get_average_lucidity(self):
+        return self.get_average_meta('lucidity')
