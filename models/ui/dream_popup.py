@@ -35,4 +35,3 @@ class DreamPopup(QMainWindow, Ui_MainWindow):
             self.tagsHorizontalLayout.addWidget(line)
 
         self.textEdit.setText(dream.content)
-        print(dream.content)

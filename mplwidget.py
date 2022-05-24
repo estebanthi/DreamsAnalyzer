@@ -34,4 +34,4 @@ class MplWidget(QtWidgets.QWidget):
         self.canvas.ax.clear()
 
     def plot(self, x, y):
-        self.canvas.ax.plot(x, y)
+        self.canvas.ax.plot(x, y, c='red')
