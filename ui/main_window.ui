@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
-    <height>537</height>
+    <width>820</width>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -616,8 +616,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>367</width>
-               <height>418</height>
+               <width>382</width>
+               <height>423</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -674,8 +674,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>366</width>
-               <height>418</height>
+               <width>382</width>
+               <height>423</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -806,6 +806,38 @@
        <attribute name="title">
         <string>Statistiques</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QGroupBox" name="groupBox_9">
+          <property name="title">
+           <string>Type de rêves par jour</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="MplWidget" name="lundiTypes" native="true"/>
+           </item>
+           <item>
+            <widget class="MplWidget" name="mardiTypes" native="true"/>
+           </item>
+           <item>
+            <widget class="MplWidget" name="mercrediTypes" native="true"/>
+           </item>
+           <item>
+            <widget class="MplWidget" name="jeudiTypes" native="true"/>
+           </item>
+           <item>
+            <widget class="MplWidget" name="vendrediTypes" native="true"/>
+           </item>
+           <item>
+            <widget class="MplWidget" name="samediTypes" native="true"/>
+           </item>
+           <item>
+            <widget class="MplWidget" name="dimancheTypes" native="true"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -822,8 +854,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>745</width>
-             <height>446</height>
+             <width>776</width>
+             <height>450</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>

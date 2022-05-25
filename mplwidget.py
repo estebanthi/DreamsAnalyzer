@@ -33,5 +33,13 @@ class MplWidget(QtWidgets.QWidget):
     def clear(self):
         self.canvas.ax.clear()
 
-    def plot(self, x, y):
-        self.canvas.ax.plot(x, y, c='red')
+    def plot(self, x, y, color=None):
+        self.canvas.ax.plot(x, y, c=color)
+
+    def pie(self, values, labels=None, legend=None, legend_labels=None, colors=None):
+        self.canvas.ax.pie(values, labels=labels, colors=colors)
+        if legend or legend_labels:
+            self.canvas.ax.legend(loc='best', labels=legend_labels)
+
+    def clear(self):
+        self.canvas.ax.clear()

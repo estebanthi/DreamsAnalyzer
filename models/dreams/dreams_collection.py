@@ -11,7 +11,8 @@ class DreamsCollection:
     weekdays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 
     def __init__(self, dreams=None):
-        self.dreams = dreams
+        if dreams:
+            self.dreams = [dream for dream in dreams]
         if not dreams:
             self.dreams = []
 

@@ -99,14 +99,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.dreams_and_hh = [Dream.parse(json_dream, json_tags) for json_dream in json_dreams]
 
-        self.dreams_and_hh = filter(lambda dream: self.start_date <= dream.date <= self.end_date, self.dreams_and_hh)
+        self.dreams_and_hh = list(filter(lambda dream: self.start_date <= dream.date <= self.end_date, self.dreams_and_hh))
 
         if self.dream_type == 'Tout':
             pass
         if self.dream_type == 'Lucides':
-            self.dreams_and_hh = filter(lambda dream: dream.lucid, self.dreams_and_hh)
+            self.dreams_and_hh = list(filter(lambda dream: dream.lucid, self.dreams_and_hh))
         if self.dream_type == 'Normaux':
-            self.dreams_and_hh = filter(lambda dream: not dream.lucid, self.dreams_and_hh)
+            self.dreams_and_hh = list(filter(lambda dream: not dream.lucid, self.dreams_and_hh))
 
         self.dreams = DreamsCollection([dream for dream in self.dreams_and_hh if not dream.is_hh])
         self.hh = DreamsCollection([dream for dream in self.dreams_and_hh if dream.is_hh])
@@ -173,32 +173,48 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         time_intervals = daterange.split(resolution)
 
         total_dreams_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'count_dreams')
+        self.totalDreamsPlot.clear()
+        self.totalDreamsPlot.plot(x, total_dreams_values, 'black')
         self.format_mplWidget(self.totalDreamsPlot, 'Total rêves', x, total_dreams_values, 4)
 
         total_lucid_dreams_values = self.get_dreams_collection_values_over_time(self.lucid_dreams, time_intervals, \
                                                                                 'count_dreams')
+        self.lucidDreamsPlot.clear()
+        self.lucidDreamsPlot.plot(x, total_lucid_dreams_values, 'blue')
         self.format_mplWidget(self.lucidDreamsPlot, 'Total rêves lucies', x, total_lucid_dreams_values, 4)
 
         average_dreams_per_night_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, \
                                                                                       "get_average_dreams_per_nights")
+        self.averageDreamsPerNightPlot.clear()
+        self.averageDreamsPerNightPlot.plot(x, average_dreams_per_night_values, 'black')
         self.format_mplWidget(self.averageDreamsPerNightPlot, "Rêves par nuit", x, average_dreams_per_night_values, 4)
 
         lucid_dreams_rate_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
                                                                                'get_lucid_dreams_rate')
+        self.lucidDreamsRatePlot.clear()
+        self.lucidDreamsRatePlot.plot(x, lucid_dreams_rate_values, 'blue')
         self.format_mplWidget(self.lucidDreamsRatePlot, 'Taux de rêves lucides (en %)', x, lucid_dreams_rate_values, 4)
 
         clear_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'get_average_clear')
+        self.averageClearPlot.clear()
+        self.averageClearPlot.plot(x, clear_values, 'red')
         self.format_mplWidget(self.averageClearPlot, 'Clareté moyenne', x, clear_values, 4)
 
         mood_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'get_average_mood')
+        self.averageMoodPlot.clear()
+        self.averageMoodPlot.plot(x, mood_values, 'red')
         self.format_mplWidget(self.averageMoodPlot, 'Mood moyen', x, mood_values, 4)
 
         lucidity_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
                                                                       'get_average_lucidity')
+        self.averageLucidityPlot.clear()
+        self.averageLucidityPlot.plot(x, lucidity_values, 'red')
         self.format_mplWidget(self.averageLucidityPlot, 'Lucidité moyenne', x, lucidity_values, 4)
 
         dreams_lengths_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
                                                                       'get_average_dreams_length')
+        self.averageDreamLengtPlot.clear()
+        self.averageDreamLengtPlot.plot(x, dreams_lengths_values, 'green')
         self.format_mplWidget(self.averageDreamLengtPlot, 'Longueur de rêve moyenne (en mots)', x, dreams_lengths_values, 4)
 
     def get_plot_resolution(self):
@@ -211,7 +227,37 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return resolution
 
     def update_statistics_page(self):
-        print(self.dreams.get_vivid_dreams_day())
+        dreams_by_day = self.dreams.get_dreams_by_day()
+        lucid_dreams_by_day = {day: len(list(filter(lambda dream: dream.lucid, dreams_by_day[day]))) for day in dreams_by_day.keys()}
+        normal_dreams_by_days = {day: len(list(filter(lambda dream: not dream.lucid, dreams_by_day[day]))) for day in
+                               dreams_by_day.keys()}
+        hh_by_days = self.hh.get_dreams_by_day()
+        hh = {day: len(hh_by_days[day]) for day in hh_by_days.keys()}
+        get_values = lambda day: [normal_dreams_by_days[day], lucid_dreams_by_day[day], hh[day]]
+
+        labels = ['RN', 'RL', 'HH']
+        colors = ['green', 'blue', 'purple']
+
+        self.lundiTypes.pie(get_values(0), colors=colors)
+        self.lundiTypes.setTitle('Lundi')
+
+        self.mardiTypes.pie(get_values(1), colors=colors)
+        self.mardiTypes.setTitle('Mardi')
+
+        self.mercrediTypes.pie(get_values(2), colors=colors)
+        self.mercrediTypes.setTitle('Mercredi')
+
+        self.jeudiTypes.pie(get_values(3), legend_labels=labels, colors=colors)
+        self.jeudiTypes.setTitle('Jeudi')
+
+        self.vendrediTypes.pie(get_values(4), colors=colors)
+        self.vendrediTypes.setTitle('Vendredi')
+
+        self.samediTypes.pie(get_values(5), colors=colors)
+        self.samediTypes.setTitle('Samedi')
+
+        self.dimancheTypes.pie(get_values(6), colors=colors)
+        self.dimancheTypes.setTitle('Dimanche')
 
     @staticmethod
     def get_dream_counts_values(dreams, time_intervals):
@@ -237,9 +283,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return values
 
     def format_mplWidget(self, mplWidget, title, x, y, xticks_nb):
-        mplWidget.canvas.ax.clear()
-        mplWidget.canvas.ax.plot(x, y)
-
         xticks = mplWidget.canvas.ax.get_xticks()
         mplWidget.canvas.ax.set_xticks(xticks[::len(xticks) // xticks_nb])
         if len(xticks) <= 8:
