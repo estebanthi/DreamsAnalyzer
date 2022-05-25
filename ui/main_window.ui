@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>605</width>
-    <height>470</height>
+    <width>789</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -616,8 +616,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>275</width>
-               <height>363</height>
+               <width>367</width>
+               <height>418</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -674,8 +674,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>274</width>
-               <height>363</height>
+               <width>366</width>
+               <height>418</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -789,11 +789,11 @@
              <item row="0" column="1">
               <widget class="MplWidget" name="averageLucidityPlot" native="true"/>
              </item>
-             <item row="0" column="0">
-              <widget class="MplWidget" name="averageClearPlot" native="true"/>
-             </item>
              <item row="1" column="1">
               <widget class="MplWidget" name="averageDreamLengtPlot" native="true"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="MplWidget" name="averageClearPlot" native="true"/>
              </item>
             </layout>
            </widget>
@@ -801,6 +801,11 @@
          </layout>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Statistiques</string>
+       </attribute>
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -817,8 +822,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>561</width>
-             <height>385</height>
+             <width>745</width>
+             <height>446</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>

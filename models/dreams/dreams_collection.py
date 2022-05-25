@@ -8,6 +8,8 @@ from models.time.daterange import Daterange
 
 class DreamsCollection:
 
+    weekdays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+
     def __init__(self, dreams=None):
         self.dreams = dreams
         if not dreams:
@@ -99,3 +101,50 @@ class DreamsCollection:
 
     def get_average_lucidity(self):
         return self.get_average_meta('lucidity')
+
+    def get_vivid_dreams(self):
+        return [dream for dream in self.dreams if dream.clear == 4]
+
+    def get_dilds(self):
+        return [dream for dream in self.dreams if 'DILD' in [tag.label for tag in dream.tags]]
+
+    def get_wilds(self):
+        return [dream for dream in self.dreams if 'WILD' in [tag.label for tag in dream.tags]]
+
+    def get_dreams_by_day(self):
+        return {
+            day: [dream for dream in self.dreams if dream.date.weekday() == day] for day in range(7)
+        }
+
+    def get_lucid_dreams_day(self):
+
+        dreams_by_day = self.get_dreams_by_day()
+
+        lucid_dreams_by_day = {day: len(list(filter(lambda dream: dream.lucid, dreams_by_day[day]))) for day in
+                               dreams_by_day.keys()}
+
+        return self.weekdays[max(lucid_dreams_by_day, key=lambda day: lucid_dreams_by_day[day])]
+
+    def get_normal_dreams_day(self):
+        dreams_by_day = self.get_dreams_by_day()
+
+        normal_dreams_by_day = {day: len(list(filter(lambda dream: not dream.lucid, dreams_by_day[day]))) for day in
+                                dreams_by_day.keys()}
+
+        return self.weekdays[max(normal_dreams_by_day, key=lambda day: normal_dreams_by_day[day])]
+
+    def get_vivid_dreams_day(self):
+        dreams_by_day = self.get_dreams_by_day()
+
+        vivid_dreams_by_day = {day: len(list(filter(lambda dream: dream.clear == 4, dreams_by_day[day]))) for day in
+                               dreams_by_day.keys()}
+
+        return self.weekdays[max(vivid_dreams_by_day, key=lambda day: vivid_dreams_by_day[day])]
+
+    def get_hh_day(self):
+        dreams_by_day = self.get_dreams_by_day()
+
+        hh = {day: len(dreams_by_day[day]) for day in dreams_by_day.keys()}
+
+        return self.weekdays[max(hh, key=lambda day: hh[day])]
+

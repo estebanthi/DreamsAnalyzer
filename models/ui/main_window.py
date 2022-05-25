@@ -118,6 +118,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_tags_page()
         self.update_plot_pages()
         self.update_dreams_page()
+        self.update_statistics_page()
 
     def update_homepage(self):
         self.totalDreamsCounter.setText(str(len(self.dreams)))
@@ -208,6 +209,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if selected_resolution == 'Mois':
             resolution = TimeResolution.MONTHS.value
         return resolution
+
+    def update_statistics_page(self):
+        print(self.dreams.get_vivid_dreams_day())
 
     @staticmethod
     def get_dream_counts_values(dreams, time_intervals):
