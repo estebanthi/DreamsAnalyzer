@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -814,25 +814,37 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_12">
            <item>
-            <widget class="MplWidget" name="lundiTypes" native="true"/>
+            <widget class="MplWidget" name="dreamsByDayPlot" native="true"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_11">
+          <property name="title">
+           <string>Type de rêves par heure</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <widget class="MplWidget" name="dreamsPerHourPlot" native="true"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_10">
+          <property name="title">
+           <string>Divers</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
+           <item>
+            <widget class="MplWidget" name="inductionsPlot" native="true"/>
            </item>
            <item>
-            <widget class="MplWidget" name="mardiTypes" native="true"/>
+            <widget class="MplWidget" name="wbtbPlot" native="true"/>
            </item>
            <item>
-            <widget class="MplWidget" name="mercrediTypes" native="true"/>
-           </item>
-           <item>
-            <widget class="MplWidget" name="jeudiTypes" native="true"/>
-           </item>
-           <item>
-            <widget class="MplWidget" name="vendrediTypes" native="true"/>
-           </item>
-           <item>
-            <widget class="MplWidget" name="samediTypes" native="true"/>
-           </item>
-           <item>
-            <widget class="MplWidget" name="dimancheTypes" native="true"/>
+            <widget class="MplWidget" name="vividDreamsPlot" native="true"/>
            </item>
           </layout>
          </widget>
@@ -859,6 +871,71 @@
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Attrape Songes</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QGroupBox" name="groupBox_12">
+          <property name="title">
+           <string>Templates</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_14">
+           <item>
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>Template séléctionné :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="selectedTemplateEdit"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="loadTemplateButton">
+             <property name="text">
+              <string>Charger</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="editTemplateButton">
+             <property name="text">
+              <string>Editer</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="newTemplateButton">
+             <property name="text">
+              <string>Nouveau</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="scrollArea_3">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>776</width>
+             <height>378</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="nightsLayout"/>
           </widget>
          </widget>
         </item>

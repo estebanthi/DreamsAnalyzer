@@ -4,7 +4,7 @@ from collections.abc import Sequence
 class UniqueList(Sequence):
 
     def __init__(self, _list):
-        self._list = _list
+        self._list = list(set(_list))
 
     def __getitem__(self, item):
         return self._list[item]

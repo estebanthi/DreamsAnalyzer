@@ -162,7 +162,7 @@
            <x>0</x>
            <y>0</y>
            <width>303</width>
-           <height>73</height>
+           <height>71</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="tagsHorizontalLayout"/>
@@ -187,7 +187,7 @@
          <x>0</x>
          <y>0</y>
          <width>376</width>
-         <height>221</height>
+         <height>222</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -215,7 +215,7 @@
      <x>0</x>
      <y>0</y>
      <width>396</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

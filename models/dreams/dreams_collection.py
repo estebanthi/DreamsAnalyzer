@@ -3,7 +3,9 @@ from collections import Counter
 import datetime as dt
 
 
-from models.time.daterange import Daterange
+from models.collections.unique_list import UniqueList
+from models.time.convertible_time import ConvertibleTime
+from models.dreams.night import Night
 
 
 class DreamsCollection:
@@ -112,14 +114,14 @@ class DreamsCollection:
     def get_wilds(self):
         return [dream for dream in self.dreams if 'WILD' in [tag.label for tag in dream.tags]]
 
-    def get_dreams_by_day(self):
+    def group_by_day(self):
         return {
             day: [dream for dream in self.dreams if dream.date.weekday() == day] for day in range(7)
         }
 
     def get_lucid_dreams_day(self):
 
-        dreams_by_day = self.get_dreams_by_day()
+        dreams_by_day = self.group_by_day()
 
         lucid_dreams_by_day = {day: len(list(filter(lambda dream: dream.lucid, dreams_by_day[day]))) for day in
                                dreams_by_day.keys()}
@@ -127,7 +129,7 @@ class DreamsCollection:
         return self.weekdays[max(lucid_dreams_by_day, key=lambda day: lucid_dreams_by_day[day])]
 
     def get_normal_dreams_day(self):
-        dreams_by_day = self.get_dreams_by_day()
+        dreams_by_day = self.group_by_day()
 
         normal_dreams_by_day = {day: len(list(filter(lambda dream: not dream.lucid, dreams_by_day[day]))) for day in
                                 dreams_by_day.keys()}
@@ -135,7 +137,7 @@ class DreamsCollection:
         return self.weekdays[max(normal_dreams_by_day, key=lambda day: normal_dreams_by_day[day])]
 
     def get_vivid_dreams_day(self):
-        dreams_by_day = self.get_dreams_by_day()
+        dreams_by_day = self.group_by_day()
 
         vivid_dreams_by_day = {day: len(list(filter(lambda dream: dream.clear == 4, dreams_by_day[day]))) for day in
                                dreams_by_day.keys()}
@@ -143,9 +145,41 @@ class DreamsCollection:
         return self.weekdays[max(vivid_dreams_by_day, key=lambda day: vivid_dreams_by_day[day])]
 
     def get_hh_day(self):
-        dreams_by_day = self.get_dreams_by_day()
+        dreams_by_day = self.group_by_day()
 
         hh = {day: len(dreams_by_day[day]) for day in dreams_by_day.keys()}
 
         return self.weekdays[max(hh, key=lambda day: hh[day])]
+
+    def get_dreams_containing_tag(self, tag_label):
+        return [dream for dream in self.dreams if tag_label in [tag.label for tag in dream.tags]]
+
+    def get_dreams_not_containing_tag(self, tag_label):
+        return [dream for dream in self.dreams if tag_label not in [tag.label for tag in dream.tags]]
+
+    def filter(self, method):
+        return DreamsCollection(list(filter(method, self)))
+
+    def group_by_hour(self):
+        return {
+            hour: [dream for dream in self.dreams if dream.date.hour == hour] for hour in range(24)
+        }
+
+    def get_mean_time(self):
+        times = [ConvertibleTime(dream.date.time()) for dream in self.dreams]
+        seconds = [time.to_seconds() for time in times]
+
+        mean_seconds = mean(seconds)
+        timedelta = dt.datetime.fromtimestamp(mean_seconds) - dt.datetime.fromtimestamp(0)
+
+        mean_time = ConvertibleTime.from_timedelta(timedelta)
+        return mean_time
+
+    def get_nights(self):
+        dates = UniqueList([dream.date.round(86400) for dream in self.dreams])
+        nights = []
+        for date in dates:
+            dreams = self.filter(lambda dream: dream.date.round(86400) == date)
+            nights.append(Night(date, dreams))
+        return nights
 

@@ -11,6 +11,9 @@ from models.time.timerange import TimeResolution
 from models.config import Config
 from models.dreams.dreams_collection import DreamsCollection
 from models.ui.dream_widget import DreamWidget
+from models.ui.night_widget import NightWidget
+from models.template import Template
+from models.ui.new_template_popup import NewTemplatePopup
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -28,6 +31,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.resolutionSelect.addItems(['Jour', 'Semaine', 'Mois'])
         self.dreamTypeSelect.addItems(['Tout', 'Lucides', 'Normaux'])
         self.dream_type = 'Tout'
+        self.selectedTemplate = None
+        self.template = None
 
     def loadDreamManagerData(self):
         filesystem = Filesystem()
@@ -40,6 +45,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.updateButton.clicked.connect(self.onUpdateButtonClick)
         self.resetButton.clicked.connect(self._update)
         self.updateButton2.clicked.connect(self.onUpdateButtonClick)
+        self.loadTemplateButton.clicked.connect(self.getTemplate)
+        self.newTemplateButton.clicked.connect(self.openNewTemplatePopup)
+        self.editTemplateButton.clicked.connect(self.openNewTemplatePopup)
 
     def onUpdateButtonClick(self):
         self.updateDates()
@@ -119,6 +127,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_plot_pages()
         self.update_dreams_page()
         self.update_statistics_page()
+        self.update_as_page()
 
     def update_homepage(self):
         self.totalDreamsCounter.setText(str(len(self.dreams)))
@@ -227,37 +236,67 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         return resolution
 
     def update_statistics_page(self):
-        dreams_by_day = self.dreams.get_dreams_by_day()
+        dreams_by_day = self.dreams.group_by_day()
         lucid_dreams_by_day = {day: len(list(filter(lambda dream: dream.lucid, dreams_by_day[day]))) for day in dreams_by_day.keys()}
         normal_dreams_by_days = {day: len(list(filter(lambda dream: not dream.lucid, dreams_by_day[day]))) for day in
                                dreams_by_day.keys()}
-        hh_by_days = self.hh.get_dreams_by_day()
+        hh_by_days = self.hh.group_by_day()
         hh = {day: len(hh_by_days[day]) for day in hh_by_days.keys()}
-        get_values = lambda day: [normal_dreams_by_days[day], lucid_dreams_by_day[day], hh[day]]
+        vivid_per_day = self.dreams.filter(lambda dream: dream.clear == 4).group_by_day()
 
-        labels = ['RN', 'RL', 'HH']
-        colors = ['green', 'blue', 'purple']
+        labels = ['RN', 'RL', 'VIVID', 'HH']
+        colors = ['green', 'blue', 'orange', 'purple']
 
-        self.lundiTypes.pie(get_values(0), colors=colors)
-        self.lundiTypes.setTitle('Lundi')
 
-        self.mardiTypes.pie(get_values(1), colors=colors)
-        self.mardiTypes.setTitle('Mardi')
+        days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+        width = 0.2
 
-        self.mercrediTypes.pie(get_values(2), colors=colors)
-        self.mercrediTypes.setTitle('Mercredi')
 
-        self.jeudiTypes.pie(get_values(3), legend_labels=labels, colors=colors)
-        self.jeudiTypes.setTitle('Jeudi')
+        self.dreamsByDayPlot.clear()
+        self.dreamsByDayPlot.bar(days, list(normal_dreams_by_days.values()), width=width, color='green', label='RN')
+        self.dreamsByDayPlot.bar(days, list(lucid_dreams_by_day.values()), width=width, space=width, color='blue', label='RL')
+        self.dreamsByDayPlot.bar(days, [len(dreams) for dreams in vivid_per_day.values()], width=width,
+                                   space=width * 2, color='orange', label='VIVID')
+        self.dreamsByDayPlot.bar(days, list(hh.values()), width=width, space=width*3, color='purple', label='HH',
+                                 legend=True, ylabel='Quantité')
 
-        self.vendrediTypes.pie(get_values(4), colors=colors)
-        self.vendrediTypes.setTitle('Vendredi')
+        self.inductionsPlot.clear()
+        wilds_nb = len(self.lucid_dreams.get_wilds())
+        dilds_nb = len(self.lucid_dreams.get_dilds())
+        self.inductionsPlot.pie([dilds_nb, wilds_nb], colors=['teal', 'brown'], legend_labels=['WILD', 'DILD'])
+        self.inductionsPlot.setTitle("Méthodes d'inductions")
 
-        self.samediTypes.pie(get_values(5), colors=colors)
-        self.samediTypes.setTitle('Samedi')
+        self.wbtbPlot.clear()
+        wbtb_nb = len(self.lucid_dreams.get_dreams_containing_tag('WBTB'))
+        non_wbtb_nb = len(self.lucid_dreams.get_dreams_not_containing_tag('WBTB'))
+        self.wbtbPlot.pie([wbtb_nb, non_wbtb_nb], colors=['aquamarine', 'mediumseagreen'], legend_labels=['WBTB', ' Pas WBTB'])
+        self.wbtbPlot.setTitle('Proportion de RL WBTB')
 
-        self.dimancheTypes.pie(get_values(6), colors=colors)
-        self.dimancheTypes.setTitle('Dimanche')
+        self.vividDreamsPlot.clear()
+        vivid_nb = len(list(filter(lambda dream: dream.clear == 4, self.dreams)))
+        non_vivid_nb = len(list(filter(lambda dream: dream.clear != 4, self.dreams)))
+        self.vividDreamsPlot.pie([vivid_nb, non_vivid_nb], colors=['orange', 'brown'], legend_labels=['VIVID', 'Pas VIVID'])
+        self.vividDreamsPlot.setTitle('Proportion de rêves VIVID')
+
+        normal_dreams_per_hour = self.dreams.filter(lambda dream: not dream.lucid).group_by_hour()
+        lucid_dreams_per_hour = self.dreams.filter(lambda dream: dream.lucid).group_by_hour()
+        hh_per_hour = self.hh.group_by_hour()
+        vivid_per_hour = self.dreams.filter(lambda dream: dream.clear == 4).group_by_hour()
+
+        width = 0.2
+        hours = [f"{h}H" for h in range(24)]
+        self.dreamsPerHourPlot.clear()
+        self.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in normal_dreams_per_hour.values()], width=width, color='green', label='RN')
+        self.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in lucid_dreams_per_hour.values()], width=width, space=width, color='blue', label='RL')
+        self.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in vivid_per_hour.values()], width=width,
+                                   space=width * 2, color='orange', label='VIVID')
+        self.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in hh_per_hour.values()], width=width, space=width*3, color='purple', label='HH',
+                                 legend=True, ylabel='Quantité')
+
+    def update_as_page(self):
+        nights = self.dreams.get_nights()
+        for night in sorted(nights, key=lambda night: night.date, reverse=True):
+            self.nightsLayout.addWidget(NightWidget(night, self.template))
 
     @staticmethod
     def get_dream_counts_values(dreams, time_intervals):
@@ -309,3 +348,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             shutil.copy(filename, f"{self.config['data_pathname']}/{self.config['dream_manager_data_filename']}.json")
             self.loadDreamManagerData()
             self._update()
+
+    def getTemplate(self):
+        filename = QFileDialog.getOpenFileName(self, 'Choisissez un template', directory='./templates', filter="Templates (*.tp)")
+        if filename[0]:
+            template = Template.load(filename[0])
+            self.selectedTemplateEdit.setText(filename[0])
+            self.template = template
+            self.update_as_page()
+
+    def openNewTemplatePopup(self):
+        self.newTemplatePopup = NewTemplatePopup(self.selectedTemplate)
+        self.newTemplatePopup.show()
