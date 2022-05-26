@@ -1,20 +1,37 @@
 import pickle
 
 
+from models.anonymisator import Anonymisator
+
+
 class Template:
 
     def __init__(self, content):
         self.content = content
 
-    def parse(self, dream):
-        print(dream)
+    def parse(self, dream, nb=''):
         self.replace_mark('type', 'RL' if dream.lucid else 'RN')
         self.replace_mark('title', dream.title)
         self.replace_mark('clear', str(dream.clear))
         self.replace_mark('mood', str(dream.mood))
-        self.replace_mark('lucidity', dream.lucidity)
-        self.replace_mark('tag', " - ".join([tag.label for tag in dream.tags]))
-        self.replace_mark('time', str(dream.date.hour)+'H'+str(dream.time.minute))
+        self.replace_mark('lucidity', str(dream.lucidity))
+        self.replace_mark('tags', " - ".join([tag.label for tag in dream.tags]))
+        self.replace_mark('time', str(dream.date.hour)+'H'+str(dream.date.minute))
+
+        content = dream.content
+        color = 'blue' if dream.lucid else 'green'
+        content = f'[color={color}]{content}[/color]'
+        self.replace_mark('content', content)
+        self.replace_mark('nb', str(nb))
+
+        anonymisator = Anonymisator()
+        records = anonymisator.get_records()
+        for record in records:
+            for real, fake in record.items():
+                if real and fake:
+                    self.content = self.content.replace(real, fake)
+                    print(self.content)
+
         return self.content
 
     @staticmethod

@@ -23,6 +23,8 @@ class NewTemplatePopup(QMainWindow, Ui_MainWindow):
         self.lucidityButton.clicked.connect(lambda x: self.insertTemplateText('lucidity'))
         self.tagsButton.clicked.connect(lambda x: self.insertTemplateText('tags'))
         self.timeButton.clicked.connect(lambda x: self.insertTemplateText('time'))
+        self.contentButton.clicked.connect(lambda x: self.insertTemplateText('content'))
+        self.nbButton.clicked.connect(lambda x: self.insertTemplateText('nb'))
 
 
     def saveTemplate(self):

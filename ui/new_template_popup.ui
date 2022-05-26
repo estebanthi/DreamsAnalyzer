@@ -70,6 +70,20 @@
          </property>
         </widget>
        </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="contentButton">
+         <property name="text">
+          <string>Contenu</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QPushButton" name="nbButton">
+         <property name="text">
+          <string>Numéro</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>

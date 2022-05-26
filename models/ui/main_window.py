@@ -1,7 +1,8 @@
 import datetime as dt
 import shutil
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLineEdit, QLabel, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLineEdit, QLabel, QPushButton, QApplication
+from PyQt5.QtCore import QMimeData, QUrl
 
 from ui.main_window_ui import Ui_MainWindow
 from models.filesystem import Filesystem
@@ -14,6 +15,8 @@ from models.ui.dream_widget import DreamWidget
 from models.ui.night_widget import NightWidget
 from models.template import Template
 from models.ui.new_template_popup import NewTemplatePopup
+from models.anonymisator import Anonymisator
+from models.ui.anonym_widget import AnonymWidget
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -47,7 +50,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.updateButton2.clicked.connect(self.onUpdateButtonClick)
         self.loadTemplateButton.clicked.connect(self.getTemplate)
         self.newTemplateButton.clicked.connect(self.openNewTemplatePopup)
-        self.editTemplateButton.clicked.connect(self.openNewTemplatePopup)
+        self.saveAnonymsButton.clicked.connect(self.saveAnonyms)
+        self.addAnonymButton.clicked.connect(self.addAnonym)
 
     def onUpdateButtonClick(self):
         self.updateDates()
@@ -128,6 +132,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.update_dreams_page()
         self.update_statistics_page()
         self.update_as_page()
+        self.update_anonyms_page()
 
     def update_homepage(self):
         self.totalDreamsCounter.setText(str(len(self.dreams)))
@@ -296,7 +301,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def update_as_page(self):
         nights = self.dreams.get_nights()
         for night in sorted(nights, key=lambda night: night.date, reverse=True):
-            self.nightsLayout.addWidget(NightWidget(night, self.template))
+            self.nightsLayout.addWidget(NightWidget(night))
+
+    def update_anonyms_page(self):
+        anonymisator = Anonymisator()
+        records = anonymisator.get_records()
+        for record in records:
+            for real, anonym in record.items():
+                anonym_widget = AnonymWidget(real, anonym)
+                self.anonymLayout_2.addWidget(anonym_widget)
+
 
     @staticmethod
     def get_dream_counts_values(dreams, time_intervals):
@@ -352,11 +366,26 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def getTemplate(self):
         filename = QFileDialog.getOpenFileName(self, 'Choisissez un template', directory='./templates', filter="Templates (*.tp)")
         if filename[0]:
-            template = Template.load(filename[0])
             self.selectedTemplateEdit.setText(filename[0])
-            self.template = template
+            shutil.copy(filename[0], './templates/temp.tp')
             self.update_as_page()
 
     def openNewTemplatePopup(self):
         self.newTemplatePopup = NewTemplatePopup(self.selectedTemplate)
         self.newTemplatePopup.show()
+
+    def saveAnonyms(self):
+        anonymisator = Anonymisator()
+
+        records = [self.anonymLayout_2.itemAt(i).widget().get_record() for i in range(self.anonymLayout_2.count())]
+        anonymisator.save_records(records)
+
+    def addAnonym(self):
+        anonym_widget = AnonymWidget()
+        self.anonymLayout_2.addWidget(anonym_widget)
+
+    def get_widget_index(self, widget, layout):
+        for i in range(layout.count()):
+            if layout.itemAt(i).widget() == widget:
+                return i
+        return -1

@@ -17,6 +17,7 @@ class DreamPopup(QMainWindow, Ui_MainWindow):
         self.lucidityInput.setValue(dream.lucidity)
         self.clearInput.setValue(dream.clear)
         self.moodInput.setValue(dream.mood)
+        self.hourEdit.setText(f'{str(dream.date.hour)}H{str(dream.date.minute)}')
 
         line = QFrame()
         line.setFrameShape(QFrame.VLine)

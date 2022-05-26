@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -905,13 +905,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="editTemplateButton">
-             <property name="text">
-              <string>Editer</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="newTemplateButton">
              <property name="text">
               <string>Nouveau</string>
@@ -936,6 +929,71 @@
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Anonymisateur</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
+          <item>
+           <widget class="QPushButton" name="addAnonymButton">
+            <property name="text">
+             <string>Ajouter</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="saveAnonymsButton">
+            <property name="text">
+             <string>Sauvegarder</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="scrollArea_4">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="anonymLayout">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>776</width>
+             <height>415</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="anonymLayout_3">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <item>
+               <widget class="QLabel" name="label_21">
+                <property name="text">
+                 <string>Réel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_22">
+                <property name="text">
+                 <string>Anonymisé</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="anonymLayout_2"/>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>

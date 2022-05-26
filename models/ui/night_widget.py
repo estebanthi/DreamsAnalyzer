@@ -1,19 +1,18 @@
 from PyQt5.QtWidgets import QLabel, QPushButton, QHBoxLayout, QWidget, QSpinBox, QSpacerItem
-
-from copy import deepcopy
+import os
 
 
 from models.ui.dream_popup import DreamPopup
+from models.ui.post_popup import PostPopup
+from models.template import Template
 
 
 class NightWidget(QWidget):
 
-    def __init__(self, night, template, parent=None):
+    def __init__(self, night, parent=None):
         QWidget.__init__(self, parent)
-        print(parent)
 
         self.night = night
-        self.template = template
 
         self.hbl = QHBoxLayout()
         self.setLayout(self.hbl)
@@ -42,7 +41,8 @@ class NightWidget(QWidget):
 
         dream_popups = [DreamPopup(dream) for dream in night.dreams]
         self.button.clicked.connect(lambda x: [dream_popup.show() for dream_popup in dream_popups])
-        self.button2.clicked.connect(self.parse)
+        self.button2.clicked.connect(self.openPopup)
 
-    def parse(self):
-        print(self.template)
+    def openPopup(self):
+        self.postPopup = PostPopup(self.night)
+        self.postPopup.show()
