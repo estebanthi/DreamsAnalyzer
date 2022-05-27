@@ -29,7 +29,7 @@ class PostPopup(QMainWindow, Ui_MainWindow):
         nbs = []
         rn_nb = 0
         rl_nb = 0
-        for dream in self.night.dreams:
+        for dream in self.night:
             if dream.lucid:
                 rl_nb += 1
                 nbs.append(rl_nb)
@@ -37,7 +37,9 @@ class PostPopup(QMainWindow, Ui_MainWindow):
                 rn_nb += 1
                 nbs.append(rn_nb)
 
-        content = [template.parse(dream, nb) for nb, dream in enumerate(self.night.dreams)]
+        content = []
+        for dream, nb in zip(self.night, nbs):
+            content.append(template.parse(dream, nb))
         self.postEdit.setText("\n\n\n".join(content))
 
     def copy_to_clip(self):

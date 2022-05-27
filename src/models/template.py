@@ -10,6 +10,7 @@ class Template:
         self.content = content
 
     def parse(self, dream, nb=''):
+        self.copied = self.content
         self.replace_mark('type', 'RL' if dream.lucid else 'RN')
         self.replace_mark('title', dream.title)
         self.replace_mark('clear', str(dream.clear))
@@ -29,10 +30,9 @@ class Template:
         for record in records:
             for real, fake in record.items():
                 if real and fake:
-                    self.content = self.content.replace(real, fake)
-                    print(self.content)
+                    self.copied = self.copied.replace(real, fake)
 
-        return self.content
+        return self.copied
 
     @staticmethod
     def load(pathname):
@@ -44,4 +44,4 @@ class Template:
             pickle.dump(self, file)
 
     def replace_mark(self, mark, replacement):
-        self.content = self.content.replace('{{'+mark+'}}', replacement)
+        self.copied = self.copied.replace('{{'+mark+'}}', replacement)
