@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Esteban\Desktop\Code\DreamsAnalyzer\ui\main_window.ui'
+# Form implementation generated from reading ui file 'C:\Users\Esteban\Desktop\Code\DreamsAnalyzer\src\ui\main_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -585,7 +585,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(6)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
