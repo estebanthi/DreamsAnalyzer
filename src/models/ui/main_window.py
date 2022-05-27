@@ -3,7 +3,7 @@ import shutil
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLineEdit, QLabel
 
-from ui.main_window_ui import Ui_MainWindow
+from ui.main_window_ui import Ui_DreamsAnalyzer
 from models.filesystem import Filesystem
 from models.dreams.dream import Dream
 from models.time.daterange import Daterange
@@ -17,7 +17,7 @@ from models.anonymisator import Anonymisator
 from models.ui.anonym_widget import AnonymWidget
 
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
