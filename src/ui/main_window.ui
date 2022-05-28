@@ -321,7 +321,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Clareté :</string>
+                <string>Clarté :</string>
                </property>
               </widget>
              </item>
@@ -616,8 +616,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>382</width>
-               <height>423</height>
+               <width>212</width>
+               <height>46</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -674,8 +674,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>382</width>
-               <height>423</height>
+               <width>212</width>
+               <height>46</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -866,8 +866,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>776</width>
-             <height>450</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
@@ -924,8 +924,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>776</width>
-             <height>378</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
@@ -967,8 +967,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>776</width>
-             <height>415</height>
+             <width>135</width>
+             <height>47</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="anonymLayout_3">
