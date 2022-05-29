@@ -1,0 +1,19 @@
+anonyms_pathname: anonyms.yml
+colors_mapper:
+  blue: 7
+  green: 5
+  grey: 9
+  indigo: 8
+  lime: 4
+  orange: 2
+  pink: 1
+  purple: -1
+  red: 0
+  teal: 6
+  yellow: 3
+dream_manager_data_filename: src/dream_manager_data
+dream_manager_data_pathname: data/dream_manager_data.json
+hh_color: -1
+temp_template_pathname: templates/temp.tp
+templates_directory: templates
+templates_pathname: src/templates

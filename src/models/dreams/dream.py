@@ -8,6 +8,7 @@ from models.json.json_serializable import JSONSerializable
 from models.config import Config
 from models.dreams.tag import Tag
 from models.time.roundable_date import RoundableDate
+from models.collections.tags_collection import TagsCollection
 
 
 class Dream(JSONSerializable):
@@ -37,7 +38,7 @@ class Dream(JSONSerializable):
         lucid = json_model['meta']['lucid']
         clear = int(json_model['meta']['clear'])
         mood = int(json_model['meta']['note'])
-        tags = [Tag.parse(json_tags[_id]) for _id in json_model['tags']]
+        tags = TagsCollection([Tag.parse(json_tags[_id]) for _id in json_model['tags']])
         is_hh = True if lucidity == -1 else False
         return Dream(_id, date, content, lucidity, lucid, title, clear, mood, tags, is_hh)
 

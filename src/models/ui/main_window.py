@@ -9,7 +9,7 @@ from models.dreams.dream import Dream
 from models.time.daterange import Daterange
 from models.time.timerange import TimeResolution
 from models.config import Config
-from models.dreams.dreams_collection import DreamsCollection
+from models.collections.dreams_collection import DreamsCollection
 from models.ui.dream_widget import DreamWidget
 from models.ui.night_widget import NightWidget
 from models.ui.new_template_popup import NewTemplatePopup
@@ -75,7 +75,7 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         start_date = Dream.parse(json_dreams[0], json_tags).date
         self.startDate.setDate(start_date)
 
-        end_date = dt.datetime.now()
+        end_date = dt.datetime.now() + dt.timedelta(days=1)
         self.endDate.setDate(end_date)
 
         self.startDate.setMaximumDate(end_date)
@@ -102,8 +102,8 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
     def updateIfData(self):
         data = self.dream_manager_data
 
-        date = str(dt.datetime.fromtimestamp(data['timestamp']))
-        self.lastLoadedFileDate.setText(date)
+        date = dt.datetime.fromtimestamp(data['timestamp'])
+        self.lastLoadedDataDateTimeEdit.setDate(date)
 
         json_dreams = list(data['dreams'].values())
         json_tags = data['tags']
@@ -348,7 +348,6 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
             layout.itemAt(i).widget().setParent(None)
 
     def updateIfNoData(self):
-        self.lastLoadedFileDate.setText('Aucun fichier')
 
         self.dreams = []
         self.lucid_dreams = []

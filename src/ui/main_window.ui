@@ -49,19 +49,21 @@
               </font>
              </property>
              <property name="text">
-              <string>Date du dernier fichier chargé : </string>
+              <string>Dernières données chargées :</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lastLoadedFileDate">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
+            <widget class="QDateTimeEdit" name="lastLoadedDataDateTimeEdit">
              <property name="readOnly">
               <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Synchroniser les rêves</string>
              </property>
             </widget>
            </item>
@@ -616,8 +618,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>212</width>
-               <height>46</height>
+               <width>382</width>
+               <height>423</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -674,8 +676,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>212</width>
-               <height>46</height>
+               <width>382</width>
+               <height>423</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -866,8 +868,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>28</height>
+             <width>776</width>
+             <height>451</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
@@ -924,8 +926,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>28</height>
+             <width>776</width>
+             <height>378</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
@@ -967,8 +969,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>135</width>
-             <height>47</height>
+             <width>776</width>
+             <height>415</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="anonymLayout_3">
