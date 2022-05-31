@@ -34,14 +34,15 @@ class DataModel(QtCore.QObject):
             end = self.data.dreams[-1].date
 
         filtered_dreams = self.data.dreams.filter(lambda dream: dream.date >= start and dream.date <= end)
+        filtered_hhs = self.data.hhs.filter(lambda dream: dream.date >= start and dream.date <= end)
 
         if type_ == TypeFilterOptions.NORMAL:
             filtered_dreams = filtered_dreams.filter(lambda dream: not dream.lucid)
         if type_ == TypeFilterOptions.LUCID:
             filtered_dreams = filtered_dreams.filter(lambda dream: dream.lucid)
 
-        self.data.dreams = filtered_dreams.filter(lambda dream: not dream.is_hh)
-        self.data.hhs = filtered_dreams.filter(lambda dream: dream.is_hh)
+        self.data.dreams = filtered_dreams
+        self.data.hhs = filtered_hhs
         self.dataUpdatedSignal.emit()
         return filtered_dreams
 
