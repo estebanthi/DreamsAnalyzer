@@ -48,9 +48,6 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         self.saveAnonymsButton.clicked.connect(self.saveAnonyms)
         self.addAnonymButton.clicked.connect(self.addAnonym)
 
-        end_date = dt.datetime.now() + dt.timedelta(days=1)
-        self.endDate.setDate(end_date)
-
     """def updateIfData(self):
         data = self.dream_manager_data
 
