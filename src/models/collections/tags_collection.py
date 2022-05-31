@@ -6,7 +6,7 @@ class TagsCollection:
             self.tags = []
 
     def __getitem__(self, item):
-        return self.tags[item._id]
+        return self.tags[item]
 
     def __iter__(self):
         self.index = 0

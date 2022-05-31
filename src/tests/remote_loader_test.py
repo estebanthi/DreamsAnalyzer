@@ -6,8 +6,8 @@ from PyQt5.QtWidgets import QApplication
 from yaml import safe_load
 
 
-from models.data.remote_loader import RemoteLoader
-from models.exceptions.qerror import QError
+from models.data.loaders.remote_loader import RemoteLoader
+from models.exceptions.exceptions import DreamManagerWrongCredentials
 
 
 app = QApplication(sys.argv)
@@ -28,7 +28,7 @@ class RemoteLoaderTest(unittest.TestCase):
         self.assertIs(type(self.remoteloader.load()), dict)
 
     def test_load_failed(self):
-        with self.assertRaises(QError):
+        with self.assertRaises(DreamManagerWrongCredentials):
             self.wrong_remoteloader.load()
 
 

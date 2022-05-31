@@ -3,8 +3,8 @@ import json
 from base64 import b64decode
 
 
-from models.data.loader import Loader
-from models.exceptions.qerror import QError
+from models.data.loaders.loader import Loader
+from models.exceptions.exceptions import DreamManagerWrongCredentials, DreamManagerDataError, EmptyDreamJournal
 
 
 class RemoteLoader(Loader):
@@ -22,24 +22,20 @@ class RemoteLoader(Loader):
 
         response = requests.post(api_url, data=body, headers=headers)
 
-        if response.status_code == 404:
-            raise QError('Identifiants Dream Manager incorrects')
-
         json_res = response.json()
 
+        if json_res['status'] == '404':
+            raise DreamManagerWrongCredentials()
+
         if 'data' not in json_res:
-            raise QError('Erreur lors de la réception des données')
+            raise DreamManagerDataError()
 
         data = json_res['data']
 
         if not data:
-            raise QError("Votre journal de rêves est vide")
+            raise EmptyDreamJournal()
 
-        try:
-            decoded_data = self._decode_json(data)
-        except Exception:
-            raise QError('Erreur lors du décodage de vos données')
-
+        decoded_data = self._decode_json(data)
         return decoded_data
 
     def _decode_json(self, data):

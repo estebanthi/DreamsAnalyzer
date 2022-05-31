@@ -1,17 +1,11 @@
 from models.json.json_serializable import JSONSerializable
 
 
-class Category(JSONSerializable):
+class Category:
 
     def __init__(self, _id, label):
         self._id = _id
         self.label = label
-
-    @staticmethod
-    def parse(json_model):
-        _id = int(json_model['id'])
-        label = json_model['label']
-        return Category(_id, label)
 
     def __repr__(self):
         return f"Category {self._id} : {self.label}"

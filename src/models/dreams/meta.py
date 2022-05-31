@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
 
-class JSONSerializable(ABC):
+class Meta(ABC):
 
     @abstractmethod
-    def parse(self, json_model):
+    def parse(self, json_dream):
         pass

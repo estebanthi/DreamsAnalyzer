@@ -6,7 +6,7 @@ class CategoriesCollection:
             self.categories = []
 
     def __getitem__(self, item):
-        return self.categories[item._id]
+        return self.categories[item]
 
     def __iter__(self):
         self.index = 0

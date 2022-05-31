@@ -5,14 +5,14 @@ import unittest
 from PyQt5.QtWidgets import QApplication
 
 
-from models.data.file_loader import FileLoader
-from models.exceptions.qerror import QError
+from models.data.loaders.file_loader import FileLoader
+from json.decoder import JSONDecodeError
 
 
 app = QApplication(sys.argv)
 
 
-class QErrorPopupTest(unittest.TestCase):
+class FileLoaderTest(unittest.TestCase):
 
     fileloader = FileLoader()
 
@@ -20,11 +20,11 @@ class QErrorPopupTest(unittest.TestCase):
         self.assertIs(type(self.fileloader.load('data/test.json')), dict)
 
     def test_load_failed(self):
-        with self.assertRaises(QError):
+        with self.assertRaises(FileNotFoundError):
             self.fileloader.load('data/unknown')
 
     def test_load_wrong_format(self):
-        with self.assertRaises(QError):
+        with self.assertRaises(JSONDecodeError):
             self.fileloader.load('data/credentials.yml')
 
 
