@@ -11,7 +11,8 @@ class Datamodel:
     def __init__(self, date:dt.datetime, dreams: DreamsCollection, tags: TagsCollection,
                  categories: CategoriesCollection):
         self.date = date
-        self.dreams = dreams
+        self.dreams = dreams.filter(lambda dream: not dream.is_hh)
+        self.hhs = dreams.filter(lambda dream: dream.is_hh)
         self.tags = tags
         self.categories = categories
 
