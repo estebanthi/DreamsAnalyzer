@@ -19,3 +19,6 @@ class TagsCollection:
             return tag
         except IndexError:
             raise StopIteration
+
+    def __contains__(self, item):
+        return item in [tag.label for tag in self.tags]

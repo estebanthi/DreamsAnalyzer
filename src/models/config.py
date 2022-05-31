@@ -1,34 +1,97 @@
+import json
+import pickle
 import os
-from yaml import safe_load
-from yaml import dump
+
+
+import yaml
+
+
+from models.data.data_decoder import DataDecoder
+from models.template import Template
+from models.collections.anonyms_collection import AnonymsCollection
+from models.collections.metas_collection import MetasCollection
 
 
 class Config:
 
-    def __init__(self, pathname='config.yml'):
-        with open(pathname, 'r') as file:
-            self.config = safe_load(file)
+    def __init__(self):
+        self.data = self.get_data()
+        self.template = self.get_template()
+        self.anonyms = self.get_anonyms()
+        self.metas = self.get_metas()
+        self.credentials = self.get_credentials()
 
-    def __getitem__(self, item):
-        return self.config[item]
-
-    @staticmethod
-    def initial_setup():
+    def get_data(self):
+        datamodel = None
+        metas = self.get_metas()
         try:
-            with open('config.yml', 'r') as file:
-                pass
-        except FileNotFoundError:
-            with open('config.yml', 'w') as file:
-                dump({'dream_manager_data_pathname': 'data/dream_manager_data.json', 'anonyms_pathname': 'anonyms.yml', 'templates_directory': 'templates', 'temp_template_pathname': 'templates/temp.tp', 'dream_manager_data_filename': 'src/dream_manager_data', 'templates_pathname': 'src/templates', 'hh_color': -1, 'colors_mapper': {'red': 0, 'pink': 1, 'orange': 2, 'yellow': 3, 'lime': 4, 'green': 5, 'teal': 6, 'blue': 7, 'indigo': 8, 'grey': 9, 'purple': -1}}, file)
+            with open('data/data.json', 'r', encoding='utf-8') as file:
+                data = json.load(file)
+                decoder = DataDecoder()
+                datamodel = decoder.decode(data, metas)
+        except Exception as e:
+            print(e)
 
-        with open('config.yml', 'r') as file:
+        return datamodel
 
-            if not os.path.isdir('data'):
-                os.mkdir('data')
+    def get_template(self):
+        template = None
+        try:
+            with open('data/template.tp', 'r') as file:
+                template_content = file.readlines()
+                template = Template(template_content)
+        except Exception as e:
+            print(e)
 
-            if not os.path.isdir('templates'):
-                os.mkdir('templates')
+        return template
 
-            if not os.path.isfile('anonyms.yml'):
-                with open('anonyms.yml', 'w') as file:
-                    dump([], file)
+    def get_anonyms(self):
+        anonyms_collection = None
+        try:
+            with open('data/anonyms.yml', 'r') as file:
+                anonyms = yaml.safe_load(file)
+                anonyms_collection = AnonymsCollection(anonyms)
+        except Exception as e:
+            print(e)
+
+        return anonyms_collection
+
+    def get_metas(self):
+        metas_collection = MetasCollection()
+        try:
+            with open('data/metas.dat', 'rb') as file:
+                metas_collection = pickle.load(file)
+        except Exception as e:
+            print(e)
+
+        return metas_collection
+
+    def get_credentials(self):
+        credentials = {'password': '', 'email': ''}
+        try:
+            with open('data/credentials.yml', 'r') as file:
+                credentials = yaml.safe_load(file)
+        except Exception as e:
+            print(e)
+
+        return credentials
+
+    @classmethod
+    def initial_config(cls):
+
+        if not os.path.isfile('data/metas.dat'):
+            metas = MetasCollection()
+            with open('data/metas.dat', 'wb') as file:
+                pickle.dump(metas, file)
+
+        if not os.path.isfile('data/anonyms.yml'):
+            with open('data/anonyms.yml', 'w') as file:
+                yaml.dump({}, file)
+
+        if not os.path.isfile('data/template.tp'):
+            with open('data/template.tp', 'w') as file:
+                file.write("{{content}}")
+
+        if not os.path.isfile('data/credentials.yml'):
+            with open('data/credentials.yml', 'w') as file:
+                yaml.dump({'email': '', 'password': ''}, file)

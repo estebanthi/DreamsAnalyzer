@@ -15,32 +15,28 @@ from models.ui.night_widget import NightWidget
 from models.ui.new_template_popup import NewTemplatePopup
 from models.anonymisator import Anonymisator
 from models.ui.anonym_widget import AnonymWidget
+from models.Models.datamodel import DataModel
+from models.Controllers.datacontroller import DataController
+from models.exceptions.qerror import QError
+from models.ui.tabs.home_tab import HomeTab
 
 
 class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
-    def __init__(self, parent=None):
+    def __init__(self, controller, initialConfig, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        self.initialConfig = initialConfig
 
-        self.config = Config()
-        self.initialSetup()
-        self.connect()
-        self._update()
+        self.controller = controller
+        self.tabs = [HomeTab(self)]
 
-    def initialSetup(self):
-        self.loadDreamManagerData()
-        self.resolutionSelect.addItems(['Jour', 'Semaine', 'Mois'])
-        self.dreamTypeSelect.addItems(['Tout', 'Lucides', 'Normaux'])
-        self.dream_type = 'Tout'
-        self.selectedTemplate = None
-        self.template = None
+    def postInit(self):
+        if self.controller.model.data:
+            self.updateData()
 
-    def loadDreamManagerData(self):
-        filesystem = Filesystem()
-        config = Config()
-        pathname = config['dream_manager_data_pathname']
-        dream_manager_data = filesystem.load_data(pathname)
-        self.dream_manager_data = dream_manager_data
+    def updateData(self):
+        for tab in self.tabs:
+            tab.updateData()
 
     def connect(self):
         self.importJSONFileButton.clicked.connect(self.getFile)
@@ -52,54 +48,10 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         self.saveAnonymsButton.clicked.connect(self.saveAnonyms)
         self.addAnonymButton.clicked.connect(self.addAnonym)
 
-    def onUpdateButtonClick(self):
-        self.updateDates()
-        self.updateDreamType()
-        if self.dream_manager_data:
-            self.updateIfData()
-        else:
-            self.updateIfNoData()
-
-    def _update(self):
-        if self.dream_manager_data:
-            self.updateWhenLoadingData()
-            self.updateIfData()
-        else:
-            self.updateIfNoData()
-
-    def updateWhenLoadingData(self):
-        data = self.dream_manager_data
-        json_dreams = list(data['dreams'].values())
-        json_tags = data['tags']
-
-        start_date = Dream.parse(json_dreams[0], json_tags).date
-        self.startDate.setDate(start_date)
-
         end_date = dt.datetime.now() + dt.timedelta(days=1)
         self.endDate.setDate(end_date)
 
-        self.startDate.setMaximumDate(end_date)
-        self.startDate.setMinimumDate(start_date)
-        self.endDate.setMaximumDate(end_date)
-        self.endDate.setMinimumDate(start_date)
-
-        self.start_date = start_date
-        self.end_date = end_date
-
-    def updateDates(self):
-        start_date_value = self.startDate.date().getDate()
-        start_date = dt.datetime(start_date_value[0], start_date_value[1], start_date_value[2])
-
-        end_date_value = self.endDate.date().getDate()
-        end_date = dt.datetime(end_date_value[0], end_date_value[1], end_date_value[2])
-
-        self.start_date = start_date
-        self.end_date = end_date
-
-    def updateDreamType(self):
-        self.dream_type = self.dreamTypeSelect.currentText()
-
-    def updateIfData(self):
+    """def updateIfData(self):
         data = self.dream_manager_data
 
         date = dt.datetime.fromtimestamp(data['timestamp'])
@@ -390,4 +342,4 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         for i in range(layout.count()):
             if layout.itemAt(i).widget() == widget:
                 return i
-        return -1
+        return -1"""

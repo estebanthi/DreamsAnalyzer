@@ -27,16 +27,18 @@ class DataLoader:
         config = Config()
 
         try:
-            dream_manager_email = config['dream_manager_email']
-            dream_manager_password = config['dream_manager_password']
+            dream_manager_email = config.credentials['email']
+            dream_manager_password = config.credentials['password']
         except KeyError:
             self.controller.notify_credentials_error()
+            return None
 
         loader = RemoteLoader(dream_manager_email, dream_manager_password)
         try:
             data = loader.load()
         except DreamManagerWrongCredentials:
             self.controller.notify_credentials_error()
+            return None
 
         return data
 

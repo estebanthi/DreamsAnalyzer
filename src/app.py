@@ -1,20 +1,8 @@
-import sys
-import time
-
-from PyQt5.QtWidgets import QApplication
-
-from models.config import Config
-
-
-from models.ui.main_window import MainWindow
+from models.app import App
 
 
 def run():
-    Config.initial_setup()
-    app = QApplication(sys.argv)
-    win = MainWindow()
-    win.show()
-    sys.exit(app.exec())
+    app = App()
 
 
 if __name__ == "__main__":

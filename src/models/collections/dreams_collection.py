@@ -39,8 +39,13 @@ class DreamsCollection:
         self.dreams.append(dream)
 
     def get_average_meta(self, meta):
-        average = mean([getattr(dream, meta) for dream in self.dreams if getattr(dream, meta) > -1])
-        return round(average, 2)
+        metas = []
+        for dream in self.dreams:
+            for dream_meta in dream.metas:
+                if dream_meta == meta:
+                    metas.append(dream_meta.value)
+
+        return mean(metas)
 
     def get_average_dreams_per_nights(self):
         dates = [dream.date.round(84000) for dream in self.dreams]

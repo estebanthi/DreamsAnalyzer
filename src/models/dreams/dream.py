@@ -10,6 +10,7 @@ class Dream:
         self.title = title
         self.tags = tags
         self.metas = MetasCollection()
+        self.is_hh = 'HH' in self.tags
 
     def __repr__(self):
         return f"Title : {self.title} | Date : {self.date}"

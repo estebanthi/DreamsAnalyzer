@@ -216,12 +216,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="totalDreamsCounter">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
+            <widget class="QSpinBox" name="totalDreamsCounter">
              <property name="readOnly">
               <bool>true</bool>
              </property>
@@ -240,16 +235,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="normalDreamsCounter">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
+            <widget class="QSpinBox" name="normalDreamsCounter"/>
            </item>
            <item>
             <widget class="QLabel" name="label_4">
@@ -264,16 +250,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lucidDreamsCounter">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
+            <widget class="QSpinBox" name="lucidDreamsCounter"/>
            </item>
            <item>
             <widget class="QLabel" name="label_6">
@@ -288,16 +265,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="hhCounter">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
+            <widget class="QSpinBox" name="hhCounter"/>
            </item>
           </layout>
          </widget>

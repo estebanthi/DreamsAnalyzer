@@ -1,6 +1,3 @@
-from models.json.json_serializable import JSONSerializable
-
-
 class Category:
 
     def __init__(self, _id, label):

@@ -1,0 +1,3 @@
+class DreamsAnalyzer:
+
+    pass

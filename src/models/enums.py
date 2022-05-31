@@ -11,3 +11,8 @@ class DataLoadingMethod(Enum):
     REMOTE = 1
     LOCAL = 2
     LAST_DATA = 3
+
+
+class MetaType(Enum):
+    INT = 1
+    STRING = 2

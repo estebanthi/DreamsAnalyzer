@@ -66,6 +66,7 @@ class DataDecoder:
         content = html2text.html2text(json_dream['content']).replace('\n', ' ')
 
         tags = cls.get_tags(json_tags)
+        dream_tags = [tag for tag in tags if tag._id in [int(json_tag) for json_tag in json_dream['tags']]]
 
         lucid = json_dream['meta']['lucid']
 
@@ -73,4 +74,4 @@ class DataDecoder:
         for meta in metas:
             dream_metas.append(meta.parse(json_dream))
 
-        return Dream(date, content, title, lucid, tags, dream_metas)
+        return Dream(date, content, title, lucid, dream_tags, dream_metas)
