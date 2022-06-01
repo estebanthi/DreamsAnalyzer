@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>820</width>
+    <width>915</width>
     <height>542</height>
    </rect>
   </property>
@@ -235,7 +235,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="normalDreamsCounter"/>
+            <widget class="QSpinBox" name="normalDreamsCounter">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_4">
@@ -250,7 +254,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="lucidDreamsCounter"/>
+            <widget class="QSpinBox" name="lucidDreamsCounter">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_6">
@@ -265,7 +273,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="hhCounter"/>
+            <widget class="QSpinBox" name="hhCounter">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -300,6 +312,9 @@
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="lucidDreamsRate">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
                <property name="maximum">
                 <double>100.000000000000000</double>
                </property>
@@ -319,6 +334,9 @@
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="averageLength">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
                <property name="minimum">
                 <double>0.000000000000000</double>
                </property>
@@ -341,6 +359,9 @@
              </item>
              <item>
               <widget class="QDoubleSpinBox" name="averageDreamsPerNight">
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
                <property name="maximum">
                 <double>100000000.000000000000000</double>
                </property>
@@ -423,7 +444,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QTimeEdit" name="mostFrequentHour"/>
+            <widget class="QTimeEdit" name="mostFrequentHour">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -453,6 +478,9 @@
            </item>
            <item>
             <widget class="QSpinBox" name="totalWords">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
              <property name="maximum">
               <number>1000000000</number>
              </property>
@@ -487,7 +515,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>382</width>
+               <width>430</width>
                <height>423</height>
               </rect>
              </property>
@@ -545,7 +573,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>382</width>
+               <width>429</width>
                <height>423</height>
               </rect>
              </property>
@@ -737,7 +765,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>776</width>
+             <width>871</width>
              <height>451</height>
             </rect>
            </property>
@@ -795,7 +823,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>776</width>
+             <width>871</width>
              <height>378</height>
             </rect>
            </property>
@@ -838,7 +866,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>776</width>
+             <width>871</width>
              <height>415</height>
             </rect>
            </property>

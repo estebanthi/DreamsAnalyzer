@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import QFileDialog
 
 from models.ui.tabs.tab import Tab
 from models.dreams.dreams_analyzer import DreamsAnalyzer
+from models.qt_utils import clearLayout
+from models.ui.widgets.meta_widget import MetaWidget
 
 
 class HomeTab(Tab):
@@ -37,8 +39,12 @@ class HomeTab(Tab):
         self.mainWindow.mostFrequentCategory.setText(dreams_analyzer.get_most_frequent_category().label)
         self.mainWindow.mostFrequentHour.setTime(dreams_analyzer.get_most_frequent_hour())
         self.mainWindow.totalWords.setValue(dreams_analyzer.get_total_words())
-        print((dreams_analyzer.get_all_average_metas()))
-        
+
+        clearLayout(self.mainWindow.meanMetaLayout)
+        all_metas = dreams_analyzer.get_all_average_metas()
+        for name, value in all_metas.items():
+            self.mainWindow.meanMetaLayout.addWidget(MetaWidget(name, value, False))
+
     def updateDates(self):
         start = self.mainWindow.controller.model.data.dreams[0].date
         end = self.mainWindow.controller.model.data.dreams[-1].date + dt.timedelta(days=1)

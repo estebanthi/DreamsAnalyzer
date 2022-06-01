@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLabel, QPushButton, QHBoxLayout, QWidget
 
 
-from models.ui.dream_popup import DreamPopup
+from models.ui.popups.dream_popup import DreamPopup
 
 
 class DreamWidget(QWidget):

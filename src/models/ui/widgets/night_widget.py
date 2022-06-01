@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLabel, QPushButton, QHBoxLayout, QWidget, QSpinBox, QSpacerItem
 
-from models.ui.dream_popup import DreamPopup
-from models.ui.post_popup import PostPopup
+from models.ui.popups.dream_popup import DreamPopup
+from models.ui.popups.post_popup import PostPopup
 
 
 class NightWidget(QWidget):

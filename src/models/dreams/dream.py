@@ -9,7 +9,7 @@ class Dream:
         self.lucid = lucid
         self.title = title
         self.tags = tags
-        self.metas = MetasCollection()
+        self.metas = metas
         self.is_hh = 'HH' in self.tags
 
     def __repr__(self):

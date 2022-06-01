@@ -5,7 +5,7 @@ import unittest
 from PyQt5.QtWidgets import QApplication
 
 
-from models.ui.qerror_popup import QErrorPopup
+from models.ui.popups.qerror_popup import QErrorPopup
 
 
 app = QApplication(sys.argv)

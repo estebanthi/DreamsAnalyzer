@@ -1,5 +1,5 @@
 from models.exceptions.qerror import QError
-from models.ui.qinfo_popup import QInfoPopup
+from models.ui.popups.qinfo_popup import QInfoPopup
 from models.enums import TypeFilterOptions
 
 
@@ -16,8 +16,8 @@ class DataController:
         QError('Identifiants Dream Manager incorrects')
 
     def sync_data(self):
-        self.model.remote_load_data()
-        if self.model.data:
+        success = self.model.remote_load_data()
+        if success:
             QInfoPopup('Données chargées avec succès !')
 
     def load_last_data(self):

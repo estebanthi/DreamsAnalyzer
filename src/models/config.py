@@ -12,11 +12,13 @@ from models.collections.anonyms_collection import AnonymsCollection
 from models.collections.metas_collection import MetasCollection
 from models.dreams.meta import Meta
 from models.enums import MetaType
+from models.data.data_formatter import DataFormatter
 
 
 class Config:
 
-    def __init__(self):
+    def __init__(self, controller):
+        self.controller = controller
         self.data = self.get_data()
         self.template = self.get_template()
         self.anonyms = self.get_anonyms()
@@ -28,11 +30,20 @@ class Config:
         metas = self.get_metas()
         try:
             with open('data/data.json', 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                decoder = DataDecoder()
-                datamodel = decoder.decode(data, metas)
+                json_data = json.load(file)
+
+                data_formatter = DataFormatter(self.controller)
+                formatted_data = None
+                if json_data:
+                    formatted_data = data_formatter.format(json_data)
+
+                if formatted_data:
+                    decoder = DataDecoder(self.controller)
+                    datamodel = decoder.decode(formatted_data, metas)
+                    return datamodel
+                return None
         except Exception as e:
-            print(e)
+            return None
 
         return datamodel
 
@@ -66,11 +77,6 @@ class Config:
         except Exception as e:
             print(e)
 
-        meta2 = Meta('Clarté', 'clear', MetaType.INT)
-        meta = Meta('Couleur', 'color', MetaType.STRING)
-        metas_collection.append(meta)
-        metas_collection.append(meta2)
-
         return metas_collection
 
     def get_credentials(self):
@@ -86,8 +92,19 @@ class Config:
     @classmethod
     def initial_config(cls):
 
+        if not os.path.isdir('data'):
+            os.mkdir('data')
+
         if not os.path.isfile('data/metas.dat'):
             metas = MetasCollection()
+            clear = Meta('Clarté', 'clear', MetaType.NUMERIC)
+            mood = Meta('Mood', 'note', MetaType.NUMERIC)
+            lucidity = Meta('Lucidité', 'lucidity', MetaType.NUMERIC)
+
+            metas.append(clear)
+            metas.append(mood)
+            metas.append(lucidity)
+
             with open('data/metas.dat', 'wb') as file:
                 pickle.dump(metas, file)
 

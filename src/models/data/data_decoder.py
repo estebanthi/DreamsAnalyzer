@@ -17,12 +17,19 @@ from models.collections.metas_collection import MetasCollection
 
 class DataDecoder:
 
+    def __init__(self, controller):
+        self.controller = controller
+
     def decode(self, data: dict, metas=MetasCollection()) -> Datamodel:
-        date = dt.datetime.fromtimestamp(data['timestamp'])
-        categories = CategoriesCollection(self.get_categories(data['category']))
-        tags = TagsCollection(self.get_tags(data['tags']))
-        dreams = DreamsCollection(self.get_dreams(data['dreams'], data['tags'], metas))
-        return Datamodel(date, dreams, tags, categories)
+        try:
+            date = dt.datetime.fromtimestamp(data['timestamp'])
+            categories = CategoriesCollection(self.get_categories(data['category']))
+            tags = TagsCollection(self.get_tags(data['tags']))
+            dreams = DreamsCollection(self.get_dreams(data['dreams'], data['tags'], metas))
+            return Datamodel(date, dreams, tags, categories)
+        except Exception as e:
+            self.controller.notify_data_decoding_error()
+            return None
 
     @classmethod
     def get_categories(cls, json_categories):

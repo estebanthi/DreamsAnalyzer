@@ -1,34 +1,18 @@
-import datetime as dt
-import shutil
-
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QLineEdit, QLabel
+from PyQt5.QtWidgets import QMainWindow
 
 from ui.main_window_ui import Ui_DreamsAnalyzer
-from models.filesystem import Filesystem
-from models.dreams.dream import Dream
-from models.time.daterange import Daterange
-from models.time.timerange import TimeResolution
-from models.config import Config
-from models.collections.dreams_collection import DreamsCollection
-from models.ui.dream_widget import DreamWidget
-from models.ui.night_widget import NightWidget
-from models.ui.new_template_popup import NewTemplatePopup
-from models.anonymisator import Anonymisator
-from models.ui.anonym_widget import AnonymWidget
-from models.Models.datamodel import DataModel
-from models.Controllers.datacontroller import DataController
-from models.exceptions.qerror import QError
 from models.ui.tabs.home_tab import HomeTab
+from models.ui.tabs.tags_tab import TagsTab
+from models.ui.tabs.dreams_tab import DreamsTab
 
 
 class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
-    def __init__(self, controller, initialConfig, parent=None):
+    def __init__(self, controller, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.initialConfig = initialConfig
 
         self.controller = controller
-        self.tabs = [HomeTab(self)]
+        self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self)]
 
     def postInit(self):
         if self.controller.model.data:

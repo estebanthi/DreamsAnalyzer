@@ -1,4 +1,4 @@
-from models.ui.qerror_popup import QErrorPopup
+from models.ui.popups.qerror_popup import QErrorPopup
 
 
 class QError(BaseException):

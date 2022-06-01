@@ -24,7 +24,7 @@ class DataLoader:
 
     def load_data_remote(self):
         data = None
-        config = Config()
+        config = Config(self.controller)
 
         try:
             dream_manager_email = config.credentials['email']

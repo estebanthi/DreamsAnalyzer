@@ -13,31 +13,21 @@ from models.Controllers.datacontroller import DataController
 class App:
 
     def __init__(self):
-
-        Config.initial_config()
-
-        self.config = Config()
-        initial_config = self.setup()
-
         qapp = QApplication(sys.argv)
 
         controller = DataController()
         model = DataModel(controller)
-        window = MainWindow(controller, initial_config)
+        try:
+            window = MainWindow(controller)
 
-        controller.model = model
-        controller.view = window
-        controller.connect()
+            controller.model = model
+            controller.view = window
+            controller.connect()
 
-        window.postInit()
+            window.postInit()
 
-        window.show()
+            window.show()
 
-        sys.exit(qapp.exec())
-
-    def setup(self):
-        template = self.config.template
-        anonyms = self.config.anonyms
-        metas = self.config.metas
-
-        return {'template': template, 'anonyms': anonyms, 'metas': metas}
+            sys.exit(qapp.exec())
+        except Exception as e:
+            print(e)

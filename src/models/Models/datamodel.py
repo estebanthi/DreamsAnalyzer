@@ -6,6 +6,7 @@ from models.data.data_loader import DataLoader
 from models.data.data_decoder import DataDecoder
 from models.config import Config
 from models.data.file_saver import FileSaver
+from models.data.data_formatter import DataFormatter
 
 
 class DataModel(QtCore.QObject):
@@ -13,19 +14,10 @@ class DataModel(QtCore.QObject):
 
     def __init__(self, controller):
         super().__init__()
-        self.config = Config()
         self.controller = controller
+        self.config = Config(self.controller)
 
-        data_loader = DataLoader(self.controller)
-        json_data = data_loader.load_data(DataLoadingMethod.LAST_DATA)
-
-        data_decoder = DataDecoder()
-        data = None
-        if json_data:
-            data = data_decoder.decode(json_data, self.config.metas)
-
-        self.dataUpdatedSignal.emit()
-        self.data = data
+        self.load_last_data()
 
     def filter_dreams(self, start=None, end=None, type_=TypeFilterOptions.ALL):
         if start is None:
@@ -55,29 +47,42 @@ class DataModel(QtCore.QObject):
 
     def remote_load_data(self):
         data_loader = DataLoader(self.controller)
-        data = data_loader.load_data(DataLoadingMethod.REMOTE)
+        json_data = data_loader.load_data(DataLoadingMethod.REMOTE)
 
-        if not data:
+        if not json_data:
             return None
 
         file_saver = FileSaver()
-        file_saver.save(data, 'data/data.json')
+        file_saver.save(json_data, 'data/data.json')
 
-        data_decoder = DataDecoder()
-        decoded_data = data_decoder.decode(data, self.config.metas)
-        self.data = decoded_data
+        data_formatter = DataFormatter(self.controller)
+        formatted_data = None
+        if json_data:
+            formatted_data = data_formatter.format(json_data)
+
+        data_decoder = DataDecoder(self.controller)
+        data = None
+        if formatted_data:
+            data = data_decoder.decode(formatted_data, self.config.metas)
+
+        self.data = data
         self.dataUpdatedSignal.emit()
-        return decoded_data
+        return data
 
     def load_last_data(self):
         data_loader = DataLoader(self.controller)
-        data = data_loader.load_data(DataLoadingMethod.LAST_DATA)
+        json_data = data_loader.load_data(DataLoadingMethod.LAST_DATA)
 
-        if not data:
-            return None
+        data_formatter = DataFormatter(self.controller)
+        formatted_data = None
+        if json_data:
+            formatted_data = data_formatter.format(json_data)
 
-        data_decoder = DataDecoder()
-        decoded_data = data_decoder.decode(data, self.config.metas)
-        self.data = decoded_data
+        data_decoder = DataDecoder(self.controller)
+        data = None
+        if formatted_data:
+            data = data_decoder.decode(formatted_data, self.config.metas)
+
+        self.data = data
         self.dataUpdatedSignal.emit()
-        return decoded_data
+        return True

@@ -14,5 +14,5 @@ class DataLoadingMethod(Enum):
 
 
 class MetaType(Enum):
-    INT = 1
+    NUMERIC = 1
     STRING = 2

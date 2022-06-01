@@ -82,5 +82,6 @@ class DreamsAnalyzer:
                 if type(values[0]) is str:
                     metas[name] = mode(values)
                 else:
-                    metas[name] = mean(values)
+                    metas[name] = float(mean(values))
+
         return metas

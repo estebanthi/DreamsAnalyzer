@@ -1,6 +1,8 @@
 class MetasCollection:
 
-    def __init__(self, metas=[]):
+    def __init__(self, metas=None):
+        if not metas:
+            metas = []
         self.metas = metas
 
     def __getitem__(self, item):
