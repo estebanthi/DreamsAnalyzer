@@ -299,14 +299,9 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lucidDreamsRate">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
+              <widget class="QDoubleSpinBox" name="lucidDreamsRate">
+               <property name="maximum">
+                <double>100.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -318,19 +313,17 @@
                 </font>
                </property>
                <property name="text">
-                <string>Longueur de rêve (en mots) :</string>
+                <string>Longueur de rêve moyenne (en mots) :</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="averageLength">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
+              <widget class="QDoubleSpinBox" name="averageLength">
+               <property name="minimum">
+                <double>0.000000000000000</double>
                </property>
-               <property name="readOnly">
-                <bool>true</bool>
+               <property name="maximum">
+                <double>100000000.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -347,14 +340,9 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="averageDreamsPerNight">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
+              <widget class="QDoubleSpinBox" name="averageDreamsPerNight">
+               <property name="maximum">
+                <double>100000000.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -435,16 +423,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="mostFrequentHour">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
+            <widget class="QTimeEdit" name="mostFrequentHour"/>
            </item>
           </layout>
          </widget>
@@ -473,14 +452,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="totalWords">
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
+            <widget class="QSpinBox" name="totalWords">
+             <property name="maximum">
+              <number>1000000000</number>
              </property>
             </widget>
            </item>

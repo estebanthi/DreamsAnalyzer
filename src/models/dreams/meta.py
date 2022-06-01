@@ -10,8 +10,14 @@ class Meta:
         self.value = value
 
     def get_from_json_dream(self, json_dream):
-        value = json_dream[self.json_name]
-        return int(value) if self.type_ == MetaType.INT else str(value)
+        value = json_dream['meta'][self.json_name]
+        return Meta(self.name, self.json_name, self.type_, int(value) if self.type_ == MetaType.INT else str(value))
 
     def __eq__(self, other):
-        return self.name == other.name
+        if type(other) is Meta:
+            return self.name == other.name
+        if type(other) is str:
+            return self.name == other
+
+    def __str__(self):
+        return f"{self.name} : {self.value}"

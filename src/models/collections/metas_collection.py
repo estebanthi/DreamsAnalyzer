@@ -18,5 +18,8 @@ class MetasCollection:
         except IndexError:
             raise StopIteration
 
+    def __repr__(self):
+        return str([str(meta) for meta in self.metas])
+
     def append(self, item):
         self.metas.append(item)

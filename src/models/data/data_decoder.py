@@ -72,6 +72,6 @@ class DataDecoder:
 
         dream_metas = MetasCollection()
         for meta in metas:
-            dream_metas.append(meta.parse(json_dream))
+            dream_metas.append(meta.get_from_json_dream(json_dream))
 
         return Dream(date, content, title, lucid, dream_tags, dream_metas)

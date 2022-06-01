@@ -4,6 +4,7 @@ import datetime as dt
 from PyQt5.QtWidgets import QFileDialog
 
 from models.ui.tabs.tab import Tab
+from models.dreams.dreams_analyzer import DreamsAnalyzer
 
 
 class HomeTab(Tab):
@@ -27,6 +28,16 @@ class HomeTab(Tab):
             len(self.mainWindow.controller.model.data.dreams.filter(lambda dream: dream.lucid)))
         self.mainWindow.hhCounter.setValue(
             len(self.mainWindow.controller.model.data.hhs))
+
+        dreams_analyzer = DreamsAnalyzer(self.mainWindow.controller.model.data.dreams)
+        self.mainWindow.lucidDreamsRate.setValue(dreams_analyzer.get_lucid_dreams_rate())
+        self.mainWindow.averageLength.setValue(dreams_analyzer.get_average_dreams_length())
+        self.mainWindow.averageDreamsPerNight.setValue(dreams_analyzer.get_average_dreams_per_nights())
+        self.mainWindow.mostFrequentTag.setText(dreams_analyzer.get_most_frequent_tag().label)
+        self.mainWindow.mostFrequentCategory.setText(dreams_analyzer.get_most_frequent_category().label)
+        self.mainWindow.mostFrequentHour.setTime(dreams_analyzer.get_most_frequent_hour())
+        self.mainWindow.totalWords.setValue(dreams_analyzer.get_total_words())
+        print((dreams_analyzer.get_all_average_metas()))
         
     def updateDates(self):
         start = self.mainWindow.controller.model.data.dreams[0].date

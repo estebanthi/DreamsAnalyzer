@@ -10,6 +10,8 @@ from models.data.data_decoder import DataDecoder
 from models.template import Template
 from models.collections.anonyms_collection import AnonymsCollection
 from models.collections.metas_collection import MetasCollection
+from models.dreams.meta import Meta
+from models.enums import MetaType
 
 
 class Config:
@@ -63,6 +65,11 @@ class Config:
                 metas_collection = pickle.load(file)
         except Exception as e:
             print(e)
+
+        meta2 = Meta('Clarté', 'clear', MetaType.INT)
+        meta = Meta('Couleur', 'color', MetaType.STRING)
+        metas_collection.append(meta)
+        metas_collection.append(meta2)
 
         return metas_collection
 
