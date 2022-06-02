@@ -1,44 +1,14 @@
-from statistics import mean
-from collections import Counter
-import datetime as dt
+from models.collections.base_collection import BaseCollection
 
 
-from models.collections.unique_list import UniqueList
-from models.time.convertible_time import ConvertibleTime
-from models.dreams.night import Night
-
-
-class DreamsCollection:
+class DreamsCollection(BaseCollection):
 
     weekdays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 
     def __init__(self, dreams=None):
-        if dreams:
-            self.dreams = [dream for dream in dreams]
-        if not dreams:
-            self.dreams = []
+        super().__init__(dreams)
 
-    def __iter__(self):
-        self.index = 0
-        return self
-
-    def __next__(self):
-        if self.index >= len(self.dreams):
-            raise StopIteration
-        dream = self.dreams[self.index]
-        self.index += 1
-        return dream
-
-    def __len__(self):
-        return len(self.dreams)
-
-    def __getitem__(self, item):
-        return self.dreams[item]
-
-    def append(self, dream):
-        self.dreams.append(dream)
-
-    def get_average_meta(self, meta):
+    """def get_average_meta(self, meta):
         metas = []
         for dream in self.dreams:
             for dream_meta in dream.metas:
@@ -137,3 +107,4 @@ class DreamsCollection:
             nights.append(Night(date, dreams))
         return nights
 
+"""
