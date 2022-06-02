@@ -8,7 +8,7 @@ from yaml import safe_load
 
 from models.data.data_decoder import DataDecoder
 from models.data.loaders.remote_loader import RemoteLoader
-from models.data.datamodel import Datamodel
+from models.data.data_representation import DataRepresentation
 
 
 app = QApplication(sys.argv)
@@ -27,7 +27,7 @@ class DataDecoderTest(unittest.TestCase):
     decoder = DataDecoder()
 
     def test_decode(self):
-        self.assertIs(type(self.decoder.decode(self.data)), Datamodel)
+        self.assertIs(type(self.decoder.decode(self.data)), DataRepresentation)
 
 
 if __name__ == '__main__':

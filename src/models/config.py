@@ -10,7 +10,7 @@ from models.data.data_decoder import DataDecoder
 from models.template import Template
 from models.collections.anonyms_collection import AnonymsCollection
 from models.collections.metas_collection import MetasCollection
-from models.dreams.meta import Meta
+from models.dataclasses.meta import Meta
 from models.enums import MetaType
 from models.data.data_formatter import DataFormatter
 

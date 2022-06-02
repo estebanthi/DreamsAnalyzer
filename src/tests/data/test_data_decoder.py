@@ -1,13 +1,13 @@
 import unittest
-from unittest.mock import patch, MagicMock, create_autospec
+from unittest.mock import create_autospec
 
 
 from models.Controllers.datacontroller import DataController
 from models.data.data_decoder import DataDecoder
-from models.dreams.category import Category
-from models.dreams.tag import Tag
-from models.dreams.dream import Dream
-from models.data.datamodel import Datamodel
+from models.dataclasses.category import Category
+from models.dataclasses.tag import Tag
+from models.dataclasses.dream import Dream
+from models.data.data_representation import DataRepresentation
 import datetime as dt
 from tests.samples.test_data import json_data
 
@@ -50,7 +50,7 @@ class TestDataDecoder(unittest.TestCase):
 
     def test_decode_ok(self):
         decoded_data = self.decoder.decode(json_data)
-        self.assertIsInstance(decoded_data, Datamodel)
+        self.assertIsInstance(decoded_data, DataRepresentation)
 
     def test_decode_nok(self):
         decoded_data = self.decoder.decode({'dreams': {}})

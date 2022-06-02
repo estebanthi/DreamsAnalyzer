@@ -5,7 +5,7 @@ import sys
 from PyQt5.QtWidgets import QApplication
 
 
-from models.exceptions.qerror import QError
+from models.ui.popups.qerror import QError
 
 
 app = QApplication(sys.argv)

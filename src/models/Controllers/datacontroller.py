@@ -1,4 +1,4 @@
-from models.exceptions.qerror import QError
+from models.ui.popups.qerror import QError
 from models.ui.popups.qinfo_popup import QInfoPopup
 from models.enums import TypeFilterOptions
 

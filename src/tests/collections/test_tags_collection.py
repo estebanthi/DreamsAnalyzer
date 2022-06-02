@@ -1,7 +1,7 @@
 import unittest
 
 
-from models.dreams.tag import Tag
+from models.dataclasses.tag import Tag
 from models.collections.tags_collection import TagsCollection
 
 

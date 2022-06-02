@@ -1,6 +1,6 @@
 from models.ui.tabs.tab import Tab
 from models.ui.widgets.dream_widget import DreamWidget
-from models.qt_utils import clearLayout
+from models.ui.qt_utils import clearLayout
 
 
 class DreamsTab(Tab):

@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QLabel, QLineEdit
 
 
-from models.qt_utils import clearLayout
+from models.ui.qt_utils import clearLayout
 from models.ui.tabs.tab import Tab
-from models.dreams.dreams_analyzer import DreamsAnalyzer
+from models.dreams_analyzer import DreamsAnalyzer
 
 
 class TagsTab(Tab):

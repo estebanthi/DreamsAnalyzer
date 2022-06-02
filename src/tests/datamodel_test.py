@@ -4,7 +4,7 @@ import datetime as dt
 
 from models.Models.datamodel import DataModel
 from models.Controllers.datacontroller import DataController
-from models.data.datamodel import Datamodel
+from models.data.data_representation import DataRepresentation
 from models.enums import TypeFilterOptions
 
 
@@ -15,7 +15,7 @@ class DataModelTest(unittest.TestCase):
     def test_init(self):
         datamodel = DataModel(self.controller)
         data = datamodel.data
-        self.assertIs(type(data), Datamodel)
+        self.assertIs(type(data), DataRepresentation)
 
     def test_filter_by_date(self):
         datamodel = DataModel(self.controller)

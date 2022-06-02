@@ -4,13 +4,13 @@ import datetime as dt
 import html2text
 
 
-from models.data.datamodel import Datamodel
+from models.data.data_representation import DataRepresentation
 from models.collections.dreams_collection import DreamsCollection
 from models.collections.tags_collection import TagsCollection
 from models.collections.categories_collection import CategoriesCollection
-from models.dreams.category import Category
-from models.dreams.tag import Tag
-from models.dreams.dream import Dream
+from models.dataclasses.category import Category
+from models.dataclasses.tag import Tag
+from models.dataclasses.dream import Dream
 from models.time.roundable_date import RoundableDate
 from models.collections.metas_collection import MetasCollection
 
@@ -20,13 +20,13 @@ class DataDecoder:
     def __init__(self, controller):
         self.controller = controller
 
-    def decode(self, data: dict, metas=MetasCollection()) -> Datamodel:
+    def decode(self, data: dict, metas=MetasCollection()) -> DataRepresentation:
         try:
             date = dt.datetime.fromtimestamp(data['timestamp'])
             categories = CategoriesCollection(self.get_categories(data['category']))
             tags = TagsCollection(self.get_tags(data['tags']))
             dreams = DreamsCollection(self.get_dreams(data['dreams'], data['tags'], metas))
-            return Datamodel(date, dreams, tags, categories)
+            return DataRepresentation(date, dreams, tags, categories)
         except Exception as e:
             self.controller.notify_data_decoding_error()
             return None

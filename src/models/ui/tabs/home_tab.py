@@ -4,8 +4,8 @@ import datetime as dt
 from PyQt5.QtWidgets import QFileDialog
 
 from models.ui.tabs.tab import Tab
-from models.dreams.dreams_analyzer import DreamsAnalyzer
-from models.qt_utils import clearLayout
+from models.dreams_analyzer import DreamsAnalyzer
+from models.ui.qt_utils import clearLayout
 from models.ui.widgets.meta_widget import MetaWidget
 
 

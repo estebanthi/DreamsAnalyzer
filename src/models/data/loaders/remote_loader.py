@@ -4,7 +4,7 @@ from base64 import b64decode
 
 
 from models.data.loaders.loader import Loader
-from models.exceptions.exceptions import DreamManagerWrongCredentials, DreamManagerDataError, EmptyDreamJournal
+from models.exceptions import DreamManagerWrongCredentials, DreamManagerDataError, EmptyDreamJournal
 
 
 class RemoteLoader(Loader):
