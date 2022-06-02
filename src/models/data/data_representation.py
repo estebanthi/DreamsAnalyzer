@@ -15,4 +15,3 @@ class DataRepresentation:
         self.hhs = dreams.filter(lambda dream: dream.is_hh)
         self.tags = tags
         self.categories = categories
-

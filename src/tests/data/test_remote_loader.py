@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 from base64 import b64encode
 
 
-from models.exceptions.exceptions import DreamManagerWrongCredentials, DreamManagerDataError, EmptyDreamJournal
+from models.exceptions import DreamManagerWrongCredentials, DreamManagerDataError, EmptyDreamJournal
 
 
 from models.data.loaders.remote_loader import RemoteLoader, requests
