@@ -81,9 +81,6 @@ class DreamsCollection(BaseCollection):
     def get_dreams_not_containing_tag(self, tag_label):
         return [dream for dream in self.dreams if tag_label not in [tag.label for tag in dream.tags]]
 
-    def filter(self, method):
-        return DreamsCollection(list(filter(method, self)))
-
     def group_by_hour(self):
         return {
             hour: [dream for dream in self.dreams if dream.date.hour == hour] for hour in range(24)

@@ -65,7 +65,7 @@ class DataDecoder:
         return dreams
 
     @classmethod
-    def parse_dream(cls, json_dream, json_tags, metas):
+    def parse_dream(cls, json_dream, json_tags, metas=MetasCollection()):
         date = dt.datetime.fromtimestamp(json_dream['date'])
         date = RoundableDate(date.year, date.month, date.day, date.hour, date.minute, date.second)
 

@@ -14,3 +14,6 @@ class Dream:
 
     def __repr__(self):
         return f"Title : {self.title} | Date : {self.date}"
+
+    def __eq__(self, other):
+        return self.title == other.title and self.date == other.date and self.lucid == other.lucid

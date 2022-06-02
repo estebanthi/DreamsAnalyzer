@@ -39,7 +39,6 @@ class DataLoader:
         except DreamManagerWrongCredentials:
             self.controller.notify_credentials_error()
             return None
-
         return data
 
     def load_data_local(self, path):

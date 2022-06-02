@@ -50,6 +50,13 @@ class TestBaseCollection(unittest.TestCase):
         collection.append(19)
         self.assertEqual(collection[-1], 19)
 
+    def test_filter(self):
+        items = [1, 2, 3]
+        collection = BaseCollection(items)
+
+        filtered_collection = collection.filter(lambda x: x <= 2)
+        self.assertIsInstance(filtered_collection, BaseCollection)
+        self.assertEqual(filtered_collection[-1],  2)
 
 if __name__ == '__main__':
     unittest.main()

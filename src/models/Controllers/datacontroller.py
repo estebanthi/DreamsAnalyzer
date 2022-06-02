@@ -15,6 +15,18 @@ class DataController:
     def notify_credentials_error(self):
         QError('Identifiants Dream Manager incorrects')
 
+    def notify_data_decoding_error(self):
+        QError('Erreur lors du décodage de vos données')
+
+    def notify_data_formatting_error(self):
+        QError('Erreur lors du formattage de vos données')
+
+    def notify_file_not_found_error(self):
+        QError('Impossible de trouver le fichier de vos données')
+
+    def notify_io_error(self):
+        QError('Impossible de charger vos données')
+
     def sync_data(self):
         success = self.model.remote_load_data()
         if success:

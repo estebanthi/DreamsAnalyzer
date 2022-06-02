@@ -28,3 +28,7 @@ class BaseCollection:
 
     def append(self, item):
         self.items.append(item)
+
+    def filter(self, method):
+        return type(self)(list(filter(method, self)))
+    
