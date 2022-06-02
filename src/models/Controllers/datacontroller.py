@@ -35,6 +35,7 @@ class DataController:
     def load_last_data(self):
         self.model.load_last_data()
         if self.model.data:
+            print(self.model.data)
             QInfoPopup('Données chargées avec succès !')
 
     def filter_dreams(self, start=None, end=None, label=None):

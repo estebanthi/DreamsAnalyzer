@@ -2,6 +2,7 @@ import unittest
 
 
 from models.collections.base_collection import BaseCollection
+from models.collections.anonyms_collection import AnonymsCollection
 
 
 class TestBaseCollection(unittest.TestCase):
@@ -57,6 +58,11 @@ class TestBaseCollection(unittest.TestCase):
         filtered_collection = collection.filter(lambda x: x <= 2)
         self.assertIsInstance(filtered_collection, BaseCollection)
         self.assertEqual(filtered_collection[-1],  2)
+
+    def test_init_anonyms_collection(self):
+        items = [1, 2, 3]
+        collection = AnonymsCollection(items)
+        self.assertEqual(collection[0], 1)
 
 if __name__ == '__main__':
     unittest.main()

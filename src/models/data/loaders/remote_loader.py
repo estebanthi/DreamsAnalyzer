@@ -23,7 +23,6 @@ class RemoteLoader(Loader):
         response = requests.post(api_url, data=body, headers=headers)
 
         json_res = response.json()
-
         if json_res['status'] == '404':
             raise DreamManagerWrongCredentials()
 
