@@ -104,8 +104,13 @@ class DataController(QtCore.QObject):
             metas[meta.name] = analyzer.get_meta_over_time(time_intervals, meta)
         return metas
 
-
-
+    def get_other_plots(self):
+        return [
+            {'title': "Méthodes d'inductions", 'tags': ['WILD', 'DILD'], 'colors': ['teal', 'brown'], 'filter': {}},
+            {'title': "Proportion de RL WBTB", 'tags': ['WBTB', 'Pas WBTB'], 'colors': ['aquamarine', 'mediumseagreen'], 'filter': {'lucid': True}},
+            {'title': "Proportion de rêves VIVID", 'tags': ['VIVID', 'Pas VIVID'], 'colors': ['orange', 'brown'],
+             'filter': {}},
+        ]
 
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)

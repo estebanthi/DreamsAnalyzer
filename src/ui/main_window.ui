@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -516,7 +516,7 @@
                <x>0</x>
                <y>0</y>
                <width>440</width>
-               <height>400</height>
+               <height>618</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -574,7 +574,7 @@
                <x>0</x>
                <y>0</y>
                <width>439</width>
-               <height>400</height>
+               <height>618</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -736,19 +736,28 @@
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_10">
+         <widget class="QGroupBox" name="otherPlotsLayout">
           <property name="title">
            <string>Divers</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_13">
            <item>
-            <widget class="MplWidget" name="inductionsPlot" native="true"/>
-           </item>
-           <item>
-            <widget class="MplWidget" name="wbtbPlot" native="true"/>
-           </item>
-           <item>
-            <widget class="MplWidget" name="vividDreamsPlot" native="true"/>
+            <widget class="QScrollArea" name="scrollArea_7">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents_5">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>871</width>
+                <height>506</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="otherPlotsLayout_2"/>
+             </widget>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -771,7 +780,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>427</height>
+             <height>645</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
@@ -829,7 +838,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>355</height>
+             <height>573</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
@@ -872,7 +881,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>392</height>
+             <height>610</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="anonymLayout_3">

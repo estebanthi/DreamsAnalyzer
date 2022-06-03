@@ -12,6 +12,16 @@ class DreamsCollection(BaseCollection):
         if dreams:
             self.metas = dreams[0].metas
 
+    def group_by_day(self):
+        return {
+            day: [dream for dream in self.items if dream.date.weekday() == day] for day in range(7)
+        }
+
+    def group_by_hour(self):
+        return {
+            hour: [dream for dream in self.items if dream.date.hour == hour] for hour in range(24)
+        }
+
     """def get_average_meta(self, meta):
         metas = []
         for dream in self.dreams:

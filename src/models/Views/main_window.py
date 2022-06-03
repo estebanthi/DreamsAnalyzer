@@ -5,6 +5,7 @@ from models.ui.tabs.home_tab import HomeTab
 from models.ui.tabs.tags_tab import TagsTab
 from models.ui.tabs.dreams_tab import DreamsTab
 from models.ui.tabs.progress_tab import ProgressTab
+from models.ui.tabs.statistics_tab import StatisticsTab
 
 
 class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
@@ -13,7 +14,7 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         self.setupUi(self)
 
         self.controller = controller
-        self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self), ProgressTab(self)]
+        self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self), ProgressTab(self), StatisticsTab(self)]
 
     def postInit(self):
         if self.controller.model.data:
@@ -33,145 +34,8 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         self.saveAnonymsButton.clicked.connect(self.saveAnonyms)
         self.addAnonymButton.clicked.connect(self.addAnonym)
 
-    """def updateIfData(self):
-        data = self.dream_manager_data
 
-        date = dt.datetime.fromtimestamp(data['timestamp'])
-        self.lastLoadedDataDateTimeEdit.setDate(date)
-
-        json_dreams = list(data['dreams'].values())
-        json_tags = data['tags']
-
-        self.dreams_and_hh = [Dream.parse(json_dream, json_tags) for json_dream in json_dreams]
-
-        self.dreams_and_hh = list(filter(lambda dream: self.start_date <= dream.date <= self.end_date, self.dreams_and_hh))
-
-        if self.dream_type == 'Tout':
-            pass
-        if self.dream_type == 'Lucides':
-            self.dreams_and_hh = list(filter(lambda dream: dream.lucid, self.dreams_and_hh))
-        if self.dream_type == 'Normaux':
-            self.dreams_and_hh = list(filter(lambda dream: not dream.lucid, self.dreams_and_hh))
-
-        self.dreams = DreamsCollection([dream for dream in self.dreams_and_hh if not dream.is_hh])
-        self.hh = DreamsCollection([dream for dream in self.dreams_and_hh if dream.is_hh])
-
-        self.lucid_dreams = DreamsCollection([dream for dream in self.dreams if dream.lucid])
-        self.normal_dreams = DreamsCollection([dream for dream in self.dreams if not dream.lucid])
-
-        self.update_homepage()
-        self.update_tags_page()
-        self.update_plot_pages()
-        self.update_dreams_page()
-        self.update_statistics_page()
-        self.update_as_page()
-        self.update_anonyms_page()
-
-    def update_homepage(self):
-        self.totalDreamsCounter.setText(str(len(self.dreams)))
-        self.lucidDreamsCounter.setText(str(len(self.lucid_dreams)))
-        self.normalDreamsCounter.setText(str(len(self.normal_dreams)))
-        self.hhCounter.setText(str(len(self.hh)))
-
-        self.averageMood.setText(str(self.dreams.get_average_meta('mood')))
-        self.averageLucidity.setText(str(self.dreams.get_average_meta('lucidity')))
-        self.averageClear.setText(str(self.dreams.get_average_meta('clear')))
-        self.lucidDreamsRate.setText(f"{round(len(self.lucid_dreams) / len(self.dreams) * 100, 2)}%")
-
-        self.averageDreamsPerNight.setText(str(self.dreams.get_average_dreams_per_nights()))
-        self.averageLength.setText(str(self.dreams.get_average_dreams_length()))
-
-        self.mostFrequentTag.setText(self.dreams.get_most_frequent_tag().label)
-        self.mostFrequentCategory.setText(self.dreams.get_most_frequent_category().label)
-
-        self.totalWords.setText(str(self.dreams.get_total_words()))
-        self.mostFrequentHour.setText(str(self.dreams.get_most_frequent_hour()))
-
-    def update_tags_page(self):
-        self.clearLayout(self.tagsCounters)
-        tags_counter = self.dreams.get_tags_counter()
-        for tag, count in tags_counter:
-            qlabel = QLabel(tag.label)
-            qline = QLineEdit(str(count))
-            qline.setReadOnly(True)
-            self.tagsCounters.addRow(qlabel, qline)
-
-        self.clearLayout(self.categoriesCounters)
-        categories_counter = self.dreams.get_categories_counter()
-        for category, count in categories_counter:
-            qlabel = QLabel(category.label) if category else QLabel("Sans catégorie")
-            qline = QLineEdit(str(count))
-            qline.setReadOnly(True)
-            self.categoriesCounters.addRow(qlabel, qline)
-
-    def update_dreams_page(self):
-        for dream in sorted(self.dreams, key=lambda dream: dream.date, reverse=True):
-            self.dreamsLayoutVertical.addWidget(DreamWidget(dream))
-
-    def update_plot_pages(self):
-        dates = [dream.date.round(TimeResolution.DAYS.value) for dream in self.dreams]
-        sorted_dates = sorted(dates)
-
-        start = sorted_dates[0]
-        resolution = self.get_plot_resolution()
-
-        daterange = Daterange(start, dt.datetime.now(), resolution)
-        x = [date for date in daterange]
-        time_intervals = daterange.split(resolution)
-
-        total_dreams_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'count_dreams')
-        self.totalDreamsPlot.clear()
-        self.totalDreamsPlot.plot(x, total_dreams_values, 'black')
-        self.format_mplWidget(self.totalDreamsPlot, 'Total rêves', x, total_dreams_values, 4)
-
-        total_lucid_dreams_values = self.get_dreams_collection_values_over_time(self.lucid_dreams, time_intervals, \
-                                                                                'count_dreams')
-        self.lucidDreamsPlot.clear()
-        self.lucidDreamsPlot.plot(x, total_lucid_dreams_values, 'blue')
-        self.format_mplWidget(self.lucidDreamsPlot, 'Total rêves lucies', x, total_lucid_dreams_values, 4)
-
-        average_dreams_per_night_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, \
-                                                                                      "get_average_dreams_per_nights")
-        self.averageDreamsPerNightPlot.clear()
-        self.averageDreamsPerNightPlot.plot(x, average_dreams_per_night_values, 'black')
-        self.format_mplWidget(self.averageDreamsPerNightPlot, "Rêves par nuit", x, average_dreams_per_night_values, 4)
-
-        lucid_dreams_rate_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
-                                                                               'get_lucid_dreams_rate')
-        self.lucidDreamsRatePlot.clear()
-        self.lucidDreamsRatePlot.plot(x, lucid_dreams_rate_values, 'blue')
-        self.format_mplWidget(self.lucidDreamsRatePlot, 'Taux de rêves lucides (en %)', x, lucid_dreams_rate_values, 4)
-
-        clear_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'get_average_clear')
-        self.averageClearPlot.clear()
-        self.averageClearPlot.plot(x, clear_values, 'red')
-        self.format_mplWidget(self.averageClearPlot, 'Clareté moyenne', x, clear_values, 4)
-
-        mood_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals, 'get_average_mood')
-        self.averageMoodPlot.clear()
-        self.averageMoodPlot.plot(x, mood_values, 'red')
-        self.format_mplWidget(self.averageMoodPlot, 'Mood moyen', x, mood_values, 4)
-
-        lucidity_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
-                                                                      'get_average_lucidity')
-        self.averageLucidityPlot.clear()
-        self.averageLucidityPlot.plot(x, lucidity_values, 'red')
-        self.format_mplWidget(self.averageLucidityPlot, 'Lucidité moyenne', x, lucidity_values, 4)
-
-        dreams_lengths_values = self.get_dreams_collection_values_over_time(self.dreams, time_intervals,
-                                                                      'get_average_dreams_length')
-        self.averageDreamLengtPlot.clear()
-        self.averageDreamLengtPlot.plot(x, dreams_lengths_values, 'green')
-        self.format_mplWidget(self.averageDreamLengtPlot, 'Longueur de rêve moyenne (en mots)', x, dreams_lengths_values, 4)
-
-    def get_plot_resolution(self):
-        selected_resolution = self.resolutionSelect.currentText()
-        resolution = TimeResolution.DAYS.value
-        if selected_resolution == 'Semaine':
-            resolution = TimeResolution.WEEKS.value
-        if selected_resolution == 'Mois':
-            resolution = TimeResolution.MONTHS.value
-        return resolution
+    """
 
     def update_statistics_page(self):
         dreams_by_day = self.dreams.group_by_day()
