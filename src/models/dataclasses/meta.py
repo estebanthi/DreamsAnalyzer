@@ -13,7 +13,7 @@ class Meta:
         try:
             value = json_dream['meta'][self.json_name]
         except Exception as e:
-            pass
+            return Meta(self.name, self.json_name, self.type_, None)
         return Meta(self.name, self.json_name, self.type_, int(value) if self.type_ == MetaType.NUMERIC else str(value))
 
     def __eq__(self, other):
