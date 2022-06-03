@@ -63,3 +63,12 @@ class MplWidget(QtWidgets.QWidget):
             self.canvas.ax.legend()
 
         self.canvas.draw()
+
+    def format(self, title, x, y, xticks_nb):
+        xticks = self.canvas.ax.get_xticks()
+        self.canvas.ax.set_xticks(xticks[::len(xticks) // xticks_nb])
+        if len(xticks) <= 8:
+            self.canvas.ax.set_xticks(xticks[::2])
+        self.canvas.ax.margins(x=0)
+        self.canvas.ax.set_title(title)
+        self.draw()

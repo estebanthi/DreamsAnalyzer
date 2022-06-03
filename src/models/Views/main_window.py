@@ -4,6 +4,7 @@ from ui.main_window_ui import Ui_DreamsAnalyzer
 from models.ui.tabs.home_tab import HomeTab
 from models.ui.tabs.tags_tab import TagsTab
 from models.ui.tabs.dreams_tab import DreamsTab
+from models.ui.tabs.progress_tab import ProgressTab
 
 
 class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
@@ -12,7 +13,7 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         self.setupUi(self)
 
         self.controller = controller
-        self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self)]
+        self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self), ProgressTab(self)]
 
     def postInit(self):
         if self.controller.model.data:

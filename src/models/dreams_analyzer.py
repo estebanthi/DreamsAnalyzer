@@ -4,6 +4,9 @@ import datetime as dt
 from statistics import mode
 
 
+from models.collections.dreams_collection import DreamsCollection
+
+
 class DreamsAnalyzer:
 
     def __init__(self, dreams):
@@ -85,3 +88,31 @@ class DreamsAnalyzer:
                     metas[name] = float(mean(values))
 
         return metas
+
+    def get_values_over_time(self, time_intervals, method):
+        values = []
+        dreams_collection = DreamsCollection()
+        for interval in time_intervals:
+            for dream in self.dreams:
+                if dream.date in interval:
+                    dreams_collection.append(dream)
+            new_analyzer = DreamsAnalyzer(dreams_collection)
+            values.append(getattr(new_analyzer, method)())
+        return values
+
+    def count_dreams(self):
+        return len(self.dreams)
+
+    def count_lucid_dreams(self):
+        return len(self.dreams.filter(lambda dream: dream.lucid))
+
+    def get_meta_over_time(self, time_intervals, meta):
+        values = []
+        dreams_collection = DreamsCollection()
+        for interval in time_intervals:
+            for dream in self.dreams:
+                if dream.date in interval:
+                    dreams_collection.append(dream)
+            new_analyzer = DreamsAnalyzer(dreams_collection)
+            values.append(new_analyzer.get_average_meta(meta))
+        return values

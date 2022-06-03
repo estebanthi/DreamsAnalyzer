@@ -86,3 +86,11 @@ class DataModel(QtCore.QObject):
         self.data = data
         self.dataUpdatedSignal.emit()
         return True
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, new_data):
+        self._data = new_data

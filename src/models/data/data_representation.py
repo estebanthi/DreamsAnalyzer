@@ -15,3 +15,11 @@ class DataRepresentation:
         self.hhs = dreams.filter(lambda dream: dream.is_hh)
         self.tags = tags
         self.categories = categories
+
+    @property
+    def dreams(self):
+        return self._dreams
+
+    @dreams.setter
+    def dreams(self, dreams):
+        self._dreams = dreams

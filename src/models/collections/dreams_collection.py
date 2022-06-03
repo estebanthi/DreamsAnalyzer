@@ -1,4 +1,5 @@
 from models.collections.base_collection import BaseCollection
+from models.collections.metas_collection import MetasCollection
 
 
 class DreamsCollection(BaseCollection):
@@ -7,6 +8,9 @@ class DreamsCollection(BaseCollection):
 
     def __init__(self, dreams=None):
         super().__init__(dreams)
+        self.metas = MetasCollection()
+        if dreams:
+            self.metas = dreams[0].metas
 
     """def get_average_meta(self, meta):
         metas = []

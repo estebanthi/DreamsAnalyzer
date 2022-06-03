@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QApplication
 from models.Views.main_window import MainWindow
 from models.Models.datamodel import DataModel
 from models.Controllers.datacontroller import DataController
+from models.config import Config
 
 
 class App:
@@ -16,6 +17,9 @@ class App:
 
         controller = DataController()
         model = DataModel(controller)
+
+        Config.initial_config()
+
         try:
             window = MainWindow(controller)
 
@@ -30,3 +34,7 @@ class App:
             sys.exit(qapp.exec())
         except Exception as e:
             print(e)
+
+
+if __name__ == '__main__':
+    app = App()
