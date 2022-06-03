@@ -13,6 +13,7 @@ class StatisticsTab(Tab):
         pass
 
     def updateData(self):
+        clearLayout(self.mainWindow.otherPlotsLayout_2)
         self.plotDreamsByDay()
         self.plotDreamsByHour()
         self.plotOthers(self.mainWindow.otherPlotsLayout_2)
@@ -83,7 +84,7 @@ class StatisticsTab(Tab):
                   for tag in other['tags']]
 
         widget = MplWidget()
-        widget.setFixedSize(350, 350)
+        widget.setFixedSize(250, 250)
 
         widget.pie(values, colors=other['colors'], legend_labels=other['tags'])
         widget.setTitle(other['title'])

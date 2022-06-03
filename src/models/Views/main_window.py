@@ -6,6 +6,7 @@ from models.ui.tabs.tags_tab import TagsTab
 from models.ui.tabs.dreams_tab import DreamsTab
 from models.ui.tabs.progress_tab import ProgressTab
 from models.ui.tabs.statistics_tab import StatisticsTab
+from models.ui.tabs.credentials_tab import CredentialsTab
 
 
 class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
@@ -14,11 +15,13 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         self.setupUi(self)
 
         self.controller = controller
-        self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self), ProgressTab(self), StatisticsTab(self)]
+        self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self), ProgressTab(self), StatisticsTab(self), CredentialsTab(self)]
 
     def postInit(self):
         if self.controller.model.data:
             self.updateData()
+        self.passwordDMInput.setText(self.controller.model.config.credentials['password'])
+        self.emailDMInput.setText(self.controller.model.config.credentials['email'])
 
     def updateData(self):
         for tab in self.tabs:

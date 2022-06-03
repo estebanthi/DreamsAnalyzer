@@ -1,4 +1,5 @@
 import datetime as dt
+import yaml
 
 
 from PyQt5 import QtCore
@@ -111,6 +112,24 @@ class DataController(QtCore.QObject):
             {'title': "Proportion de rêves VIVID", 'tags': ['VIVID', 'Pas VIVID'], 'colors': ['orange', 'brown'],
              'filter': {}},
         ]
+
+    def save_password(self, password):
+        data = None
+        with open('data/credentials.yml', 'r') as file:
+            data = yaml.safe_load(file)
+        if data:
+            with open('data/credentials.yml', 'w') as file:
+                data['password'] = password
+                yaml.safe_dump(data, file)
+
+    def save_email(self, email):
+        data = None
+        with open('data/credentials.yml', 'r') as file:
+            data = yaml.safe_load(file)
+        if data:
+            with open('data/credentials.yml', 'w') as file:
+                data['email'] = email
+                yaml.safe_dump(data, file)
 
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)
