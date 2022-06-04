@@ -74,7 +74,8 @@ class DataController(QtCore.QObject):
         self.view.dreamTypeSelect.setCurrentText('Tout')
 
     def handle_resolution_changed(self):
-        self.resolutionChangedSignal.emit()
+        if self.model.data:
+            self.resolutionChangedSignal.emit()
 
     def parse_resolution(self, resolution):
         if resolution == 'Jour':

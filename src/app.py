@@ -15,10 +15,10 @@ class App:
     def __init__(self):
         qapp = QApplication(sys.argv)
 
+        Config.initial_config()
+
         controller = DataController()
         model = DataModel(controller)
-
-        Config.initial_config()
 
         try:
             window = MainWindow(controller)
