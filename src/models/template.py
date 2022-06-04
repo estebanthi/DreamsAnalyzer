@@ -9,7 +9,7 @@ class Template:
         self.content = content
         self.filename = filename
 
-    def parse(self, dream, anonyms=[], nb=''):
+    def parse(self, dream, nb=''):
         self.copied = self.content
         self.replace_mark('type', 'RL' if dream.lucid else 'RN')
         self.replace_mark('title', dream.title)

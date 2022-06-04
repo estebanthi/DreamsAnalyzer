@@ -6,13 +6,13 @@ from models.ui.popups.post_popup import PostPopup
 
 class NightWidget(QWidget):
 
-    def __init__(self, controller, night, templates, currentIndex, parent=None):
+    def __init__(self, mainWindow, night, templates, parent=None):
         QWidget.__init__(self, parent)
 
         self.night = night
-        self.controller = controller
+        self.mainWindow = mainWindow
+        self.controller = mainWindow.controller
         self.templates = templates
-        self.index = currentIndex
 
         self.hbl = QHBoxLayout()
         self.setLayout(self.hbl)
@@ -45,6 +45,6 @@ class NightWidget(QWidget):
         self.button2.clicked.connect(self.openPopup)
 
     def openPopup(self):
-        if self.controller.control_post_popup(self.index):
-            self.postPopup = PostPopup(self.templates[self.index], self.night)
+        if self.controller.control_post_popup(self.mainWindow.templatesComboBox.currentIndex()):
+            self.postPopup = PostPopup(self.templates[self.mainWindow.templatesComboBox.currentIndex()], self.night)
             self.postPopup.show()

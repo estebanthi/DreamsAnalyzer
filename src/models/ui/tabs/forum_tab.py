@@ -39,4 +39,4 @@ class ForumTab(Tab):
         index = self.mainWindow.templatesComboBox.currentIndex()
         nights = self.mainWindow.controller.model.data.dreams.get_nights()
         for night in sorted(nights, key=lambda night: night.date, reverse=True):
-            self.mainWindow.nightsLayout.addWidget(NightWidget(self.mainWindow.controller, night, templates, index))
+            self.mainWindow.nightsLayout.addWidget(NightWidget(self.mainWindow, night, templates))
