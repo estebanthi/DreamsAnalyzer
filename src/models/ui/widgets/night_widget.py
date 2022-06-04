@@ -6,10 +6,13 @@ from models.ui.popups.post_popup import PostPopup
 
 class NightWidget(QWidget):
 
-    def __init__(self, night, parent=None):
+    def __init__(self, controller, night, templates, currentIndex, parent=None):
         QWidget.__init__(self, parent)
 
         self.night = night
+        self.controller = controller
+        self.templates = templates
+        self.index = currentIndex
 
         self.hbl = QHBoxLayout()
         self.setLayout(self.hbl)
@@ -22,6 +25,7 @@ class NightWidget(QWidget):
         self.rn_label = QLabel('RN :')
         self.rn_count = QSpinBox()
         self.rn_count.setValue(len(night.dreams.filter(lambda dream: not dream.lucid)))
+
 
         self.rl_label = QLabel('RL :')
         self.rl_count = QSpinBox()
@@ -41,5 +45,6 @@ class NightWidget(QWidget):
         self.button2.clicked.connect(self.openPopup)
 
     def openPopup(self):
-        self.postPopup = PostPopup(self.night)
-        self.postPopup.show()
+        if self.controller.control_post_popup(self.index):
+            self.postPopup = PostPopup(self.templates[self.index], self.night)
+            self.postPopup.show()

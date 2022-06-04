@@ -930,7 +930,7 @@
           </property>
           <widget class="QWidget" name="tab_6">
            <attribute name="title">
-            <string>Identifiants Dream Manager</string>
+            <string>Dream Manager</string>
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_18">
             <item>

@@ -47,67 +47,61 @@
       <property name="title">
        <string>Editeur</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="1" column="1">
-        <widget class="QPushButton" name="lucidityButton">
-         <property name="text">
-          <string>Lucidité</string>
-         </property>
-        </widget>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QPushButton" name="titleButton">
+           <property name="text">
+            <string>Titre</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="contentButton">
+           <property name="text">
+            <string>Contenu</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="typeButton">
+           <property name="text">
+            <string>Type (RL ou RN)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="clearButton">
-         <property name="text">
-          <string>Clareté</string>
-         </property>
-        </widget>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QPushButton" name="timeButton">
+           <property name="text">
+            <string>Heure</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="tagsButton">
+           <property name="text">
+            <string>Tags</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="nbButton">
+           <property name="text">
+            <string>Numéro</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="titleButton">
+       <item>
+        <widget class="QPushButton" name="metaButton">
          <property name="text">
-          <string>Titre</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QPushButton" name="tagsButton">
-         <property name="text">
-          <string>Tags</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QPushButton" name="moodButton">
-         <property name="text">
-          <string>Mood</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="typeButton">
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="timeButton">
-         <property name="text">
-          <string>Heure</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QPushButton" name="contentButton">
-         <property name="text">
-          <string>Contenu</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="nbButton">
-         <property name="text">
-          <string>Numéro</string>
+          <string>Meta</string>
          </property>
         </widget>
        </item>
@@ -125,7 +119,7 @@
          <x>0</x>
          <y>0</y>
          <width>780</width>
-         <height>360</height>
+         <height>356</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">

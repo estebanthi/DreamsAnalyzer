@@ -22,13 +22,11 @@ class NewTemplatePopup(QMainWindow, Ui_MainWindow):
 
         self.typeButton.clicked.connect(lambda x: self.insertTemplateText('type'))
         self.titleButton.clicked.connect(lambda x: self.insertTemplateText('title'))
-        self.clearButton.clicked.connect(lambda x: self.insertTemplateText('clear'))
-        self.moodButton.clicked.connect(lambda x: self.insertTemplateText('mood'))
-        self.lucidityButton.clicked.connect(lambda x: self.insertTemplateText('lucidity'))
         self.tagsButton.clicked.connect(lambda x: self.insertTemplateText('tags'))
         self.timeButton.clicked.connect(lambda x: self.insertTemplateText('time'))
         self.contentButton.clicked.connect(lambda x: self.insertTemplateText('content'))
         self.nbButton.clicked.connect(lambda x: self.insertTemplateText('nb'))
+        self.metaButton.clicked.connect(lambda x: self.insertTemplateText('json_name'))
 
         if mode == 'EDIT':
             if self.template:

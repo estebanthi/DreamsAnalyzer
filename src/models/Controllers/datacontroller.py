@@ -234,6 +234,12 @@ class DataController(QtCore.QObject):
         QInfoPopup("Template supprimé avec succès")
         self.templatesUpdatedSignal.emit()
 
+    def control_post_popup(self, index):
+        if index <= -1:
+            QError("Veuillez créer un template avant de générer un post")
+            return
+        return True
+
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)
         self.resolutionChangedSignal.connect(self.view.updateData)

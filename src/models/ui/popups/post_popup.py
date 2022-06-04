@@ -7,9 +7,11 @@ from models.config import Config
 
 class PostPopup(QMainWindow, Ui_MainWindow):
 
-    def __init__(self, night, parent=None):
+    def __init__(self, template, night, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+        self.template = template
 
         self.night = night
         self.dateLabel.setText(str(night.date))
@@ -22,9 +24,7 @@ class PostPopup(QMainWindow, Ui_MainWindow):
 
 
     def generate(self):
-        config = Config()
-        pathname = config['temp_template_pathname']
-        template = Template.load(pathname)
+        template = self.template
 
         nbs = []
         rn_nb = 0
