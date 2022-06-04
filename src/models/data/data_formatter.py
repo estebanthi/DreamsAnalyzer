@@ -1,16 +1,16 @@
 class DataFormatter:
     color_to_lucidity_mapper = {
-        'red': 0,
-        'pink': 1,
-        'orange': 2,
+        'blue': 0,
+        'red': 1,
+        'green': 2,
         'yellow': 3,
-        'lime': 4,
-        'green': 5,
-        'teal': 6,
-        'blue': 7,
-        'indigo': 8,
-        'purple': 9,
-        'grey': 10,
+        'grey': 4,
+        'pink': 5,
+        'purple': 6,
+        'indigo': 7,
+        'teal': 8,
+        'lime': 9,
+        'orange': 10,
     }
 
     def __init__(self, controller):
