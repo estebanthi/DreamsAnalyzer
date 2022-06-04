@@ -64,5 +64,6 @@ class HomeTab(Tab):
             self.mainWindow.controller.load_last_data()
 
     def filter_dreams(self):
-        self.mainWindow.controller.filter_dreams(self.mainWindow.startDate.date(), self.mainWindow.endDate.date(),
-                                                 self.mainWindow.dreamTypeSelect.currentText())
+        if self.mainWindow.controller.control_data():
+            self.mainWindow.controller.filter_dreams(self.mainWindow.startDate.date(), self.mainWindow.endDate.date(),
+                                                     self.mainWindow.dreamTypeSelect.currentText())

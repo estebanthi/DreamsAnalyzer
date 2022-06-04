@@ -26,6 +26,12 @@ class DataController(QtCore.QObject):
         self.model = None
         self.view = None
 
+    def control_data(self):
+        if not self.model.data:
+            QError("Veuillez d'abord charger vos données")
+            return False
+        return True
+
     def notify_no_recent_data_error(self):
         pass
 
@@ -70,8 +76,9 @@ class DataController(QtCore.QObject):
         self.model.filter_dreams(start, end, type_)
 
     def reset_filter(self):
-        self.model.load_last_data()
-        self.view.dreamTypeSelect.setCurrentText('Tout')
+        if self.control_data():
+            self.model.load_last_data()
+            self.view.dreamTypeSelect.setCurrentText('Tout')
 
     def handle_resolution_changed(self):
         if self.model.data:

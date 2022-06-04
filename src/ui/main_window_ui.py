@@ -555,7 +555,7 @@ class Ui_DreamsAnalyzer(object):
         DreamsAnalyzer.setStatusBar(self.statusbar)
 
         self.retranslateUi(DreamsAnalyzer)
-        self.tabWidget.setCurrentIndex(7)
+        self.tabWidget.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(DreamsAnalyzer)
 
