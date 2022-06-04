@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
+import os
+import pickle
 
 from models.template import Template
 
@@ -8,11 +10,15 @@ from ui.new_template_popup import Ui_MainWindow
 
 class NewTemplatePopup(QMainWindow, Ui_MainWindow):
 
-    def __init__(self, template=None, parent=None):
+    def __init__(self, controller, template=None, mode='NEW', parent=None):
         super().__init__(parent)
         self.setupUi(self)
 
+        self.template = template
+        self.controller = controller
+
         self.saveTemplateButton.clicked.connect(self.saveTemplate)
+        self.deleteTemplateButton.clicked.connect(self.deleteTemplate)
 
         self.typeButton.clicked.connect(lambda x: self.insertTemplateText('type'))
         self.titleButton.clicked.connect(lambda x: self.insertTemplateText('title'))
@@ -24,16 +30,26 @@ class NewTemplatePopup(QMainWindow, Ui_MainWindow):
         self.contentButton.clicked.connect(lambda x: self.insertTemplateText('content'))
         self.nbButton.clicked.connect(lambda x: self.insertTemplateText('nb'))
 
+        if mode == 'EDIT':
+            if self.template:
+                self.templateNameEdit.setText(template.name)
+                self.newTemplateTextEdit.setText(template.content)
+
+        if mode == 'NEW':
+            filenames = os.listdir('data/templates')
+            for i in range(len(filenames)+1):
+                if f"{i}.tp" not in filenames:
+                    self.template = Template(f"{i}.tp")
+                print(i)
+
+    def deleteTemplate(self):
+        self.controller.delete_template(self.template)
+        self.destroy()
 
     def saveTemplate(self):
-        fileDialog = QFileDialog()
-        pathname = fileDialog.getSaveFileName(directory='./templates', filter="Templates (*.tp)")[0]
-
-        if pathname:
-            template = Template(self.newTemplateTextEdit.toPlainText())
-            template.save(pathname)
-
-        self.close()
+        self.template = Template(self.template.filename, self.templateNameEdit.text(), self.newTemplateTextEdit.toPlainText())
+        self.controller.save_template(self.template)
+        self.destroy()
 
     def insertTemplateText(self, text):
         self.newTemplateTextEdit.insertPlainText('{{'+text+'}}')

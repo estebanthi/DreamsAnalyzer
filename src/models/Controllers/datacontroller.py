@@ -1,5 +1,7 @@
 import datetime as dt
 import yaml
+import os
+import pickle
 
 
 from PyQt5 import QtCore
@@ -11,11 +13,13 @@ from models.enums import TypeFilterOptions
 from models.time.daterange import Daterange
 from models.time.timerange import TimeResolution
 from models.dreams_analyzer import DreamsAnalyzer
+from models.template import Template
 
 class DataController(QtCore.QObject):
 
     resolutionChangedSignal = QtCore.pyqtSignal()
     anonymsUpdatedSignal = QtCore.pyqtSignal()
+    templatesUpdatedSignal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -199,8 +203,39 @@ class DataController(QtCore.QObject):
 
         return id_
 
+    def get_templates(self):
+        filenames = os.listdir('data/templates')
+
+        templates = []
+        for filename in filenames:
+            with open(f'data/templates/{filename}', 'rb') as file:
+                templates.append(pickle.load(file))
+        return templates
+
+    def save_template(self, template):
+        if template.name == '':
+            QError("Veuillez donner un nom à votre template")
+            return
+        try:
+            template.save()
+        except Exception:
+            QError("Erreur lors de l'enregistrement du template")
+            return
+        QInfoPopup("Template sauvegardé avec succès")
+        self.templatesUpdatedSignal.emit()
+
+    def delete_template(self, template):
+        if template:
+            try:
+                os.remove(f"data/templates/{template.filename}")
+            except Exception:
+                QError("Erreur lors de la suppression de votre template")
+                return
+        QInfoPopup("Template supprimé avec succès")
+        self.templatesUpdatedSignal.emit()
 
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)
         self.resolutionChangedSignal.connect(self.view.updateData)
         self.anonymsUpdatedSignal.connect(self.view.updateAnonyms)
+        self.templatesUpdatedSignal.connect(self.view.updateTemplates)

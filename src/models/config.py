@@ -20,7 +20,6 @@ class Config:
     def __init__(self, controller):
         self.controller = controller
         self.data = self.get_data()
-        self.template = self.get_template()
         self.anonyms = self.get_anonyms()
         self.metas = self.get_metas()
         self.credentials = self.get_credentials()
@@ -46,17 +45,6 @@ class Config:
             return None
 
         return datamodel
-
-    def get_template(self):
-        template = None
-        try:
-            with open('data/template.tp', 'r') as file:
-                template_content = file.readlines()
-                template = Template(template_content)
-        except Exception as e:
-            print(e)
-
-        return template
 
     def get_anonyms(self):
         anonyms_collection = None
@@ -112,9 +100,11 @@ class Config:
             with open('data/anonyms.yml', 'w') as file:
                 yaml.safe_dump([], file)
 
-        if not os.path.isfile('data/template.tp'):
-            with open('data/template.tp', 'w') as file:
-                file.write("{{content}}")
+        if not os.path.isdir('data/templates'):
+            os.mkdir('data/templates')
+            template = Template('0.tp', 'Template par défaut', '{{content}}')
+            with open('data/templates/0.tp', 'wb') as file:
+                pickle.dump(template, file)
 
         if not os.path.isfile('data/credentials.yml'):
             with open('data/credentials.yml', 'w') as file:

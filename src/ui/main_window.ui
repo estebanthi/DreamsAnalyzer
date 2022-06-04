@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -808,12 +808,12 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="selectedTemplateEdit"/>
+            <widget class="QComboBox" name="templatesComboBox"/>
            </item>
            <item>
-            <widget class="QPushButton" name="loadTemplateButton">
+            <widget class="QPushButton" name="editTemplateButton">
              <property name="text">
-              <string>Charger</string>
+              <string>Editer</string>
              </property>
             </widget>
            </item>

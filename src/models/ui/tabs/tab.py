@@ -24,3 +24,6 @@ class Tab(QObject):
 
     def updateAnonyms(self):
         pass
+
+    def updateTemplates(self):
+        pass

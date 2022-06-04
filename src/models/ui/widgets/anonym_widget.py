@@ -1,9 +1,6 @@
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QWidget, QLineEdit
 
 
-from models.anonymisator import Anonymisator
-
-
 class AnonymWidget(QWidget):
 
     def __init__(self, controller, id_, real='', anonym='', parent=None):

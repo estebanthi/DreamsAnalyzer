@@ -1,15 +1,14 @@
 import pickle
 
 
-from models.anonymisator import Anonymisator
-
-
 class Template:
 
-    def __init__(self, content):
+    def __init__(self, filename, name='Template par défaut', content=''):
+        self.name = name
         self.content = content
+        self.filename = filename
 
-    def parse(self, dream, nb=''):
+    def parse(self, dream, anonyms=[], nb=''):
         self.copied = self.content
         self.replace_mark('type', 'RL' if dream.lucid else 'RN')
         self.replace_mark('title', dream.title)
@@ -25,12 +24,11 @@ class Template:
         self.replace_mark('content', content)
         self.replace_mark('nb', str(nb))
 
-        anonymisator = Anonymisator()
-        records = anonymisator.get_records()
-        for record in records:
-            for real, fake in record.items():
-                if real and fake:
-                    self.copied = self.copied.replace(real, fake)
+        for anonym in anonyms:
+            real = anonym['real']
+            fake = anonym['anonym']
+            if real and fake:
+                self.copied = self.copied.replace(real, fake)
 
         return self.copied
 
@@ -39,9 +37,12 @@ class Template:
         with open(pathname, 'rb') as file:
             return pickle.load(file)
 
-    def save(self, pathname):
-        with open(pathname, 'wb') as file:
+    def save(self):
+        with open(f"data/templates/{self.filename}", 'wb') as file:
             pickle.dump(self, file)
 
     def replace_mark(self, mark, replacement):
         self.copied = self.copied.replace('{{'+mark+'}}', replacement)
+
+    def __repr__(self):
+        return self.name

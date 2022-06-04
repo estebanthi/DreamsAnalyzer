@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\Esteban\Desktop\Code\DreamsAnalyzer\ui\new_template_popup.ui'
+# Form implementation generated from reading ui file 'C:\Users\Esteban\Desktop\Code\DreamsAnalyzer\src\ui\new_template_popup.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -19,6 +19,17 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setObjectName("label")
+        self.horizontalLayout.addWidget(self.label)
+        self.templateNameEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.templateNameEdit.setObjectName("templateNameEdit")
+        self.horizontalLayout.addWidget(self.templateNameEdit)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.verticalLayout.addLayout(self.horizontalLayout)
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox.setObjectName("groupBox")
         self.gridLayout = QtWidgets.QGridLayout(self.groupBox)
@@ -55,7 +66,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 780, 390))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 780, 360))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -64,9 +75,15 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.newTemplateTextEdit)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout.addWidget(self.scrollArea)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.saveTemplateButton = QtWidgets.QPushButton(self.centralwidget)
         self.saveTemplateButton.setObjectName("saveTemplateButton")
-        self.verticalLayout.addWidget(self.saveTemplateButton)
+        self.horizontalLayout_2.addWidget(self.saveTemplateButton)
+        self.deleteTemplateButton = QtWidgets.QPushButton(self.centralwidget)
+        self.deleteTemplateButton.setObjectName("deleteTemplateButton")
+        self.horizontalLayout_2.addWidget(self.deleteTemplateButton)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -82,6 +99,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "Nom :"))
         self.groupBox.setTitle(_translate("MainWindow", "Editeur"))
         self.lucidityButton.setText(_translate("MainWindow", "Lucidité"))
         self.clearButton.setText(_translate("MainWindow", "Clareté"))
@@ -93,3 +111,4 @@ class Ui_MainWindow(object):
         self.contentButton.setText(_translate("MainWindow", "Contenu"))
         self.nbButton.setText(_translate("MainWindow", "Numéro"))
         self.saveTemplateButton.setText(_translate("MainWindow", "Sauvegarder"))
+        self.deleteTemplateButton.setText(_translate("MainWindow", "Supprimer"))

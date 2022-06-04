@@ -8,6 +8,7 @@ from models.ui.tabs.progress_tab import ProgressTab
 from models.ui.tabs.statistics_tab import StatisticsTab
 from models.ui.tabs.credentials_tab import CredentialsTab
 from models.ui.tabs.anonyms_tab import AnonymsTab
+from models.ui.tabs.forum_tab import ForumTab
 
 
 class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
@@ -17,13 +18,15 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
 
         self.controller = controller
         self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self), ProgressTab(self), StatisticsTab(self),
-                     AnonymsTab(self), CredentialsTab(self)]
+                     AnonymsTab(self), CredentialsTab(self), ForumTab(self)]
 
     def postInit(self):
         if self.controller.model.data:
             self.updateData()
         if self.controller.get_anonyms():
             self.updateAnonyms()
+        if self.controller.get_templates():
+            self.updateTemplates()
         self.passwordDMInput.setText(self.controller.model.config.credentials['password'])
         self.emailDMInput.setText(self.controller.model.config.credentials['email'])
 
@@ -34,6 +37,10 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
     def updateAnonyms(self):
         for tab in self.tabs:
             tab.updateAnonyms()
+
+    def updateTemplates(self):
+        for tab in self.tabs:
+            tab.updateTemplates()
 
     """
 
