@@ -15,6 +15,9 @@ class Ui_DreamsAnalyzer(object):
     def setupUi(self, DreamsAnalyzer):
         DreamsAnalyzer.setObjectName("DreamsAnalyzer")
         DreamsAnalyzer.resize(935, 735)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/assets/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        DreamsAnalyzer.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(DreamsAnalyzer)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -621,3 +624,4 @@ class Ui_DreamsAnalyzer(object):
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_8), _translate("DreamsAnalyzer", "Graphiques personnalisés"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("DreamsAnalyzer", "Paramètres"))
 from mplwidget import MplWidget
+import ressources_rc

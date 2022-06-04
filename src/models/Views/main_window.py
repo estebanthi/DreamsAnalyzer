@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtGui import QIcon
 
 from ui.main_window_ui import Ui_DreamsAnalyzer
 from models.ui.tabs.home_tab import HomeTab
