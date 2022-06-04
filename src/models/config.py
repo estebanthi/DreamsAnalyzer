@@ -110,7 +110,7 @@ class Config:
 
         if not os.path.isfile('data/anonyms.yml'):
             with open('data/anonyms.yml', 'w') as file:
-                yaml.dump({}, file)
+                yaml.safe_dump([], file)
 
         if not os.path.isfile('data/template.tp'):
             with open('data/template.tp', 'w') as file:

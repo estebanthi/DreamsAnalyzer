@@ -15,6 +15,7 @@ from models.dreams_analyzer import DreamsAnalyzer
 class DataController(QtCore.QObject):
 
     resolutionChangedSignal = QtCore.pyqtSignal()
+    anonymsUpdatedSignal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -131,6 +132,75 @@ class DataController(QtCore.QObject):
                 data['email'] = email
                 yaml.safe_dump(data, file)
 
+    def get_anonyms(self):
+        with open('data/anonyms.yml', 'r') as file:
+            anonyms = yaml.safe_load(file)
+            return anonyms
+
+    def get_next_anonym_id(self):
+        anonyms = []
+        with open('data/anonyms.yml', 'r') as file:
+            anonyms = yaml.safe_load(file)
+
+        for i in range(len(anonyms)):
+            if i not in [anonym['id_'] for anonym in anonyms]:
+                return i
+        return 0
+
+    def delete_anonym(self, id_):
+        anonyms = []
+        with open('data/anonyms.yml', 'r') as file:
+            anonyms = yaml.safe_load(file)
+
+        for index, anonym in enumerate(anonyms):
+            if anonym['id_'] == id_:
+                del(anonyms[index])
+
+        with open('data/anonyms.yml', 'w') as file:
+            yaml.safe_dump(anonyms, file)
+
+        self.anonymsUpdatedSignal.emit()
+
+    def update_real(self, id_, real):
+        anonyms = []
+        with open('data/anonyms.yml', 'r') as file:
+            anonyms = yaml.safe_load(file)
+
+        for index, anonym in enumerate(anonyms):
+            if anonym['id_'] == id_:
+                anonyms[index]['real'] = real
+
+        with open('data/anonyms.yml', 'w') as file:
+            yaml.safe_dump(anonyms, file)
+
+    def update_anonym(self, id_, anonym):
+        anonyms = []
+        with open('data/anonyms.yml', 'r') as file:
+            anonyms = yaml.safe_load(file)
+
+        for index, record in enumerate(anonyms):
+            if record['id_'] == id_:
+                anonyms[index]['anonym'] = anonym
+
+        with open('data/anonyms.yml', 'w') as file:
+            yaml.safe_dump(anonyms, file)
+
+    def add_anonym(self):
+        id_ = self.get_next_anonym_id()
+
+        anonyms = []
+        with open('data/anonyms.yml', 'r') as file:
+            anonyms = yaml.safe_load(file)
+
+        anonyms.append({'id_': id_, 'real': '', 'anonym': ''})
+
+        with open('data/anonyms.yml', 'w') as file:
+            yaml.safe_dump(anonyms, file)
+
+        return id_
+
+
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)
         self.resolutionChangedSignal.connect(self.view.updateData)
+        self.anonymsUpdatedSignal.connect(self.view.updateAnonyms)

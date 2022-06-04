@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -862,11 +862,17 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="saveAnonymsButton">
-            <property name="text">
-             <string>Sauvegarder</string>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
-           </widget>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
@@ -914,7 +920,7 @@
       </widget>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
-        <string>Réglages</string>
+        <string>Paramètres</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>

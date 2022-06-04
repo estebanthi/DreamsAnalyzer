@@ -21,3 +21,6 @@ class Tab(QObject):
     @abstractmethod
     def updateData(self):
         pass
+
+    def updateAnonyms(self):
+        pass

@@ -484,9 +484,8 @@ class Ui_DreamsAnalyzer(object):
         self.addAnonymButton = QtWidgets.QPushButton(self.tab_4)
         self.addAnonymButton.setObjectName("addAnonymButton")
         self.horizontalLayout_15.addWidget(self.addAnonymButton)
-        self.saveAnonymsButton = QtWidgets.QPushButton(self.tab_4)
-        self.saveAnonymsButton.setObjectName("saveAnonymsButton")
-        self.horizontalLayout_15.addWidget(self.saveAnonymsButton)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_15.addItem(spacerItem1)
         self.verticalLayout_10.addLayout(self.horizontalLayout_15)
         self.scrollArea_4 = QtWidgets.QScrollArea(self.tab_4)
         self.scrollArea_4.setWidgetResizable(True)
@@ -553,7 +552,7 @@ class Ui_DreamsAnalyzer(object):
         DreamsAnalyzer.setStatusBar(self.statusbar)
 
         self.retranslateUi(DreamsAnalyzer)
-        self.tabWidget.setCurrentIndex(7)
+        self.tabWidget.setCurrentIndex(6)
         self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(DreamsAnalyzer)
 
@@ -608,7 +607,6 @@ class Ui_DreamsAnalyzer(object):
         self.newTemplateButton.setText(_translate("DreamsAnalyzer", "Nouveau"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("DreamsAnalyzer", "Attrape Songes"))
         self.addAnonymButton.setText(_translate("DreamsAnalyzer", "Ajouter"))
-        self.saveAnonymsButton.setText(_translate("DreamsAnalyzer", "Sauvegarder"))
         self.label_21.setText(_translate("DreamsAnalyzer", "Réel"))
         self.label_22.setText(_translate("DreamsAnalyzer", "Anonymisé"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("DreamsAnalyzer", "Anonymisateur"))
@@ -617,5 +615,5 @@ class Ui_DreamsAnalyzer(object):
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_6), _translate("DreamsAnalyzer", "Identifiants Dream Manager"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_7), _translate("DreamsAnalyzer", "Métadonnées"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_8), _translate("DreamsAnalyzer", "Graphiques personnalisés"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("DreamsAnalyzer", "Réglages"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("DreamsAnalyzer", "Paramètres"))
 from mplwidget import MplWidget
