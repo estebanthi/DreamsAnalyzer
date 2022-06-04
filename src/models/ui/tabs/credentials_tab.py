@@ -11,6 +11,7 @@ class CredentialsTab(Tab):
     def connect(self):
         self.mainWindow.passwordDMInput.textChanged.connect(self.mainWindow.controller.save_password)
         self.mainWindow.emailDMInput.textChanged.connect(self.mainWindow.controller.save_email)
+        self.mainWindow.autosyncCheckBox.stateChanged.connect(self.mainWindow.controller.handle_autosync_changed)
 
     def updateData(self):
         pass

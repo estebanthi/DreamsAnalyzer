@@ -1,4 +1,5 @@
 from PyQt5 import QtCore
+import yaml
 
 
 from models.enums import TypeFilterOptions, DataLoadingMethod
@@ -17,7 +18,7 @@ class DataModel(QtCore.QObject):
         self.controller = controller
         self.config = Config(self.controller)
 
-        self.load_last_data()
+        self.load_last_data(initial=True)
 
     def filter_dreams(self, start=None, end=None, type_=TypeFilterOptions.ALL):
         if start is None:
@@ -69,9 +70,21 @@ class DataModel(QtCore.QObject):
         self.dataUpdatedSignal.emit()
         return data
 
-    def load_last_data(self):
+    def load_last_data(self, initial=False):
         data_loader = DataLoader(self.controller)
-        json_data = data_loader.load_data(DataLoadingMethod.LAST_DATA)
+
+        autosync = False
+
+        if initial:
+            with open('data/config.yml', 'r') as file:
+                data = yaml.safe_load(file)
+                autosync = data['autosync']
+
+        loading_method = DataLoadingMethod.REMOTE if autosync else DataLoadingMethod.LAST_DATA
+        json_data = data_loader.load_data(loading_method)
+
+        if autosync and json_data:
+            self.controller.notify_synced_successfully()
 
         data_formatter = DataFormatter(self.controller)
         formatted_data = None

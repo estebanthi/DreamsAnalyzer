@@ -535,6 +535,9 @@ class Ui_DreamsAnalyzer(object):
         self.passwordDMInput.setEchoMode(QtWidgets.QLineEdit.Password)
         self.passwordDMInput.setObjectName("passwordDMInput")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.passwordDMInput)
+        self.autosyncCheckBox = QtWidgets.QCheckBox(self.tab_6)
+        self.autosyncCheckBox.setObjectName("autosyncCheckBox")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.autosyncCheckBox)
         self.horizontalLayout_18.addLayout(self.formLayout)
         self.tabWidget_2.addTab(self.tab_6, "")
         self.tab_7 = QtWidgets.QWidget()
@@ -552,7 +555,7 @@ class Ui_DreamsAnalyzer(object):
         DreamsAnalyzer.setStatusBar(self.statusbar)
 
         self.retranslateUi(DreamsAnalyzer)
-        self.tabWidget.setCurrentIndex(5)
+        self.tabWidget.setCurrentIndex(7)
         self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(DreamsAnalyzer)
 
@@ -612,7 +615,8 @@ class Ui_DreamsAnalyzer(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("DreamsAnalyzer", "Anonymisateur"))
         self.label_5.setText(_translate("DreamsAnalyzer", "Email"))
         self.label_7.setText(_translate("DreamsAnalyzer", "Mot de passe"))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_6), _translate("DreamsAnalyzer", "Identifiants Dream Manager"))
+        self.autosyncCheckBox.setText(_translate("DreamsAnalyzer", "Synchronisation automatique"))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_6), _translate("DreamsAnalyzer", "Dream Manager"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_7), _translate("DreamsAnalyzer", "Métadonnées"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_8), _translate("DreamsAnalyzer", "Graphiques personnalisés"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("DreamsAnalyzer", "Paramètres"))

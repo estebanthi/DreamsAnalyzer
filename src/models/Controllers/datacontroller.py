@@ -44,6 +44,9 @@ class DataController(QtCore.QObject):
     def notify_io_error(self):
         QError('Impossible de charger vos données')
 
+    def notify_synced_successfully(self):
+        QInfoPopup('Synchronisation avec Dream Manager réalisée avec succès')
+
     def sync_data(self):
         success = self.model.remote_load_data()
         if success:
@@ -239,6 +242,15 @@ class DataController(QtCore.QObject):
             QError("Veuillez créer un template avant de générer un post")
             return
         return True
+
+    def handle_autosync_changed(self, state):
+        state = True if state == 2 else False
+        with open('data/config.yml', 'r') as file:
+            data = yaml.safe_load(file)
+
+            with open('data/config.yml', 'w') as wfile:
+                data['autosync'] = state
+                yaml.safe_dump(data, wfile)
 
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)

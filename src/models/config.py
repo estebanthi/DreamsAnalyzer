@@ -109,3 +109,7 @@ class Config:
         if not os.path.isfile('data/credentials.yml'):
             with open('data/credentials.yml', 'w') as file:
                 yaml.dump({'email': '', 'password': ''}, file)
+
+        if not os.path.isfile('data/config.yml'):
+            with open('data/config.yml', 'w') as file:
+                yaml.dump({'autosync': False}, file)

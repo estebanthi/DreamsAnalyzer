@@ -23,7 +23,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -956,6 +956,13 @@
                <widget class="QLineEdit" name="passwordDMInput">
                 <property name="echoMode">
                  <enum>QLineEdit::Password</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QCheckBox" name="autosyncCheckBox">
+                <property name="text">
+                 <string>Synchronisation automatique</string>
                 </property>
                </widget>
               </item>
