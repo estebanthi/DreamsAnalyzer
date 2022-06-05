@@ -1,7 +1,5 @@
 # Dreams Analyzer
 
----
-
 Dreams Analyzer is a software made in Python, whose purpose is to analyse your dreams and produce statistics. It is very useful to practice lucid dreaming. 
 
 It is made in french, perhaps I will add a translation later.
@@ -9,8 +7,6 @@ It is made in french, perhaps I will add a translation later.
 
 
 ## Features
-
----
 
 - Autosync dreams from your dream journal
 
@@ -28,13 +24,11 @@ It is made in french, perhaps I will add a translation later.
 
 ## Views
 
----
+**Some examples of the UI :**
 
-<u>Some examples of the UI :</u>
+![](https://zupimages.net/up/22/22/e8oo.png)
 
-![](C:\Users\Esteban\Pictures\da1.PNG)
-
-![](C:\Users\Esteban\Pictures\da2.PNG)
+![](https://zupimages.net/up/22/22/dqd0.png)
 
 
 
