@@ -4,8 +4,6 @@ Dreams Analyzer is a software made in Python, whose purpose is to analyse your d
 
 It is made in french, perhaps I will add a translation later.
 
-
-
 ## Features
 
 - Autosync dreams from your dream journal
@@ -20,8 +18,6 @@ It is made in french, perhaps I will add a translation later.
 
 - And a lot more...
 
-
-
 ## Views
 
 **Some examples of the UI :**
@@ -30,11 +26,7 @@ It is made in french, perhaps I will add a translation later.
 
 ![](https://zupimages.net/up/22/22/dqd0.png)
 
-
-
 ## Installation
-
----
 
 This app is intended to be compiled into an executable. You can do it simply in some steps :
 
