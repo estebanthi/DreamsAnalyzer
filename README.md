@@ -4,6 +4,8 @@ Dreams Analyzer is a software made in Python, whose purpose is to analyse your d
 
 It is made in french, perhaps I will add a translation later.
 
+Woks with [Dream Manager](https://astucesweb.fr/dream-manager/).
+
 ## Features
 
 - Autosync dreams from your dream journal
@@ -34,6 +36,8 @@ This app is intended to be compiled into an executable. You can do it simply in 
 
 2. Run the following command at the root of the project : `pyinstaller src/app.py --add-binary "src/models;models" --add-binary "src/ui;ui" --paths 'src/' --windowed --icon 'icon.ico' -n "Dreams Analyzer" --onefile`
 
-3. Delete `build` folder and keep `dist`. You can rename it as you want.
+3. Delete `build` folder and keep `dist`. You can rename it as you want
 
-4. Launch the executable and wait because the app while reboot when launched for the first time.
+4. Launch the executable and wait because the app while reboot when launched for the first time
+
+5. To use the app, you have to store your dreams in [Dream Manager](https://astucesweb.fr/dream-manager/)
