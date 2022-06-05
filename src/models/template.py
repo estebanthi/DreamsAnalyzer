@@ -18,7 +18,7 @@ class Template:
 
         for meta in dream.metas:
             if hasattr(meta, 'value'):
-                if meta.value:
+                if meta.value is not None:
                     self.replace_mark(meta.json_name, str(meta.value))
 
         content = dream.content
