@@ -13,7 +13,7 @@ class DreamWidget(QWidget):
 
         self.dream = dream
 
-        self.label = QLabel(dream.title)
+        self.label = QLabel(dream.title) if dream.title else QLabel(str(dream.date))
         self.button = QPushButton('Voir')
 
         self.hbl.addWidget(self.label)

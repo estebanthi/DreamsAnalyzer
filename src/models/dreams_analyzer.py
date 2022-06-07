@@ -35,7 +35,10 @@ class DreamsAnalyzer:
 
     def get_most_frequent_tag(self):
         counter = self.get_tags_counter()
-        return counter[0][0]
+        if counter:
+            return counter[0][0].label
+        else:
+            return 'Inconnu'
 
     def get_categories_counter(self):
         tags = [tag for dream in self.dreams for tag in dream.tags]
@@ -46,9 +49,11 @@ class DreamsAnalyzer:
 
     def get_most_frequent_category(self):
         counter = self.get_categories_counter()
+        if not counter:
+            return 'Inconnu'
         if counter[0][0] is None:
-            return counter[1][0]
-        return counter[0][0]
+            return counter[1][0].label
+        return counter[0][0].label
 
     def get_total_words(self):
         return sum([len(dream.content.split()) for dream in self.dreams])

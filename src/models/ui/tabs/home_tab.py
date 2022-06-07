@@ -35,8 +35,8 @@ class HomeTab(Tab):
         self.mainWindow.lucidDreamsRate.setValue(dreams_analyzer.get_lucid_dreams_rate())
         self.mainWindow.averageLength.setValue(dreams_analyzer.get_average_dreams_length())
         self.mainWindow.averageDreamsPerNight.setValue(dreams_analyzer.get_average_dreams_per_nights())
-        self.mainWindow.mostFrequentTag.setText(dreams_analyzer.get_most_frequent_tag().label)
-        self.mainWindow.mostFrequentCategory.setText(dreams_analyzer.get_most_frequent_category().label)
+        self.mainWindow.mostFrequentTag.setText(dreams_analyzer.get_most_frequent_tag())
+        self.mainWindow.mostFrequentCategory.setText(dreams_analyzer.get_most_frequent_category())
         self.mainWindow.mostFrequentHour.setTime(dreams_analyzer.get_most_frequent_hour())
         self.mainWindow.totalWords.setValue(dreams_analyzer.get_total_words())
 
