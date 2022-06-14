@@ -27,7 +27,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -520,7 +520,7 @@
                <x>0</x>
                <y>0</y>
                <width>440</width>
-               <height>618</height>
+               <height>616</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -578,7 +578,7 @@
                <x>0</x>
                <y>0</y>
                <width>439</width>
-               <height>618</height>
+               <height>616</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -698,7 +698,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>871</width>
-                <height>263</height>
+                <height>262</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="metaPlotLayout"/>
@@ -756,7 +756,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>871</width>
-                <height>506</height>
+                <height>505</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="otherPlotsLayout_2"/>
@@ -784,7 +784,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>645</height>
+             <height>644</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
@@ -842,7 +842,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>573</height>
+             <height>571</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
@@ -891,7 +891,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>610</height>
+             <height>608</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="anonymLayout_3">
@@ -930,7 +930,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_2">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_6">
            <attribute name="title">
@@ -974,14 +974,58 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="tab_7">
-           <attribute name="title">
-            <string>Métadonnées</string>
-           </attribute>
-          </widget>
           <widget class="QWidget" name="tab_8">
            <attribute name="title">
             <string>Graphiques personnalisés</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_13">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_19">
+              <item>
+               <widget class="QPushButton" name="addGraphButton">
+                <property name="text">
+                 <string>Ajouter</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QScrollArea" name="customChartsScroll">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="customCharts">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>867</width>
+                 <height>558</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="customChartsLayout"/>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_7">
+           <attribute name="title">
+            <string>Métadonnées</string>
            </attribute>
           </widget>
          </widget>

@@ -27,3 +27,6 @@ class Tab(QObject):
 
     def updateTemplates(self):
         pass
+
+    def updateCharts(self):
+        pass

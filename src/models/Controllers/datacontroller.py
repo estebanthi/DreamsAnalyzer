@@ -20,6 +20,7 @@ class DataController(QtCore.QObject):
     resolutionChangedSignal = QtCore.pyqtSignal()
     anonymsUpdatedSignal = QtCore.pyqtSignal()
     templatesUpdatedSignal = QtCore.pyqtSignal()
+    chartsUpdatedSignal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -122,12 +123,11 @@ class DataController(QtCore.QObject):
         return metas
 
     def get_other_plots(self):
-        return [
-            {'title': "Méthodes d'inductions", 'tags': ['WILD', 'DILD'], 'colors': ['teal', 'brown'], 'filter': {}},
-            {'title': "Proportion de RL WBTB", 'tags': ['WBTB', 'Pas WBTB'], 'colors': ['aquamarine', 'mediumseagreen'], 'filter': {'lucid': True}},
-            {'title': "Proportion de rêves VIVID", 'tags': ['VIVID', 'Pas VIVID'], 'colors': ['orange', 'brown'],
-             'filter': {}},
-        ]
+
+        charts = []
+        with open('data/charts.yml', 'r') as file:
+            charts = yaml.safe_load(file)
+        return charts
 
     def save_password(self, password):
         data = None
@@ -260,8 +260,66 @@ class DataController(QtCore.QObject):
                 data['autosync'] = state
                 yaml.safe_dump(data, wfile)
 
+    def delete_chart(self, id_):
+        charts = []
+        with open('data/charts.yml', 'r') as file:
+            charts = yaml.safe_load(file)
+
+        for index, chart in enumerate(charts):
+            if chart['id_'] == id_:
+                del(charts[index])
+
+        with open('data/charts.yml', 'w') as file:
+            yaml.safe_dump(charts, file)
+
+        self.chartsUpdatedSignal.emit()
+
+    def get_next_chart_id(self):
+        charts = []
+        with open('data/charts.yml', 'r') as file:
+            charts = yaml.safe_load(file)
+
+        for i in range(len(charts)):
+            if i not in [chart['id_'] for chart in charts]:
+                return i
+        return len(charts)
+
+    def delete_chart(self, id_):
+        charts = []
+        with open('data/charts.yml', 'r') as file:
+            charts = yaml.safe_load(file)
+
+        for index, chart in enumerate(charts):
+            if chart['id_'] == id_:
+                del(charts[index])
+
+        with open('data/charts.yml', 'w') as file:
+            yaml.safe_dump(charts, file)
+
+        self.chartsUpdatedSignal.emit()
+
+    def save_chart(self, chart):
+        charts = []
+        with open('data/charts.yml', 'r') as file:
+            charts = yaml.safe_load(file)
+
+        id_ = chart['id_']
+
+        if id_ < len(charts):
+            charts[id_] = chart
+
+        else:
+            charts.append(chart)
+
+        with open('data/charts.yml', 'w') as file:
+            yaml.safe_dump(charts, file)
+
+        self.chartsUpdatedSignal.emit()
+
+
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)
         self.resolutionChangedSignal.connect(self.view.updateData)
         self.anonymsUpdatedSignal.connect(self.view.updateAnonyms)
         self.templatesUpdatedSignal.connect(self.view.updateTemplates)
+        self.chartsUpdatedSignal.connect(self.view.updateCharts)

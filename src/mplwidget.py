@@ -41,11 +41,11 @@ class MplWidget(QtWidgets.QWidget):
         self.canvas.ax.plot(x, y, c=color)
         self.canvas.draw()
 
-    def pie(self, values, labels=None, legend=None, legend_labels=None, colors=None):
+    def pie(self, values, labels=None, legend=None, legend_labels=None, colors=None, bbox_to_anchor=None):
         if values != [0 for value in range(len(values))]:
             self.canvas.ax.pie(values, labels=labels, colors=colors, autopct=lambda p: '{:.0f}%'.format(p))
             if legend or legend_labels:
-                self.canvas.ax.legend(loc='best', labels=legend_labels)
+                self.canvas.ax.legend(loc='upper left', labels=legend_labels, bbox_to_anchor=bbox_to_anchor)
 
         self.canvas.draw()
 

@@ -113,3 +113,13 @@ class Config:
         if not os.path.isfile('data/config.yml'):
             with open('data/config.yml', 'w') as file:
                 yaml.dump({'autosync': False}, file)
+
+        if not os.path.isfile('data/charts.yml'):
+            with open('data/charts.yml', 'w') as file:
+
+                charts = [
+            {'id_': 0, 'title': "Méthodes d'inductions", 'tags': [['WILD', 'IN', '#008080', {}], ['DILD', 'IN', '#a52a2a', {}]]},
+            {'id_': 1, 'title': "Proportion de RL WBTB", 'tags': [['WBTB', 'IN', '#458b74', {'lucid': True}], ['WBTB', 'NOT IN', '#3cb371', {'lucid':True}]]},
+            {'id_': 2, 'title': "Proportion de rêves VIVID", 'tags': [['VIVID', 'IN', '#ff5800', {}], ['VIVID', 'NOT IN', '#a52a2a', {}]],},
+        ]
+                yaml.dump(charts, file)

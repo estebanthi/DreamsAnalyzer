@@ -18,6 +18,10 @@ class StatisticsTab(Tab):
         self.plotDreamsByHour()
         self.plotOthers(self.mainWindow.otherPlotsLayout_2)
 
+    def updateCharts(self):
+        clearLayout(self.mainWindow.otherPlotsLayout_2)
+        self.plotOthers(self.mainWindow.otherPlotsLayout_2)
+
     def plotDreamsByDay(self):
         dreams_by_day = self.mainWindow.controller.model.data.dreams.group_by_day()
         lucid_dreams_by_day = {day: len(list(filter(lambda dream: dream.lucid, dreams_by_day[day]))) for day in
@@ -71,22 +75,37 @@ class StatisticsTab(Tab):
 
         dreams = self.mainWindow.controller.model.data.dreams
 
-        filter = other['filter']
-        if filter:
-            if filter['lucid']:
-                dreams = dreams.filter(lambda dream: dream.lucid)
-            else:
-                dreams = dreams.filter(lambda dream: not dream.lucid)
+        tags = other['tags']
 
+        labels = [("Pas "+tag[0] if tag[1] == 'NOT IN' else tag[0]) for tag in tags]
+        colors = [tag[2] for tag in tags]
 
-        values = [len(dreams.filter(lambda dream: tag not in dream.tags)) if "Pas " in tag
-                  else len(dreams.filter(lambda dream: tag in dream.tags))
-                  for tag in other['tags']]
+        collections = []
+        for tag in tags:
+            filter = tag[3]
+            collection = dreams
+
+            if filter:
+                if filter['lucid'] is True:
+                    collection = dreams.filter(lambda  dream: dream.lucid)
+                if filter['lucid'] is False:
+                    collection = dreams.filter(lambda dream: not dream.lucid)
+
+            collections.append(collection)
+
+        values = []
+        for tag, collection in zip(tags, collections):
+            value = 0
+            if tag[1] == 'NOT IN':
+                value = len(collection.filter(lambda dream: tag[0] not in dream.tags))
+            if tag[1] == 'IN':
+                value = len(collection.filter(lambda dream: tag[0] in dream.tags))
+            values.append(value)
 
         widget = MplWidget()
-        widget.setFixedSize(250, 250)
+        widget.setFixedSize(500, 400)
 
-        widget.pie(values, colors=other['colors'], legend_labels=other['tags'])
+        widget.pie(values, colors=colors, legend_labels=labels, bbox_to_anchor=(0.8, 1))
         widget.setTitle(other['title'])
 
         layout.addWidget(widget)
