@@ -3,11 +3,12 @@ from models.enums import MetaType
 
 class Meta:
 
-    def __init__(self, name, json_name, type_, value=None):
+    def __init__(self, name, json_name, type_, value=None, id_=None):
         self.name = name
         self.json_name = json_name
         self.type_ = type_
         self.value = value
+        self.id_ = id_
 
     def get_from_json_dream(self, json_dream):
         try:

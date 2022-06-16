@@ -85,9 +85,9 @@ class Config:
 
         if not os.path.isfile('data/metas.dat'):
             metas = MetasCollection()
-            clear = Meta('Clarté', 'clear', MetaType.NUMERIC)
-            mood = Meta('Mood', 'note', MetaType.NUMERIC)
-            lucidity = Meta('Lucidité', 'lucidity', MetaType.NUMERIC)
+            clear = Meta('Clarté', 'clear', MetaType.NUMERIC, id_=0)
+            mood = Meta('Mood', 'note', MetaType.NUMERIC, id_=1)
+            lucidity = Meta('Lucidité', 'lucidity', MetaType.NUMERIC, id_=2)
 
             metas.append(clear)
             metas.append(mood)

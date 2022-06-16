@@ -17,3 +17,6 @@ class Dream:
 
     def __eq__(self, other):
         return self.title == other.title and self.date == other.date and self.lucid == other.lucid
+
+    def clean(self):
+        self.metas.items = [meta for meta in self.metas if meta.value is not None]

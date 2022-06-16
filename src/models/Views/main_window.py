@@ -11,6 +11,7 @@ from models.ui.tabs.credentials_tab import CredentialsTab
 from models.ui.tabs.anonyms_tab import AnonymsTab
 from models.ui.tabs.forum_tab import ForumTab
 from models.ui.tabs.custom_charts_tab import CustomChartsTab
+from models.ui.tabs.metaconfig_tab import MetaconfigTab
 
 
 class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
@@ -20,7 +21,7 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
 
         self.controller = controller
         self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self), ProgressTab(self), StatisticsTab(self),
-                     AnonymsTab(self), CredentialsTab(self), ForumTab(self), CustomChartsTab(self)]
+                     AnonymsTab(self), CredentialsTab(self), ForumTab(self), CustomChartsTab(self), MetaconfigTab(self)]
 
     def postInit(self):
         if self.controller.get_templates():
@@ -31,6 +32,8 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
             self.updateAnonyms()
         if self.controller.get_other_plots():
             self.updateCharts()
+        if self.controller.get_metas():
+            self.updateMetas()
         self.passwordDMInput.setText(self.controller.model.config.credentials['password'])
         self.emailDMInput.setText(self.controller.model.config.credentials['email'])
 
@@ -50,10 +53,6 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
         for tab in self.tabs:
             tab.updateCharts()
 
-    """
-
-    def update_as_page(self):
-        nights = self.dreams.get_nights()
-        for night in sorted(nights, key=lambda night: night.date, reverse=True):
-            self.nightsLayout.addWidget(NightWidget(night))
-"""
+    def updateMetas(self):
+        for tab in self.tabs:
+            tab.updateMetas()

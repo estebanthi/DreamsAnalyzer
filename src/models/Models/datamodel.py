@@ -1,3 +1,5 @@
+import copy
+
 from PyQt5 import QtCore
 import yaml
 
@@ -97,6 +99,7 @@ class DataModel(QtCore.QObject):
             data = data_decoder.decode(formatted_data, self.config.metas)
 
         self.data = data
+        self.check_data()
         self.dataUpdatedSignal.emit()
         return True
 
@@ -107,3 +110,13 @@ class DataModel(QtCore.QObject):
     @data.setter
     def data(self, new_data):
         self._data = new_data
+
+    def check_data(self):
+        if self.data.dreams:
+            initial_metas = copy.copy(self.data.dreams[0].metas)
+            for dream in self.data.dreams:
+                dream.clean()
+            final_metas = self.data.dreams[0].metas
+
+            if len(initial_metas) != len(final_metas):
+                self.controller.notify_metas_error(initial_metas, final_metas)

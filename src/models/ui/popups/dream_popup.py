@@ -43,5 +43,6 @@ class DreamPopup(QMainWindow, Ui_MainWindow):
 
     def addMetas(self):
         for meta in self.dream.metas:
-            self.mainLayout.addWidget(MetaWidget(meta.name, meta.value, True))
+            if meta.value:
+                self.mainLayout.addWidget(MetaWidget(meta.name, meta.value, True))
 

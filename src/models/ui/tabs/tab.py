@@ -30,3 +30,6 @@ class Tab(QObject):
 
     def updateCharts(self):
         pass
+
+    def updateMetas(self):
+        pass

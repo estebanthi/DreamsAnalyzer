@@ -14,6 +14,9 @@ from models.time.daterange import Daterange
 from models.time.timerange import TimeResolution
 from models.dreams_analyzer import DreamsAnalyzer
 from models.template import Template
+from models.dataclasses.meta import Meta
+from models.enums import MetaType
+
 
 class DataController(QtCore.QObject):
 
@@ -21,6 +24,7 @@ class DataController(QtCore.QObject):
     anonymsUpdatedSignal = QtCore.pyqtSignal()
     templatesUpdatedSignal = QtCore.pyqtSignal()
     chartsUpdatedSignal = QtCore.pyqtSignal()
+    updateMetasSignal = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -316,6 +320,70 @@ class DataController(QtCore.QObject):
 
         self.chartsUpdatedSignal.emit()
 
+    def get_metas(self):
+        metas = []
+        with open('data/metas.dat', 'rb') as file:
+            metas = pickle.load(file)
+        return metas
+
+    def update_meta(self, field, id_, value):
+        metas = []
+        with open('data/metas.dat', 'rb') as file:
+            metas = pickle.load(file)
+
+
+        for index, meta in enumerate(metas):
+            if meta.id_ == id_:
+                setattr(meta, field, value)
+
+        with open('data/metas.dat', 'wb') as file:
+            pickle.dump(metas, file)
+
+    def notify_metas_error(self, initial_metas, final_metas):
+        metas = [meta.name for meta in initial_metas if meta not in final_metas]
+        QError(f"Les métadonnées suivantes ne sont pas valides : {' - '.join(metas)}")
+
+    def delete_meta(self, id_):
+        metas = []
+        with open('data/metas.dat', 'rb') as file:
+            metas = pickle.load(file)
+
+        for index, meta in enumerate(metas):
+            if meta.id_ == id_:
+                del(metas.items[index])
+
+        with open('data/metas.dat', 'wb') as file:
+            pickle.dump(metas, file)
+
+        self.updateMetasSignal.emit()
+
+    def get_next_meta_id(self):
+        metas = []
+        with open('data/metas.dat', 'rb') as file:
+            metas = pickle.load(file)
+
+        for i in range(len(metas)):
+            if i not in [meta.id_ for meta in metas]:
+                return i
+        return len(metas)
+
+    def add_meta(self):
+        with open('data/metas.dat', 'rb') as file:
+            metas = pickle.load(file)
+        id_ = self.get_next_meta_id()
+
+        meta = Meta('', '', MetaType.NUMERIC, id_=id_)
+
+        if id_ < len(metas):
+            metas[id_] = meta
+
+        else:
+            metas.append(meta)
+
+        with open('data/metas.dat', 'wb') as file:
+            pickle.dump(metas, file)
+
+        self.updateMetasSignal.emit()
 
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)
@@ -323,3 +391,4 @@ class DataController(QtCore.QObject):
         self.anonymsUpdatedSignal.connect(self.view.updateAnonyms)
         self.templatesUpdatedSignal.connect(self.view.updateTemplates)
         self.chartsUpdatedSignal.connect(self.view.updateCharts)
+        self.updateMetasSignal.connect(self.view.updateMetas)

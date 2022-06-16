@@ -20,6 +20,9 @@ class BaseCollection:
         except IndexError:
             raise StopIteration
 
+    def __setitem__(self, key, value):
+        self.items[key] = value
+
     def __repr__(self):
         return str(self.items)
 
