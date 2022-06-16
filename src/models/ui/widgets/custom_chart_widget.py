@@ -27,5 +27,4 @@ class CustomChartWidget(QWidget):
         self.edit_button.clicked.connect(self.openEditPopup)
 
     def openEditPopup(self):
-        self.popup = CustomChartPopup(self.controller, self.chart)
-        self.popup.show()
+        self.controller.open_edit_chart_popup(self.chart)

@@ -23,5 +23,4 @@ class CustomChartsTab(Tab):
             self.mainWindow.customChartsLayout.addWidget(CustomChartWidget(self.mainWindow.controller, chart))
 
     def openNewChartPopup(self):
-        self.popup = CustomChartPopup(self.mainWindow.controller)
-        self.popup.show()
+        self.mainWindow.controller.open_edit_chart_popup(None)

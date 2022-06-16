@@ -16,6 +16,7 @@ from models.dreams_analyzer import DreamsAnalyzer
 from models.template import Template
 from models.dataclasses.meta import Meta
 from models.enums import MetaType
+from models.ui.popups.custom_chart_popup import CustomChartPopup
 
 
 class DataController(QtCore.QObject):
@@ -384,6 +385,13 @@ class DataController(QtCore.QObject):
             pickle.dump(metas, file)
 
         self.updateMetasSignal.emit()
+
+    def open_edit_chart_popup(self, chart):
+        if self.model.data:
+            popup = CustomChartPopup(self, chart)
+            popup.show()
+        else:
+            QError("Veuillez charger des données avant d'effectuer cette action")
 
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)

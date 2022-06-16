@@ -72,6 +72,8 @@ class StatisticsTab(Tab):
             self.plotOther(other, layout)
 
     def plotOther(self, other, layout):
+        if not self.mainWindow.controller.model.data:
+            return
 
         dreams = self.mainWindow.controller.model.data.dreams
 
