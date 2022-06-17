@@ -559,7 +559,7 @@ class Ui_DreamsAnalyzer(object):
         self.customChartsScroll.setWidgetResizable(True)
         self.customChartsScroll.setObjectName("customChartsScroll")
         self.customCharts = QtWidgets.QWidget()
-        self.customCharts.setGeometry(QtCore.QRect(0, 0, 67, 18))
+        self.customCharts.setGeometry(QtCore.QRect(0, 0, 98, 28))
         self.customCharts.setObjectName("customCharts")
         self.customChartsLayout = QtWidgets.QVBoxLayout(self.customCharts)
         self.customChartsLayout.setObjectName("customChartsLayout")
@@ -604,7 +604,7 @@ class Ui_DreamsAnalyzer(object):
         DreamsAnalyzer.setStatusBar(self.statusbar)
 
         self.retranslateUi(DreamsAnalyzer)
-        self.tabWidget.setCurrentIndex(7)
+        self.tabWidget.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(DreamsAnalyzer)
 
