@@ -23,8 +23,12 @@ class Template:
 
         content = dream.content
         color = 'blue' if dream.lucid else 'green'
-        content = f'[color={color}]{content}[/color]'
+        content = f'[color={color}]{content.strip()}[/color]'
         self.replace_mark('content', content)
+
+        self.copied = self.copied.replace('(', '[color=black][i](')
+        self.copied = self.copied.replace(')', ')[/color][/i]')
+
         self.replace_mark('nb', str(nb))
 
         anonyms = []
