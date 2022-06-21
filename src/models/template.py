@@ -27,7 +27,9 @@ class Template:
         self.replace_mark('content', content)
 
         self.copied = self.copied.replace('(', '[color=black][i](')
-        self.copied = self.copied.replace(')', ')[/color][/i]')
+        self.copied = self.copied.replace(')', ')[/i][/color]')
+
+        self.copied = self.copied.replace('[color=black][i](...)[/i][/color]', '(...)')
 
         self.replace_mark('nb', str(nb))
 

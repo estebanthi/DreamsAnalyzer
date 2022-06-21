@@ -31,9 +31,11 @@ class StatisticsTab(Tab):
         hh_by_days = self.mainWindow.controller.model.data.hhs.group_by_day()
         hh = {day: len(hh_by_days[day]) for day in hh_by_days.keys()}
         vivid_per_day = self.mainWindow.controller.model.data.dreams.filter(lambda dream: 'VIVID' in dream.tags).group_by_day()
+        fe_per_day = self.mainWindow.controller.model.data.dreams.filter(
+            lambda dream: 'FE' in dream.tags).group_by_day()
 
         days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
-        width = 0.2
+        width = 0.17
 
         self.mainWindow.dreamsByDayPlot.clear()
         self.mainWindow.dreamsByDayPlot.bar(days, list(normal_dreams_by_days.values()), width=width, color='green',
@@ -46,14 +48,18 @@ class StatisticsTab(Tab):
         self.mainWindow.dreamsByDayPlot.bar(days, list(hh.values()), width=width, space=width * 3, color='purple',
                                             label='HH',
                                             legend=True, ylabel='Quantité')
+        self.mainWindow.dreamsByDayPlot.bar(days, [len(dreams) for dreams in fe_per_day.values()], width=width, space=width * 4, color='red',
+                                            label='FE',
+                                            legend=True, ylabel='Quantité')
 
     def plotDreamsByHour(self):
         normal_dreams_per_hour = self.mainWindow.controller.model.data.dreams.filter(lambda dream: not dream.lucid).group_by_hour()
         lucid_dreams_per_hour = self.mainWindow.controller.model.data.dreams.filter(lambda dream: dream.lucid).group_by_hour()
         hh_per_hour = self.mainWindow.controller.model.data.hhs.group_by_hour()
         vivid_per_hour = self.mainWindow.controller.model.data.dreams.filter(lambda dream: 'VIVID' in dream.tags).group_by_hour()
+        fe_per_hour = self.mainWindow.controller.model.data.dreams.filter(lambda dream: 'FE' in dream.tags).group_by_hour()
 
-        width = 0.2
+        width = 0.17
         hours = [f"{h}H" for h in range(24)]
         self.mainWindow.dreamsPerHourPlot.clear()
         self.mainWindow.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in normal_dreams_per_hour.values()], width=width,
@@ -65,6 +71,9 @@ class StatisticsTab(Tab):
         self.mainWindow.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in hh_per_hour.values()], width=width,
                                    space=width * 3, color='purple', label='HH',
                                    legend=True, ylabel='Quantité')
+        self.mainWindow.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in fe_per_hour.values()], width=width,
+                                              space=width * 3, color='red', label='FE',
+                                              legend=True, ylabel='Quantité')
 
     def plotOthers(self, layout):
         others = self.mainWindow.controller.get_other_plots()
