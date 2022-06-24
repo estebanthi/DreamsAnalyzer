@@ -27,7 +27,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -519,8 +519,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>212</width>
-               <height>46</height>
+               <width>440</width>
+               <height>618</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -577,8 +577,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>212</width>
-               <height>46</height>
+               <width>439</width>
+               <height>618</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -934,40 +934,49 @@
           </property>
           <widget class="QWidget" name="tab_6">
            <attribute name="title">
-            <string>Dream Manager</string>
+            <string>Général</string>
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_18">
             <item>
-             <layout class="QFormLayout" name="formLayout">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Email</string>
+             <layout class="QVBoxLayout" name="verticalLayout_14">
+              <item>
+               <widget class="QGroupBox" name="groupBox_10">
+                <property name="title">
+                 <string>Dream Manager</string>
                 </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_7">
-                <property name="text">
-                 <string>Mot de passe</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="emailDMInput"/>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="passwordDMInput">
-                <property name="echoMode">
-                 <enum>QLineEdit::Password</enum>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QCheckBox" name="autosyncCheckBox">
-                <property name="text">
-                 <string>Synchronisation automatique</string>
-                </property>
+                <layout class="QFormLayout" name="formLayout">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
+                    <string>Email</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLineEdit" name="emailDMInput"/>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_7">
+                   <property name="text">
+                    <string>Mot de passe</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLineEdit" name="passwordDMInput">
+                   <property name="echoMode">
+                    <enum>QLineEdit::Password</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QCheckBox" name="autosyncCheckBox">
+                   <property name="text">
+                    <string>Synchronisation automatique</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
@@ -1013,8 +1022,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>98</width>
-                 <height>28</height>
+                 <width>63</width>
+                 <height>18</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="customChartsLayout"/>
@@ -1086,6 +1095,36 @@
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_13">
+          <property name="title">
+           <string>Config</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_15">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_21">
+             <item>
+              <widget class="QLabel" name="label_24">
+               <property name="text">
+                <string>Chemin des données de l'app</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="dataPathnameEdit"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="modifyDataPathname">
+               <property name="text">
+                <string>Modifier</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>

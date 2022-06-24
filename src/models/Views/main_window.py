@@ -7,7 +7,7 @@ from models.ui.tabs.tags_tab import TagsTab
 from models.ui.tabs.dreams_tab import DreamsTab
 from models.ui.tabs.progress_tab import ProgressTab
 from models.ui.tabs.statistics_tab import StatisticsTab
-from models.ui.tabs.credentials_tab import CredentialsTab
+from models.ui.tabs.global_settings_tab import GlobalConfigTab
 from models.ui.tabs.anonyms_tab import AnonymsTab
 from models.ui.tabs.forum_tab import ForumTab
 from models.ui.tabs.custom_charts_tab import CustomChartsTab
@@ -21,7 +21,7 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
 
         self.controller = controller
         self.tabs = [HomeTab(self), TagsTab(self), DreamsTab(self), ProgressTab(self), StatisticsTab(self),
-                     AnonymsTab(self), CredentialsTab(self), ForumTab(self), CustomChartsTab(self), MetaconfigTab(self)]
+                     AnonymsTab(self), GlobalConfigTab(self), ForumTab(self), CustomChartsTab(self), MetaconfigTab(self)]
 
     def postInit(self):
         if self.controller.get_templates():

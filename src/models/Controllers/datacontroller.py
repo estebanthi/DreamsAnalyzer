@@ -2,6 +2,7 @@ import datetime as dt
 import yaml
 import os
 import pickle
+import shutil
 
 
 from PyQt5 import QtCore
@@ -26,6 +27,7 @@ class DataController(QtCore.QObject):
     templatesUpdatedSignal = QtCore.pyqtSignal()
     chartsUpdatedSignal = QtCore.pyqtSignal()
     updateMetasSignal = QtCore.pyqtSignal()
+    dataPathnameUpdatedSignal = QtCore.pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -397,6 +399,20 @@ class DataController(QtCore.QObject):
             popup.show()
         else:
             QError("Veuillez charger des données avant d'effectuer cette action")
+
+    def chande_data_pathname(self, new_pathname):
+        old_pathname = self.data_pathname
+        shutil.move(old_pathname, new_pathname)
+
+        conf = {}
+        with open('conf.yml', 'r') as file:
+            conf = yaml.safe_load(file)
+
+        with open('conf.yml', 'w') as file:
+            yaml.safe_dump(conf, file)
+
+        self.dataPathnameUpdatedSignal.emit(new_pathname)
+
 
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)
