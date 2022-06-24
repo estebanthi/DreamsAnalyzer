@@ -17,6 +17,12 @@ class DataModel(QtCore.QObject):
 
     def __init__(self, controller):
         super().__init__()
+
+        conf = {'data_pathname': 'data'}
+        with open('conf.yml', 'r') as file:
+            conf = yaml.safe_load(file)
+        self.data_pathname = conf['data_pathname']
+
         self.controller = controller
         self.config = Config(self.controller)
 
@@ -56,7 +62,7 @@ class DataModel(QtCore.QObject):
             return None
 
         file_saver = FileSaver()
-        file_saver.save(json_data, 'data/data.json')
+        file_saver.save(json_data, f'{self.data_pathname}/data.json')
 
         data_formatter = DataFormatter(self.controller)
         formatted_data = None
@@ -78,7 +84,7 @@ class DataModel(QtCore.QObject):
         autosync = False
 
         if initial:
-            with open('data/config.yml', 'r') as file:
+            with open(f'{self.data_pathname}/config.yml', 'r') as file:
                 data = yaml.safe_load(file)
                 autosync = data['autosync']
 

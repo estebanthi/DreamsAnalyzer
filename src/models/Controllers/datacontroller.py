@@ -32,6 +32,11 @@ class DataController(QtCore.QObject):
         self.model = None
         self.view = None
 
+        conf = {'data_pathname': 'data'}
+        with open('conf.yml', 'r') as file:
+            conf = yaml.safe_load(file)
+        self.data_pathname = conf['data_pathname']
+
     def control_data(self):
         if not self.model.data:
             QError("Veuillez d'abord charger vos données")
@@ -130,36 +135,36 @@ class DataController(QtCore.QObject):
     def get_other_plots(self):
 
         charts = []
-        with open('data/charts.yml', 'r') as file:
+        with open(f'{self.data_pathname}/charts.yml', 'r') as file:
             charts = yaml.safe_load(file)
         return charts
 
     def save_password(self, password):
         data = None
-        with open('data/credentials.yml', 'r') as file:
+        with open(f'{self.data_pathname}/credentials.yml', 'r') as file:
             data = yaml.safe_load(file)
         if data:
-            with open('data/credentials.yml', 'w') as file:
+            with open(f'{self.data_pathname}/credentials.yml', 'w') as file:
                 data['password'] = password
                 yaml.safe_dump(data, file)
 
     def save_email(self, email):
         data = None
-        with open('data/credentials.yml', 'r') as file:
+        with open(f'{self.data_pathname}/credentials.yml', 'r') as file:
             data = yaml.safe_load(file)
         if data:
-            with open('data/credentials.yml', 'w') as file:
+            with open(f'{self.data_pathname}/credentials.yml', 'w') as file:
                 data['email'] = email
                 yaml.safe_dump(data, file)
 
     def get_anonyms(self):
-        with open('data/anonyms.yml', 'r') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'r') as file:
             anonyms = yaml.safe_load(file)
             return anonyms
 
     def get_next_anonym_id(self):
         anonyms = []
-        with open('data/anonyms.yml', 'r') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'r') as file:
             anonyms = yaml.safe_load(file)
 
         for i in range(len(anonyms)):
@@ -169,62 +174,62 @@ class DataController(QtCore.QObject):
 
     def delete_anonym(self, id_):
         anonyms = []
-        with open('data/anonyms.yml', 'r') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'r') as file:
             anonyms = yaml.safe_load(file)
 
         for index, anonym in enumerate(anonyms):
             if anonym['id_'] == id_:
                 del(anonyms[index])
 
-        with open('data/anonyms.yml', 'w') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'w') as file:
             yaml.safe_dump(anonyms, file)
 
         self.anonymsUpdatedSignal.emit()
 
     def update_real(self, id_, real):
         anonyms = []
-        with open('data/anonyms.yml', 'r') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'r') as file:
             anonyms = yaml.safe_load(file)
 
         for index, anonym in enumerate(anonyms):
             if anonym['id_'] == id_:
                 anonyms[index]['real'] = real
 
-        with open('data/anonyms.yml', 'w') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'w') as file:
             yaml.safe_dump(anonyms, file)
 
     def update_anonym(self, id_, anonym):
         anonyms = []
-        with open('data/anonyms.yml', 'r') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'r') as file:
             anonyms = yaml.safe_load(file)
 
         for index, record in enumerate(anonyms):
             if record['id_'] == id_:
                 anonyms[index]['anonym'] = anonym
 
-        with open('data/anonyms.yml', 'w') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'w') as file:
             yaml.safe_dump(anonyms, file)
 
     def add_anonym(self):
         id_ = self.get_next_anonym_id()
 
         anonyms = []
-        with open('data/anonyms.yml', 'r') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'r') as file:
             anonyms = yaml.safe_load(file)
 
         anonyms.append({'id_': id_, 'real': '', 'anonym': ''})
 
-        with open('data/anonyms.yml', 'w') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'w') as file:
             yaml.safe_dump(anonyms, file)
 
         return id_
 
     def get_templates(self):
-        filenames = os.listdir('data/templates')
+        filenames = os.listdir(f'{self.data_pathname}/templates')
 
         templates = []
         for filename in filenames:
-            with open(f'data/templates/{filename}', 'rb') as file:
+            with open(f'{self.data_pathname}/templates/{filename}', 'rb') as file:
                 templates.append(pickle.load(file))
         return templates
 
@@ -258,30 +263,30 @@ class DataController(QtCore.QObject):
 
     def handle_autosync_changed(self, state):
         state = True if state == 2 else False
-        with open('data/config.yml', 'r') as file:
+        with open(f'{self.data_pathname}/config.yml', 'r') as file:
             data = yaml.safe_load(file)
 
-            with open('data/config.yml', 'w') as wfile:
+            with open(f'{self.data_pathname}/config.yml', 'w') as wfile:
                 data['autosync'] = state
                 yaml.safe_dump(data, wfile)
 
     def delete_chart(self, id_):
         charts = []
-        with open('data/charts.yml', 'r') as file:
+        with open(f'{self.data_pathname}/charts.yml', 'r') as file:
             charts = yaml.safe_load(file)
 
         for index, chart in enumerate(charts):
             if chart['id_'] == id_:
                 del(charts[index])
 
-        with open('data/charts.yml', 'w') as file:
+        with open(f'{self.data_pathname}/charts.yml', 'w') as file:
             yaml.safe_dump(charts, file)
 
         self.chartsUpdatedSignal.emit()
 
     def get_next_chart_id(self):
         charts = []
-        with open('data/charts.yml', 'r') as file:
+        with open(f'{self.data_pathname}/charts.yml', 'r') as file:
             charts = yaml.safe_load(file)
 
         for i in range(len(charts)):
@@ -291,21 +296,21 @@ class DataController(QtCore.QObject):
 
     def delete_chart(self, id_):
         charts = []
-        with open('data/charts.yml', 'r') as file:
+        with open(f'{self.data_pathname}/charts.yml', 'r') as file:
             charts = yaml.safe_load(file)
 
         for index, chart in enumerate(charts):
             if chart['id_'] == id_:
                 del(charts[index])
 
-        with open('data/charts.yml', 'w') as file:
+        with open(f'{self.data_pathname}/charts.yml', 'w') as file:
             yaml.safe_dump(charts, file)
 
         self.chartsUpdatedSignal.emit()
 
     def save_chart(self, chart):
         charts = []
-        with open('data/charts.yml', 'r') as file:
+        with open(f'{self.data_pathname}/charts.yml', 'r') as file:
             charts = yaml.safe_load(file)
 
         id_ = chart['id_']
@@ -316,20 +321,20 @@ class DataController(QtCore.QObject):
         else:
             charts.append(chart)
 
-        with open('data/charts.yml', 'w') as file:
+        with open(f'{self.data_pathname}/charts.yml', 'w') as file:
             yaml.safe_dump(charts, file)
 
         self.chartsUpdatedSignal.emit()
 
     def get_metas(self):
         metas = []
-        with open('data/metas.dat', 'rb') as file:
+        with open(f'{self.data_pathname}/metas.dat', 'rb') as file:
             metas = pickle.load(file)
         return metas
 
     def update_meta(self, field, id_, value):
         metas = []
-        with open('data/metas.dat', 'rb') as file:
+        with open(f'{self.data_pathname}/metas.dat', 'rb') as file:
             metas = pickle.load(file)
 
 
@@ -337,7 +342,7 @@ class DataController(QtCore.QObject):
             if meta.id_ == id_:
                 setattr(meta, field, value)
 
-        with open('data/metas.dat', 'wb') as file:
+        with open(f'{self.data_pathname}/metas.dat', 'wb') as file:
             pickle.dump(metas, file)
 
     def notify_metas_error(self, initial_metas, final_metas):
@@ -346,21 +351,21 @@ class DataController(QtCore.QObject):
 
     def delete_meta(self, id_):
         metas = []
-        with open('data/metas.dat', 'rb') as file:
+        with open(f'{self.data_pathname}/metas.dat', 'rb') as file:
             metas = pickle.load(file)
 
         for index, meta in enumerate(metas):
             if meta.id_ == id_:
                 del(metas.items[index])
 
-        with open('data/metas.dat', 'wb') as file:
+        with open(f'{self.data_pathname}/metas.dat', 'wb') as file:
             pickle.dump(metas, file)
 
         self.updateMetasSignal.emit()
 
     def get_next_meta_id(self):
         metas = []
-        with open('data/metas.dat', 'rb') as file:
+        with open(f'{self.data_pathname}/metas.dat', 'rb') as file:
             metas = pickle.load(file)
 
         for i in range(len(metas)):
@@ -369,7 +374,7 @@ class DataController(QtCore.QObject):
         return len(metas)
 
     def add_meta(self):
-        with open('data/metas.dat', 'rb') as file:
+        with open(f'{self.data_pathname}/metas.dat', 'rb') as file:
             metas = pickle.load(file)
         id_ = self.get_next_meta_id()
 
@@ -381,7 +386,7 @@ class DataController(QtCore.QObject):
         else:
             metas.append(meta)
 
-        with open('data/metas.dat', 'wb') as file:
+        with open(f'{self.data_pathname}/metas.dat', 'wb') as file:
             pickle.dump(metas, file)
 
         self.updateMetasSignal.emit()

@@ -9,6 +9,11 @@ class Template:
         self.content = content
         self.filename = filename
 
+        conf = {'data_pathname': 'data'}
+        with open('conf.yml', 'r') as file:
+            conf = yaml.safe_load(file)
+        self.data_pathname = conf['data_pathname']
+
     def parse(self, dream, nb=''):
         self.copied = self.content
         self.replace_mark('type', 'RL' if dream.lucid else 'RN')
@@ -34,7 +39,7 @@ class Template:
         self.replace_mark('nb', str(nb))
 
         anonyms = []
-        with open('data/anonyms.yml', 'r') as file:
+        with open(f'{self.data_pathname}/anonyms.yml', 'r') as file:
             anonyms = yaml.safe_load(file)
 
         for anonym in anonyms:

@@ -27,7 +27,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -519,8 +519,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>440</width>
-               <height>616</height>
+               <width>212</width>
+               <height>46</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -577,8 +577,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>439</width>
-               <height>616</height>
+               <width>212</width>
+               <height>46</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -698,7 +698,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>871</width>
-                <height>262</height>
+                <height>263</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="metaPlotLayout"/>
@@ -756,7 +756,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>871</width>
-                <height>505</height>
+                <height>506</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="otherPlotsLayout_2"/>
@@ -784,7 +784,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>644</height>
+             <height>645</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
@@ -842,7 +842,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>571</height>
+             <height>573</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
@@ -891,7 +891,7 @@
              <x>0</x>
              <y>0</y>
              <width>891</width>
-             <height>608</height>
+             <height>610</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="anonymLayout_3">
@@ -930,7 +930,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget_2">
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_6">
            <attribute name="title">
@@ -1077,7 +1077,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>867</width>
-                 <height>506</height>
+                 <height>510</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="metadatasLayout"/>

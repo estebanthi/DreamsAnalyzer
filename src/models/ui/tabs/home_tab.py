@@ -1,5 +1,6 @@
 import shutil
 import datetime as dt
+import yaml
 
 from PyQt5.QtWidgets import QFileDialog
 
@@ -60,7 +61,12 @@ class HomeTab(Tab):
     def getFile(self):
         filename = QFileDialog.getOpenFileName(self.mainWindow, 'Choisissez un fichier')[0]
         if filename:
-            shutil.copy(filename, 'data/data.json')
+            conf = {'data_pathname': 'data'}
+        with open('conf.yml', 'r') as file:
+            conf = yaml.safe_load(file)
+            data_pathname = conf['data_pathname']
+
+            shutil.copy(filename, f'{data_pathname}/data.json')
             self.mainWindow.controller.load_last_data()
 
     def filter_dreams(self):

@@ -1,3 +1,6 @@
+import yaml
+
+
 from models.enums import DataLoadingMethod
 from models.config import Config
 from models.data.loaders.remote_loader import RemoteLoader
@@ -9,6 +12,11 @@ class DataLoader:
 
     def __init__(self, controller):
         self.controller = controller
+
+        conf = {'data_pathname': 'data'}
+        with open('conf.yml', 'r') as file:
+            conf = yaml.safe_load(file)
+        self.data_pathname = conf['data_pathname']
 
     def load_data(self, method, path=''):
         data = None
@@ -59,7 +67,7 @@ class DataLoader:
 
         loader = FileLoader()
         try:
-            data = loader.load('data/data.json')
+            data = loader.load(f'{self.data_pathname}/data.json')
         except FileNotFoundError:
             self.controller.notify_no_recent_data_error()
         except IOError:

@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 import os
 import pickle
+import yaml
 
 from models.template import Template
 
@@ -13,6 +14,11 @@ class NewTemplatePopup(QMainWindow, Ui_MainWindow):
     def __init__(self, controller, template=None, mode='NEW', parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+        conf = {'data_pathname': 'data'}
+        with open('conf.yml', 'r') as file:
+            conf = yaml.safe_load(file)
+        self.data_pathname = conf['data_pathname']
 
         self.template = template
         self.controller = controller
@@ -34,7 +40,7 @@ class NewTemplatePopup(QMainWindow, Ui_MainWindow):
                 self.newTemplateTextEdit.setText(template.content)
 
         if mode == 'NEW':
-            filenames = os.listdir('data/templates')
+            filenames = os.listdir(f'{self.data_pathname}/templates')
             for i in range(len(filenames)+1):
                 if f"{i}.tp" not in filenames:
                     self.template = Template(f"{i}.tp")
