@@ -34,7 +34,7 @@ This app is intended to be compiled into an executable. You can do it simply in 
 
 1. Install `pyinstaller` Python package
 
-2. Run the following command at the root of the project : `pyinstaller src/app.py --add-binary "src/models;models" --add-binary "src/ui;ui" --paths 'src/' --windowed --icon 'icon.ico' -n "Dreams Analyzer" --onefile`
+2. Run the following command at the root of the project : `pyinstaller src/app.py --add-binary "src/models;models" --add-binary "src/ui;ui" --paths 'src/' --windowed --icon 'icon.ico' --hidden-import="sklearn.utils._cython_blas" --hidden-import="sklearn.utils._sorting" --hidden-import="sklearn.utils._heap" --hidden-import="sklearn.utils._typedefs" --hidden-import="sklearn.utils._vector_sentinel" -n "Dreams Analyzer" --onefile --uac-admin`
 
 3. Delete `build` folder and keep `dist`. You can rename it as you want
 
