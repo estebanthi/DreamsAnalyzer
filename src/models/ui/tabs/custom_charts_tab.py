@@ -17,7 +17,7 @@ class CustomChartsTab(Tab):
 
     def updateCharts(self):
         clearLayout(self.mainWindow.customChartsLayout)
-        charts = self.mainWindow.controller.get_other_plots()
+        charts = self.mainWindow.controller.get_charts()
 
         for chart in charts:
             self.mainWindow.customChartsLayout.addWidget(CustomChartWidget(self.mainWindow.controller, chart))

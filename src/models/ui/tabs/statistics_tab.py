@@ -13,80 +13,109 @@ class StatisticsTab(Tab):
         pass
 
     def updateData(self):
-        clearLayout(self.mainWindow.otherPlotsLayout_2)
-        self.plotDreamsByDay()
-        self.plotDreamsByHour()
-        self.plotOthers(self.mainWindow.otherPlotsLayout_2)
+        clearLayout(self.mainWindow.pieChartsLayout)
+        clearLayout(self.mainWindow.barChartsLayout)
+        self.plotBarCharts(self.mainWindow.barChartsLayout)
+        self.plotPieCharts(self.mainWindow.pieChartsLayout)
 
     def updateCharts(self):
-        clearLayout(self.mainWindow.otherPlotsLayout_2)
-        self.plotOthers(self.mainWindow.otherPlotsLayout_2)
+        clearLayout(self.mainWindow.pieChartsLayout)
+        clearLayout(self.mainWindow.barChartsLayout)
+        self.plotBarCharts(self.mainWindow.barChartsLayout)
+        self.plotPieCharts(self.mainWindow.pieChartsLayout)
 
-    def plotDreamsByDay(self):
-        dreams_by_day = self.mainWindow.controller.model.data.dreams.group_by_day()
-        lucid_dreams_by_day = {day: len(list(filter(lambda dream: dream.lucid, dreams_by_day[day]))) for day in
-                               dreams_by_day.keys()}
-        normal_dreams_by_days = {day: len(list(filter(lambda dream: not dream.lucid, dreams_by_day[day]))) for day in
-                                 dreams_by_day.keys()}
-        hh_by_days = self.mainWindow.controller.model.data.hhs.group_by_day()
-        hh = {day: len(hh_by_days[day]) for day in hh_by_days.keys()}
-        vivid_per_day = self.mainWindow.controller.model.data.dreams.filter(lambda dream: 'VIVID' in dream.tags).group_by_day()
-        fe_per_day = self.mainWindow.controller.model.data.dreams.filter(
-            lambda dream: 'FE' in dream.tags).group_by_day()
+    def plotBarCharts(self, layout):
+        bars = [chart for chart in self.mainWindow.controller.get_charts() if chart['type'] == 'bar']
+        for bar in bars:
+            self.plotBarChart(bar, layout)
 
-        days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
-        width = 0.17
+    def plotBarChart(self, bar, layout):
 
-        self.mainWindow.dreamsByDayPlot.clear()
-        self.mainWindow.dreamsByDayPlot.bar(days, list(normal_dreams_by_days.values()), width=width, color='green',
-                                            label='RN')
-        self.mainWindow.dreamsByDayPlot.bar(days, list(lucid_dreams_by_day.values()), width=width, space=width,
-                                            color='blue',
-                                            label='RL')
-        self.mainWindow.dreamsByDayPlot.bar(days, [len(dreams) for dreams in vivid_per_day.values()], width=width,
-                                            space=width * 2, color='orange', label='VIVID')
-        self.mainWindow.dreamsByDayPlot.bar(days, list(hh.values()), width=width, space=width * 3, color='purple',
-                                            label='HH',
-                                            legend=True, ylabel='Quantité')
-        self.mainWindow.dreamsByDayPlot.bar(days, [len(dreams) for dreams in fe_per_day.values()], width=width, space=width * 4, color='red',
-                                            label='FE',
-                                            legend=True, ylabel='Quantité')
+        barType = bar['x']
 
-    def plotDreamsByHour(self):
-        normal_dreams_per_hour = self.mainWindow.controller.model.data.dreams.filter(lambda dream: not dream.lucid).group_by_hour()
-        lucid_dreams_per_hour = self.mainWindow.controller.model.data.dreams.filter(lambda dream: dream.lucid).group_by_hour()
-        hh_per_hour = self.mainWindow.controller.model.data.hhs.group_by_hour()
-        vivid_per_hour = self.mainWindow.controller.model.data.dreams.filter(lambda dream: 'VIVID' in dream.tags).group_by_hour()
-        fe_per_hour = self.mainWindow.controller.model.data.dreams.filter(lambda dream: 'FE' in dream.tags).group_by_hour()
-
-        width = 0.17
-        hours = [f"{h}H" for h in range(24)]
-        self.mainWindow.dreamsPerHourPlot.clear()
-        self.mainWindow.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in normal_dreams_per_hour.values()], width=width,
-                                   color='green', label='RN')
-        self.mainWindow.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in lucid_dreams_per_hour.values()], width=width,
-                                   space=width, color='blue', label='RL')
-        self.mainWindow.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in vivid_per_hour.values()], width=width,
-                                   space=width * 2, color='orange', label='VIVID')
-        self.mainWindow.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in hh_per_hour.values()], width=width,
-                                   space=width * 3, color='purple', label='HH',
-                                   legend=True, ylabel='Quantité')
-        self.mainWindow.dreamsPerHourPlot.bar(hours, [len(dreams) for dreams in fe_per_hour.values()], width=width,
-                                              space=width * 3, color='red', label='FE',
-                                              legend=True, ylabel='Quantité')
-
-    def plotOthers(self, layout):
-        others = self.mainWindow.controller.get_other_plots()
-        for other in others:
-            self.plotOther(other, layout)
-
-    def plotOther(self, other, layout):
         if not self.mainWindow.controller.model.data:
             return
 
         dreams = self.mainWindow.controller.model.data.dreams
 
-        tags = other['tags']
+        tags = bar['tags']
+
+        labels = [("Pas "+tag[0] if tag[1] == 'NOT IN' else tag[0]) for tag in tags]
+        colors = [tag[2] for tag in tags]
+
+        collections = []
+
+        for tag in tags:
+            filter = tag[3]
+            collection = dreams
+
+            if filter:
+                if filter['lucid'] is True:
+                    collection = dreams.filter(lambda dream: dream.lucid)
+                if filter['lucid'] is False:
+                    collection = dreams.filter(lambda dream: not dream.lucid)
+
+            collections.append(collection)
+
+        for index, collection in enumerate(collections):
+            if barType == 'days':
+                collections[index] = collection.group_by_day()
+            if barType == 'hours':
+                collections[index] = collection.group_by_hour()
+
+        values = []
+        for tag, collection in zip(tags, collections):
+
+            if tag[0] == 'RL':
+                if barType == 'days':
+                    values_per_x = {day: len(collection[day].filter(lambda dream: dream.lucid)) for day in range(7)}
+                else:
+                    values_per_x = {hour: len(collection[hour].filter(lambda dream: dream.lucid)) for hour in range(24)}
+
+            elif tag[0] == 'RN':
+                if barType == 'days':
+                    values_per_x = {day: len(collection[day].filter(lambda dream: not dream.lucid)) for day in range(7)}
+                else:
+                    values_per_x = {hour: len(collection[hour].filter(lambda dream: not dream.lucid)) for hour in range(24)}
+
+            elif tag[1] == 'NOT IN':
+                if barType == 'days':
+                    values_per_x = {day: len(collection[day].filter(lambda dream: tag[0] not in dream.tags)) for day in range(7)}
+                else:
+                    values_per_x = {hour: len(collection[hour].filter(lambda dream: tag[0] not in dream.tags)) for hour in range(24)}
+
+            elif tag[1] == 'IN':
+                if barType == 'days':
+                    values_per_x = {day: len(collection[day].filter(lambda dream: tag[0] in dream.tags)) for day in range(7)}
+                else:
+                    values_per_x = {hour: len(collection[hour].filter(lambda dream: tag[0] in dream.tags)) for hour in range(24)}
+
+            values.append(values_per_x)
+
+        x = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] if barType == 'days' else [f"{h}H" for h in range(24)]
+        width = 0.2 - (0.2 / len(values))
+
+        widget = MplWidget()
+        widget.setFixedHeight(400)
+
+        for y, color, label, index in zip(values, colors, labels, range(len(values))):
+            widget.bar(x, y.values(), color=color, label=label, width=width, space=width*index, legend=True, ylabel='Quantité')
+        widget.setTitle(bar['title'])
+
+        layout.addWidget(widget)
+
+    def plotPieCharts(self, layout):
+        pies = [chart for chart in self.mainWindow.controller.get_charts() if chart['type'] == 'pie']
+        for pie in pies:
+            self.plotPieChart(pie, layout)
+
+    def plotPieChart(self, pie, layout):
+        if not self.mainWindow.controller.model.data:
+            return
+
+        dreams = self.mainWindow.controller.model.data.dreams
+
+        tags = pie['tags']
 
         labels = [("Pas "+tag[0] if tag[1] == 'NOT IN' else tag[0]) for tag in tags]
         colors = [tag[2] for tag in tags]
@@ -117,6 +146,6 @@ class StatisticsTab(Tab):
         widget.setFixedSize(500, 400)
 
         widget.pie(values, colors=colors, legend_labels=labels, bbox_to_anchor=(0.8, 1))
-        widget.setTitle(other['title'])
+        widget.setTitle(pie['title'])
 
         layout.addWidget(widget)

@@ -16,12 +16,12 @@ class DreamsCollection(BaseCollection):
 
     def group_by_day(self):
         return {
-            day: [dream for dream in self.items if dream.date.weekday() == day] for day in range(7)
+            day: DreamsCollection([dream for dream in self.items if dream.date.weekday() == day]) for day in range(7)
         }
 
     def group_by_hour(self):
         return {
-            hour: [dream for dream in self.items if dream.date.hour == hour] for hour in range(24)
+            hour: DreamsCollection([dream for dream in self.items if dream.date.hour == hour]) for hour in range(24)
         }
 
     def get_nights(self):

@@ -33,7 +33,7 @@ class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
             self.updateData()
         if self.controller.get_anonyms():
             self.updateAnonyms()
-        if self.controller.get_other_plots():
+        if self.controller.get_charts():
             self.updateCharts()
         if self.controller.get_metas():
             self.updateMetas()

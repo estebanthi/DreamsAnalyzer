@@ -136,7 +136,7 @@ class DataController(QtCore.QObject):
             metas[meta.name] = analyzer.get_meta_over_time(time_intervals, meta)
         return metas
 
-    def get_other_plots(self):
+    def get_charts(self):
 
         charts = []
         with open(f'{self.data_pathname}/charts.yml', 'r') as file:
