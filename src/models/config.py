@@ -108,6 +108,9 @@ class Config:
             with open(f"{workdir}\\conf.yml", 'w') as file:
                 yaml.dump({'data_pathname': default_pathname}, file)
 
+        with open(f"{workdir}\\conf.yml", 'r') as file:
+            default_pathname = yaml.safe_load(file)['data_pathname']
+
         if not os.path.isdir(default_pathname):
             os.makedirs(default_pathname)
 

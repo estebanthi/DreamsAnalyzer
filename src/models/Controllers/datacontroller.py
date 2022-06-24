@@ -3,6 +3,7 @@ import yaml
 import os
 import pickle
 import shutil
+import sys
 
 
 from PyQt5 import QtCore
@@ -18,6 +19,7 @@ from models.template import Template
 from models.dataclasses.meta import Meta
 from models.enums import MetaType
 from models.ui.popups.custom_chart_popup import CustomChartPopup
+from models.config import Config
 
 
 class DataController(QtCore.QObject):
@@ -401,22 +403,16 @@ class DataController(QtCore.QObject):
             QError("Veuillez charger des données avant d'effectuer cette action")
 
     def chande_data_pathname(self, new_pathname):
-        old_pathname = self.data_pathname
-        shutil.move(old_pathname, new_pathname)
-
-        data_pathname = f"{new_pathname}/data"
 
         conf = {}
         with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
 
-        conf['data_pathname'] = data_pathname
+        conf['data_pathname'] = new_pathname
         with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'w') as file:
             yaml.safe_dump(conf, file)
 
-        self.data_pathname = data_pathname
-        self.dataPathnameUpdatedSignal.emit(data_pathname)
-
+        self.reboot_app()
 
     def connect(self):
         self.model.dataUpdatedSignal.connect(self.view.updateData)
@@ -425,3 +421,7 @@ class DataController(QtCore.QObject):
         self.templatesUpdatedSignal.connect(self.view.updateTemplates)
         self.chartsUpdatedSignal.connect(self.view.updateCharts)
         self.updateMetasSignal.connect(self.view.updateMetas)
+
+    def reboot_app(self):
+        QtCore.QCoreApplication.quit()
+        status = QtCore.QProcess.startDetached(sys.executable, sys.argv)

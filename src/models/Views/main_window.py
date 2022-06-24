@@ -15,6 +15,9 @@ from models.ui.tabs.metaconfig_tab import MetaconfigTab
 
 
 class MainWindow(QMainWindow, Ui_DreamsAnalyzer):
+
+    EXIT_CODE_REBOOT = 100
+
     def __init__(self, controller, parent=None):
         super().__init__(parent)
         self.setupUi(self)
