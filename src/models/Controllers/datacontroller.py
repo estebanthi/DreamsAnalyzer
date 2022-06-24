@@ -252,7 +252,7 @@ class DataController(QtCore.QObject):
     def delete_template(self, template):
         if template:
             try:
-                os.remove(f"data/templates/{template.filename}")
+                os.remove(f"{self.data_pathname}/templates/{template.filename}")
             except Exception:
                 QError("Erreur lors de la suppression de votre template")
                 return
