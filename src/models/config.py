@@ -152,8 +152,8 @@ class Config:
             {'id_': 0, 'title': "Méthodes d'inductions", 'tags': [['WILD', 'IN', '#008080', {}], ['DILD', 'IN', '#a52a2a', {}]], 'type': 'pie'},
             {'id_': 1, 'title': "Proportion de RL WBTB", 'tags': [['WBTB', 'IN', '#458b74', {'lucid': True}], ['WBTB', 'NOT IN', '#3cb371', {'lucid':True}]], 'type': 'pie'},
             {'id_': 2, 'title': "Proportion de rêves VIVID", 'tags': [['VIVID', 'IN', '#ff5800', {}], ['VIVID', 'NOT IN', '#a52a2a', {}]], 'type': 'pie'},
-            {'id_': 3, 'title': "Type de rêves par heure", 'tags': [['RL', 'IN', '#0000ff', {}], ['RN', 'IN', '#008000', {}], ['VIVID', 'IN', '#ff5800', {}], ['HH', 'IN', '#800080', {}], ['FE', 'IN', '#ff0000', {}]], 'type': 'bar', 'x': 'days'},
-                    {'id_': 3, 'title': "Type de rêves par jour",
+            {'id_': 3, 'title': "Type de rêves par jour", 'tags': [['RL', 'IN', '#0000ff', {}], ['RN', 'IN', '#008000', {}], ['VIVID', 'IN', '#ff5800', {}], ['HH', 'IN', '#800080', {}], ['FE', 'IN', '#ff0000', {}]], 'type': 'bar', 'x': 'days'},
+                    {'id_': 3, 'title': "Type de rêves par heure",
                      'tags': [['RL', 'IN', '#0000ff', {}], ['RN', 'IN', '#008000', {}], ['VIVID', 'IN', '#ff5800', {}],
                               ['HH', 'IN', '#800080', {}], ['FE', 'IN', '#ff0000', {}]], 'type': 'bar', 'x': 'hours'}
         ]

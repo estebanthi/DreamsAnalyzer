@@ -93,7 +93,8 @@ class StatisticsTab(Tab):
             values.append(values_per_x)
 
         x = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] if barType == 'days' else [f"{h}H" for h in range(24)]
-        width = 0.2 - (0.2 / len(values))
+        
+        width = -0.013*len(values) + 0.23  # "responsive" width equation found with linear regression
 
         widget = MplWidget()
         widget.setFixedHeight(400)
