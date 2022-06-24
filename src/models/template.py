@@ -10,12 +10,12 @@ class Template:
         self.content = content
         self.filename = filename
 
+    def parse(self, dream, nb=''):
         conf = {'data_pathname': 'data'}
         with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
-        self.data_pathname = conf['data_pathname']
+        data_pathname = conf['data_pathname']
 
-    def parse(self, dream, nb=''):
         self.copied = self.content
         self.replace_mark('type', 'RL' if dream.lucid else 'RN')
         self.replace_mark('title', dream.title)
@@ -40,7 +40,7 @@ class Template:
         self.replace_mark('nb', str(nb))
 
         anonyms = []
-        with open(f'{self.data_pathname}/anonyms.yml', 'r') as file:
+        with open(f'{data_pathname}/anonyms.yml', 'r') as file:
             anonyms = yaml.safe_load(file)
 
         for anonym in anonyms:
@@ -52,7 +52,12 @@ class Template:
         return self.copied.replace('  ', '\n\n')
 
     def save(self):
-        with open(f"data/templates/{self.filename}", 'wb') as file:
+        conf = {'data_pathname': 'data'}
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
+            conf = yaml.safe_load(file)
+        data_pathname = conf['data_pathname']
+
+        with open(f"{data_pathname}/templates/{self.filename}", 'wb') as file:
             pickle.dump(self, file)
 
     def replace_mark(self, mark, replacement):

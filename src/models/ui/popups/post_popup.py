@@ -12,7 +12,6 @@ class PostPopup(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.template = template
-
         self.night = night
         self.dateLabel.setText(str(night.date))
 

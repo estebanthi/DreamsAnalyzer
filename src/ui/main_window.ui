@@ -519,8 +519,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>440</width>
-               <height>618</height>
+               <width>212</width>
+               <height>46</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -577,8 +577,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>439</width>
-               <height>618</height>
+               <width>212</width>
+               <height>46</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -668,8 +668,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>869</width>
-                  <height>261</height>
+                  <width>98</width>
+                  <height>28</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="dreamsPlotLayout"/>
@@ -697,8 +697,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>871</width>
-                <height>263</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="metaPlotLayout"/>
@@ -755,8 +755,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>871</width>
-                <height>506</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="otherPlotsLayout_2"/>
@@ -783,8 +783,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>891</width>
-             <height>645</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
@@ -841,8 +841,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>891</width>
-             <height>573</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
@@ -890,8 +890,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>891</width>
-             <height>610</height>
+             <width>135</width>
+             <height>47</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="anonymLayout_3">
@@ -1022,8 +1022,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>63</width>
-                 <height>18</height>
+                 <width>98</width>
+                 <height>28</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="customChartsLayout"/>
@@ -1085,8 +1085,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>867</width>
-                 <height>510</height>
+                 <width>98</width>
+                 <height>28</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="metadatasLayout"/>
@@ -1126,6 +1126,19 @@
            </item>
           </layout>
          </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
