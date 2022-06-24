@@ -16,6 +16,7 @@ class GlobalConfigTab(Tab):
             conf = yaml.safe_load(file)
 
         self.mainWindow.dataPathnameEdit.setText(conf['data_pathname'])
+        self.mainWindow.autosyncCheckBox.setChecked(self.mainWindow.controller.get_autosync_state())
 
     def connect(self):
         self.mainWindow.passwordDMInput.textChanged.connect(self.mainWindow.controller.save_password)

@@ -265,6 +265,11 @@ class DataController(QtCore.QObject):
             return
         return True
 
+    def get_autosync_state(self):
+        with open(f'{self.data_pathname}/config.yml', 'r') as file:
+            data = yaml.safe_load(file)
+        return bool(data['autosync'])
+
     def handle_autosync_changed(self, state):
         state = True if state == 2 else False
         with open(f'{self.data_pathname}/config.yml', 'r') as file:

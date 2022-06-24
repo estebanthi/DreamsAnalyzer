@@ -3,12 +3,23 @@ import yaml
 import os
 
 
+from models.string.mutable_string import MutableString
+
+
 class Template:
 
-    def __init__(self, filename, name='Template par défaut', content=''):
+    def __init__(self, filename, name='Template par défaut', content='', lucid_dreams_color='blue',
+                 normal_dreams_color='green', special_texts=None):
         self.name = name
         self.content = content
         self.filename = filename
+
+        self.lucid_dreams_color = lucid_dreams_color
+        self.normal_dreams_color = normal_dreams_color
+
+        if not special_texts:
+            special_texts = []
+        self.special_texts = special_texts
 
     def parse(self, dream, nb=''):
         conf = {'data_pathname': 'data'}
@@ -28,14 +39,9 @@ class Template:
                     self.replace_mark(meta.json_name, str(meta.value))
 
         content = dream.content
-        color = 'blue' if dream.lucid else 'green'
+        color = self.lucid_dreams_color if dream.lucid else self.normal_dreams_color
         content = f'[color={color}]{content.strip()}[/color]'
         self.replace_mark('content', content)
-
-        self.copied = self.copied.replace('(', '[color=black][i](')
-        self.copied = self.copied.replace(')', ')[/i][/color]')
-
-        self.copied = self.copied.replace('[color=black][i](...)[/i][/color]', '(...)')
 
         self.replace_mark('nb', str(nb))
 
@@ -48,6 +54,9 @@ class Template:
             fake = anonym['anonym']
             if real and fake:
                 self.copied = self.copied.replace(real, fake)
+
+        for special_text in self.special_texts:
+            self.copied = self.copied.replace(special_text['text'], special_text['bbcode'])
 
         return self.copied.replace('  ', '\n\n')
 
