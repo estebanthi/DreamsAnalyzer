@@ -26,7 +26,7 @@ class Config:
 
     def get_data(self):
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
         data_pathname = conf['data_pathname']
 
@@ -53,7 +53,7 @@ class Config:
 
     def get_anonyms(self):
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
         data_pathname = conf['data_pathname']
         anonyms_collection = None
@@ -68,7 +68,7 @@ class Config:
 
     def get_metas(self):
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
         data_pathname = conf['data_pathname']
         metas_collection = MetasCollection()
@@ -82,7 +82,7 @@ class Config:
 
     def get_credentials(self):
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
         data_pathname = conf['data_pathname']
 
@@ -98,10 +98,14 @@ class Config:
     @classmethod
     def initial_config(cls):
 
-        default_pathname = 'O:\\data'
+        workdir = f"{os.environ['ProgramFiles']}\\Dreams Analyzer"
+        default_pathname = f"{workdir}\\data"
 
-        if not os.path.isfile('data_pathname.yml'):
-            with open('conf.yml', 'w') as file:
+        if not os.path.isdir(workdir):
+            os.makedirs(workdir)
+
+        if not os.path.isfile(f"{workdir}\\conf.yml"):
+            with open(f"{workdir}\\conf.yml", 'w') as file:
                 yaml.dump({'data_pathname': default_pathname}, file)
 
         if not os.path.isdir(default_pathname):

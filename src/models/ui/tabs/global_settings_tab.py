@@ -1,5 +1,6 @@
 import yaml
 from PyQt5.QtWidgets import QFileDialog
+import os
 
 
 from models.ui.tabs.tab import Tab
@@ -11,7 +12,7 @@ class GlobalConfigTab(Tab):
 
     def setupUi(self):
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
 
         self.mainWindow.dataPathnameEdit.setText(conf['data_pathname'])
@@ -29,7 +30,8 @@ class GlobalConfigTab(Tab):
     def changeDataPathname(self):
         pathname = QFileDialog.getExistingDirectory()
         try:
-            self.mainWindow.controller.chande_data_pathname(pathname)
+            if pathname:
+                self.mainWindow.controller.chande_data_pathname(pathname)
         except Exception as e:
             print(e)
 

@@ -1,6 +1,7 @@
 import shutil
 import datetime as dt
 import yaml
+import os
 
 from PyQt5.QtWidgets import QFileDialog
 
@@ -62,7 +63,7 @@ class HomeTab(Tab):
         filename = QFileDialog.getOpenFileName(self.mainWindow, 'Choisissez un fichier')[0]
         if filename:
             conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
             data_pathname = conf['data_pathname']
 

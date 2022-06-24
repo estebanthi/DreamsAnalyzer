@@ -35,7 +35,7 @@ class DataController(QtCore.QObject):
         self.view = None
 
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
         self.data_pathname = conf['data_pathname']
 
@@ -404,14 +404,18 @@ class DataController(QtCore.QObject):
         old_pathname = self.data_pathname
         shutil.move(old_pathname, new_pathname)
 
+        data_pathname = f"{new_pathname}/data"
+
         conf = {}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
 
-        with open('conf.yml', 'w') as file:
+        conf['data_pathname'] = data_pathname
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'w') as file:
             yaml.safe_dump(conf, file)
 
-        self.dataPathnameUpdatedSignal.emit(new_pathname)
+        self.data_pathname = data_pathname
+        self.dataPathnameUpdatedSignal.emit(data_pathname)
 
 
     def connect(self):

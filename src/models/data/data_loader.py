@@ -6,6 +6,7 @@ from models.config import Config
 from models.data.loaders.remote_loader import RemoteLoader
 from models.data.loaders.file_loader import FileLoader
 from models.exceptions import DreamManagerWrongCredentials
+import  os
 
 
 class DataLoader:
@@ -14,7 +15,7 @@ class DataLoader:
         self.controller = controller
 
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
         self.data_pathname = conf['data_pathname']
 

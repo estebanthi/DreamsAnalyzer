@@ -16,7 +16,7 @@ class NewTemplatePopup(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
         self.data_pathname = conf['data_pathname']
 

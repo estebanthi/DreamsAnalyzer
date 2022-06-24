@@ -10,6 +10,7 @@ from models.data.data_decoder import DataDecoder
 from models.config import Config
 from models.data.file_saver import FileSaver
 from models.data.data_formatter import DataFormatter
+import os
 
 
 class DataModel(QtCore.QObject):
@@ -19,7 +20,7 @@ class DataModel(QtCore.QObject):
         super().__init__()
 
         conf = {'data_pathname': 'data'}
-        with open('conf.yml', 'r') as file:
+        with open(f"{os.environ['ProgramFiles']}\\Dreams Analyzer\\conf.yml", 'r') as file:
             conf = yaml.safe_load(file)
         self.data_pathname = conf['data_pathname']
 
