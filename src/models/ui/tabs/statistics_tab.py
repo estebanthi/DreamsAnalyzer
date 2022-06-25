@@ -93,7 +93,7 @@ class StatisticsTab(Tab):
             values.append(values_per_x)
 
         x = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'] if barType == 'days' else [f"{h}H" for h in range(24)]
-        
+
         width = -0.013*len(values) + 0.23  # "responsive" width equation found with linear regression
 
         widget = MplWidget()
@@ -137,9 +137,13 @@ class StatisticsTab(Tab):
         values = []
         for tag, collection in zip(tags, collections):
             value = 0
-            if tag[1] == 'NOT IN':
+            if tag[0] == 'RL':
+                value = len(collection.filter(lambda dream: dream.lucid))
+            elif tag[0] == 'RN':
+                value = len(collection.filter(lambda dream: not dream.lucid))
+            elif tag[1] == 'NOT IN':
                 value = len(collection.filter(lambda dream: tag[0] not in dream.tags))
-            if tag[1] == 'IN':
+            elif tag[1] == 'IN':
                 value = len(collection.filter(lambda dream: tag[0] in dream.tags))
             values.append(value)
 

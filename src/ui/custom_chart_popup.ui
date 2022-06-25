@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>776</width>
+    <width>768</width>
     <height>755</height>
    </rect>
   </property>
@@ -28,6 +28,23 @@
        <widget class="QLineEdit" name="titleEdit"/>
       </item>
      </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="typeCombo"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="barZone"/>
     </item>
     <item>
      <widget class="QGroupBox" name="tags">
@@ -86,8 +103,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>736</width>
-            <height>533</height>
+            <width>728</width>
+            <height>498</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="tagsLayout"/>
@@ -119,8 +136,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>776</width>
-     <height>22</height>
+     <width>768</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

@@ -28,7 +28,7 @@ class CustomChartTagWidget(QWidget):
 
         dreams_analyzer = DreamsAnalyzer(controller.model.data.dreams)
         tags_counter = dreams_analyzer.get_tags_counter()
-        completer = QCompleter([tag[0].label for tag in tags_counter])
+        completer = QCompleter([tag[0].label for tag in tags_counter] + ['RL', 'RN'])
         completer.setCaseSensitivity(PyQt5.QtCore.Qt.CaseSensitivity.CaseInsensitive)
         self.label.setCompleter(completer)
 

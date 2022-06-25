@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QWidget, QLineEdit, QLabel
+from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QWidget, QLineEdit, QLabel, QComboBox
 
 
 from models.ui.popups.custom_chart_popup import CustomChartPopup
