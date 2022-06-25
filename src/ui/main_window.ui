@@ -224,6 +224,9 @@
              <property name="readOnly">
               <bool>true</bool>
              </property>
+             <property name="maximum">
+              <number>9999999</number>
+             </property>
             </widget>
            </item>
            <item>
@@ -242,6 +245,9 @@
             <widget class="QSpinBox" name="normalDreamsCounter">
              <property name="readOnly">
               <bool>true</bool>
+             </property>
+             <property name="maximum">
+              <number>9999999</number>
              </property>
             </widget>
            </item>
@@ -262,6 +268,9 @@
              <property name="readOnly">
               <bool>true</bool>
              </property>
+             <property name="maximum">
+              <number>9999999</number>
+             </property>
             </widget>
            </item>
            <item>
@@ -280,6 +289,9 @@
             <widget class="QSpinBox" name="hhCounter">
              <property name="readOnly">
               <bool>true</bool>
+             </property>
+             <property name="maximum">
+              <number>9999999</number>
              </property>
             </widget>
            </item>
@@ -320,7 +332,7 @@
                 <bool>true</bool>
                </property>
                <property name="maximum">
-                <double>100.000000000000000</double>
+                <double>9999999.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -519,8 +531,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>212</width>
-               <height>46</height>
+               <width>440</width>
+               <height>618</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -577,8 +589,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>212</width>
-               <height>46</height>
+               <width>439</width>
+               <height>618</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -668,8 +680,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>869</width>
+                  <height>261</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="dreamsPlotLayout"/>
@@ -697,8 +709,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>98</width>
-                <height>28</height>
+                <width>871</width>
+                <height>263</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="metaPlotLayout"/>
@@ -786,8 +798,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>28</height>
+             <width>891</width>
+             <height>645</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
@@ -844,8 +856,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>98</width>
-             <height>28</height>
+             <width>891</width>
+             <height>573</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
@@ -893,8 +905,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>135</width>
-             <height>47</height>
+             <width>891</width>
+             <height>610</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="anonymLayout_3">
@@ -1088,8 +1100,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>98</width>
-                 <height>28</height>
+                 <width>867</width>
+                 <height>147</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="metadatasLayout"/>

@@ -31,7 +31,7 @@ class HomeTab(Tab):
         self.mainWindow.lucidDreamsCounter.setValue(
             len(self.mainWindow.controller.model.data.dreams.filter(lambda dream: dream.lucid)))
         self.mainWindow.hhCounter.setValue(
-            len(self.mainWindow.controller.model.data.hhs))
+            len(self.mainWindow.controller.model.data.dreams.filter(lambda dream: 'HH' in dream.tags)))
 
         dreams_analyzer = DreamsAnalyzer(self.mainWindow.controller.model.data.dreams)
         self.mainWindow.lucidDreamsRate.setValue(dreams_analyzer.get_lucid_dreams_rate())
