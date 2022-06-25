@@ -27,7 +27,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Accueil">
        <attribute name="title">
@@ -519,8 +519,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>440</width>
-               <height>618</height>
+               <width>212</width>
+               <height>46</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="tagsCounters">
@@ -577,8 +577,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>439</width>
-               <height>618</height>
+               <width>212</width>
+               <height>46</height>
               </rect>
              </property>
              <layout class="QFormLayout" name="categoriesCounters">
@@ -668,8 +668,8 @@
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>869</width>
-                  <height>261</height>
+                  <width>98</width>
+                  <height>28</height>
                  </rect>
                 </property>
                 <layout class="QHBoxLayout" name="dreamsPlotLayout"/>
@@ -697,8 +697,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>871</width>
-                <height>263</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QHBoxLayout" name="metaPlotLayout"/>
@@ -786,8 +786,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>891</width>
-             <height>645</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="dreamsLayoutVertical"/>
@@ -844,8 +844,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>891</width>
-             <height>573</height>
+             <width>98</width>
+             <height>28</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="nightsLayout"/>
@@ -893,8 +893,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>891</width>
-             <height>610</height>
+             <width>135</width>
+             <height>47</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="anonymLayout_3">

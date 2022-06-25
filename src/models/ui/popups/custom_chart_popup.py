@@ -78,7 +78,7 @@ class CustomChartPopup(QMainWindow, Ui_MainWindow):
         x = None
         if self.typeCombo.currentIndex() == 1:
             x = 'days' if self.comboBox.currentIndex() == 0 else 'hours'
-            
+
         if self.chart:
             id_ = self.chart['id_']
         else:
