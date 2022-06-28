@@ -60,8 +60,7 @@ class NewTemplatePopup(QMainWindow, Ui_MainWindow):
     def update_(self):
         clearLayout(self.specialTextsLayout)
         for special_text in self.specialTexts:
-            widget = SpecialTextWidget(special_text['id_'], special_text['text'], special_text['bbcode'])
-            widget.button.clicked.connect(lambda x: self.deleteSpecialText(widget.id_))
+            widget = SpecialTextWidget(self, special_text['id_'], special_text['text'], special_text['bbcode'])
             self.specialTextsLayout.addWidget(widget)
 
     def deleteTemplate(self):
@@ -86,8 +85,7 @@ class NewTemplatePopup(QMainWindow, Ui_MainWindow):
         self.newTemplateTextEdit.insertPlainText('{{'+text+'}}')
 
     def addSpecialText(self):
-        widget = SpecialTextWidget(random.randint(0, 999999999999))
-        widget.button.clicked.connect(lambda x: self.deleteSpecialText(widget.id_))
+        widget = SpecialTextWidget(self, random.randint(0, 999999999999))
         self.specialTextsLayout.addWidget(widget)
         self.specialTexts.append({'text': '', 'bbcode': '', 'id_': widget.id_})
 
