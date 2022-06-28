@@ -4,7 +4,7 @@ Dreams Analyzer is a software made in Python, whose purpose is to analyse your d
 
 It is made in french, perhaps I will add a translation later.
 
-Woks with [Dream Manager](https://astucesweb.fr/dream-manager/).
+Works with [Dream Manager](https://astucesweb.fr/dream-manager/).
 
 ## Features
 
